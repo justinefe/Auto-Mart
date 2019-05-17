@@ -1,0 +1,429 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --theme-color: rgb(231, 113, 125);
+}
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    background: #eee;
+}
+
+main{
+    height: 100%;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+nav{
+    padding: 15px 5px;
+    background: transparent;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+header {
+    box-shadow: 0px -4px 4px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: var(--theme-color) 0.1em solid;
+    background: white;
+}
+
+.applyBottomShadow{
+    box-shadow: 0px -4px 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: auto;
+}
+
+.navmenu {
+    width: 1.5em;
+    height: 2.1em;
+    display: none;
+}
+
+
+nav a{
+    color:silver;
+    font-size: 1em;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+nav ul{
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    list-style-type: none;
+}
+nav li{
+    padding: 0 0.2em;
+}
+
+nav a:hover{ 
+    color: var(--theme-color);
+}
+h4, h1{
+    color: var(--theme-color);
+  
+}
+p{
+    text-align: center;
+    margin: 1em auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    color: var(--theme-color);
+}
+.line{
+    margin: 10px auto;
+    width: 85%;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+.clear{
+     text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    width: 12em; 
+    outline: none;
+    border: none;
+    font-size: 0.7em;
+    color: white;
+    background-color: silver;
+    box-shadow: 2px 2px 4px 0px silver;
+    padding: 0.6em 0.5em;
+    border: solid 2px silver;
+    border-radius: 0.3em;
+    margin-bottom: 20px;
+}
+
+h4{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+     margin: 0 1em;
+     color: var(--theme-color)
+}
+.ad-details{
+    height: auto;
+    display: grid;
+    max-width: 60%;
+    background-color: white;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    color: silver;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    
+}
+.deta{
+width: 100%;
+padding: 0 2em;
+margin: 0;
+}
+
+form{
+    width: 80%;
+    margin: 1em auto;
+    text-align: left;
+}
+
+
+label{
+   margin:0.7em 0;
+   padding:1px 0;
+   width: 100%;
+}
+
+
+.details{
+  margin-top:0.5em;
+  position: relative;
+}
+
+.status{
+    display: flex;
+    width: 100%;
+}
+
+.status span {
+    width: 50%;
+}
+
+select {
+    width: 90%;
+    border: none;
+    margin-top: 7px;
+    padding: 0.2rem;
+    outline: none;
+    border-bottom: solid 1px silver;
+}
+
+input.date{
+    width: 90%;
+    border-bottom: solid 1px silver;
+}
+input.date:focus{
+    border-bottom: solid 1px var(--theme-color);
+}
+select:focus{
+    border-bottom: solid 1px var(--theme-color);
+}
+
+.post{
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    width: 12em; 
+    outline: none;
+    border: none;
+    font-size: 0.7em;
+    color: white;
+    background-color: silver;
+    box-shadow: 2px 2px 4px 0px silver;
+    margin: 0.3em auto; 
+    padding: 0.6em 0.5em;
+    border: solid 2px silver;
+    border-radius: 0.3em;
+    margin-bottom: 20px;
+}
+
+
+input{
+    margin: 0.7em 0;
+    border: none;
+    border-bottom: silver 0.1em solid;
+    width: 100%;
+    outline: none;
+    background: transparent;
+    display: block;
+    padding:1px auto;
+}
+input:focus{
+    border-bottom: var(--theme-color) 0.1em solid;
+}
+
+
+.imaged{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 50%;
+    height: 12em;
+    margin: 1em auto;
+    margin-bottom: 2em;
+    background-repeat: no-repeat;
+    background-image: url('../images/camera.png');
+    background-size: cover; 
+    border: solid 2px var(--theme-color);
+}
+
+input[type="file"]{
+    display: none;
+}
+
+.imageDiv {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.upload{
+    width: 24%;
+    display: inline-block;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100px;
+}
+
+.upload img {
+    width: 100%;
+    transition: all 0.5s ease;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(rgba(0,0,0,0.2) 100%, transparent 0)
+}
+
+.upload:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.up-load{
+    position: absolute;
+    top: 13.6em;
+    border:none;
+}
+.up-load::before{
+    content: '\f030';
+    font-weight: 900;
+    color: var(--theme-color);
+    padding-right: 5px;
+}
+
+
+
+button:hover{
+    color: white;
+    transition: all 0.3s ease;
+    background: var(--theme-color);;
+    outline: none;
+    border: solid 2px var(--theme-color);
+}
+
+.footer{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    background: white;
+    padding:20px; 
+    box-shadow: 2px 2px 4px 0px silver;
+    margin-top: 0;
+    
+}
+
+.footer a{
+    color: silver; 
+    font-weight: 500;
+    display: block;
+    transition: all 0.3s ease;
+    margin: 10px 0px;
+       
+}
+.footer a:hover{ 
+      color: var(--theme-color)
+}
+.footer h4{
+    
+    font-size: 1em;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--theme-color);
+}
+
+@media screen and (max-width: 768px) {
+
+    
+    nav {
+        display: block;
+        position: relative;
+        background-color: white;
+    }
+    .navmenu div {
+        width: 100%;
+        height: 0.3em;
+        background-color: var(--theme-color);
+        margin: 0.2em 0;
+    }
+    
+    .close div:nth-child(1) {
+      opacity: 0;
+    }
+    
+    .close div:nth-child(2) {
+      transform: rotate(45deg) translateY(0.35em);
+    }
+    .close div:nth-child(3) {
+     transform: rotate(-45deg) translateY(-0.35em);
+    }
+
+    nav ul {
+        display: block;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        transform: translateY(-150%);
+        transition: all 1s linear;
+        z-index: -1000;
+    }
+    
+    .shownav {
+        transform: translateY(15px);
+        z-index: 2;
+    }
+
+    .navwrap {
+    
+        width: 100%;
+    }
+
+    .welcome {
+        z-index: 1;
+    }
+    .one{
+        z-index: -400;
+    }
+
+    .navmenu {
+        position: absolute;
+        z-index: 1;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        display: initial;
+    }
+
+    .show{
+        right: -20%;
+    }
+
+    nav li {
+        border: none;
+        padding: 0.3em;
+        background: white;
+        z-index: 1;
+        text-decoration: none;
+        outline: none;
+    }
+
+    nav a {
+        color: var(--theme-color);
+        text-decoration: none;
+        outline: none;
+    }
+    nav a:hover{ 
+        color: silver;
+        transition: all 0.3s ease;
+    }
+    
+    .box-container{
+        background-color:transparent;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex: 1 1 0;
+              
+    
+    }
+    .box{
+        width: 50%;
+       
+            
+    }
+    .footer{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+        background: white;
+        padding:20px; 
+                
+    }
+}
