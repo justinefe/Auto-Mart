@@ -7,6 +7,9 @@
 :root{
     --theme-color: rgb(231, 113, 125);
 }
+.current{
+    color: var(--theme-color)
+}
 body {
     display: flex;
     flex-direction: column;
@@ -37,6 +40,7 @@ header {
     box-shadow: 0px -4px 4px 8px rgba(0, 0, 0, 0.2);
     border-bottom: var(--theme-color) 0.1em solid;
     background: white;
+    height: 10%;
 }
 
 .applyBottomShadow{
@@ -323,8 +327,6 @@ button:hover{
         flex-wrap: wrap;
         justify-content: center;
         flex-grow: 1;
-              
-    
     }
     .box{
         width: 50%;

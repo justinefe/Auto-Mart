@@ -1,5 +1,6 @@
 const navmenu = document.querySelector(".navmenu");
 const navul = document.querySelector("nav ul");
+const view = document.querySelectorAll('.carCard');
 
 navmenu.addEventListener('click', event => {
    
@@ -12,3 +13,9 @@ navmenu.addEventListener('click', event => {
         navul.classList.add('shownav');
     }
 })
+
+// view.forEach(card => {
+//     card.addEventListener('click', () => {
+//         window.location = 'login.html';
+//     })
+// })
