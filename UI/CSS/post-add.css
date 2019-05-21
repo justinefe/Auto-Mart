@@ -6,6 +6,9 @@
 :root{
     --theme-color: rgb(231, 113, 125);
 }
+.current{
+    color: var(--theme-color);
+}
 body {
     display: flex;
     flex-direction: column;
@@ -123,6 +126,7 @@ h4{
     font-weight: 500;
     color: silver;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px; 
     
 }
 .deta{

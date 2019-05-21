@@ -14,7 +14,9 @@ body {
     padding: 0px 0px;
     background: #eee;
 }
-
+.current{
+    color:var(--theme-color);
+}
 main{
     height: 100%;
 }
@@ -22,7 +24,6 @@ main{
 html{
     scroll-behavior: smooth;
 }
-
 .container {
     width: 90%;
     margin: auto;
@@ -270,22 +271,17 @@ button{
 }
 .us h4{
     padding: 20px;
-    text-align: left;
+    text-align: center;
     font-size: 2em;
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--theme-color);
 }
-.us h5{
-    font-weight: 500;
-    color: silver;
-    font-size: 2em;
-    padding: 5px;
-}
+
 .us p{
     margin: 10px auto;
-    text-align: left;
-    font-size: 2em;
+    text-align: center;
+    line-height: 2;
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    
