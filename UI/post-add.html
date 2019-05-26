@@ -4,115 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Post add</title>
+    <title>Post Ads</title>
     <link rel="stylesheet" href="./CSS/post-add.css">
     <link rel="stylesheet" href="./CSS/fontawesome-free-5.8.2-web/css/all.css">
-</head>
-<body id="post-add" >
-    
-        <header>
-                <div class = "container navwrap">
-                    <nav>
-                        <h1>AUTO MART</h1>
-                        <div class="navmenu">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a class="current" href="">Post Ad</a></li>
-                            <li><a href="login.html">Sign out</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-        <main>
-            <p>Post Ad</p>
-            <section class="ad-details">
-                <div class="line">
-                    <h4>Ad information</h4>
-                    <button class="clear">Clear all fields</button>
-                </div>
-                <div class="deta">
-                    <form action="">
-                        <div class="details"><label for=""> Manufacturer</label> <input type="text"> </div>
-                        <div class="details"><label for=""> Model</label> <input type="text"></div>
-                        <div class="details"><label for=""> Price</label> <input type="text"></div>
-                        <div class="details status">
-                                <span>
-                                <label for=""> Car state </label>
-                                <select name="" id="">
-                                    <option value="">New</option>
-                                    <option value="">Used</option>
-                                </select>
-                            </span>
-                        </div>
-                        <div class="details"> 
-                            <label for="">Description</label>
-                            <input type="text"> 
-                        </div> 
-                        <div>
-                            <label for="">Location</label>
-                            <input type="text">
-                    </div>
-                    <label >Upload Images </label>
-                      <div class = imageDiv>
-                        <label class="upload" for = image1> 
-                            <img src="./images/camera.png">
-                            <input class="up-load icon" id = image1 type="file">
-                        </label>
-                        
-                        <label class="upload" for = image2> 
-                            <img src="./images/camera.png">
-                            <input class="up-load icon" id = image2 type="file">
-                        </label>
-                        
-                        <label class="upload" for = image3> 
-                            <img src="./images/camera.png"> 
-                            <input class="up-load icon" id = image3 type="file">
-                        </label> 
-                        
-                        <label class="upload" for = image4> 
-                            <img src="./images/camera.png">
-                            <input class="up-load icon" id = image4 type="file">
-                        </label> 
-                      </div>
-                    </div>
-                        
-                         
-                        <button class="post"> Post</button>    
-                    </form>
-                
-                </div>
 
+
+</head>
+<body>
+    <aside>
+        <nav>
+            <h4>AutoMart</h4>
+        </nav>
+        <main id = asidemain>
+            <section>
+                <ul>
+                    
+                    <li class = icon>  <a href="./index.html">Home</a> </li>
+                    <li class = icon><a href="./userprofile.html">My Profile</a> </icon></li>                 
+                    <li class = icon id="current"> <a href="./post-add.html">Post Ad</a></li>
+                    <li class = icon  > <a href="">My Ads</a></li>
+                    <li class = icon > <a href="./myorders.html">My Orders</a></li>                    
+                    <li class = icon> <a href="">Sign Out </a></li>
+                </ul>
             </section>
         </main>
-       
-    <footer>
-            <section>
-                <div class="footer">
-                    <div class="one1">
-                        <h4>Get to Know Us</h4>
-                        <a href=""> Terms and Conditions</a>
-                        <a href=""> Privacy Policy</a>
-                    </div>
-                    <div class="two2"><h4>Make Money with Us</h4>
-                         <a href="">Advertize your Product</a>
-                        <a href=""> Post Ad</a>
-                                       
-                    </div>
-                    <div class="three3"><h4>Let Us Help You</h4>
-                        <a href="">Help Centre</a>
-                        <a href=""> Return Policy</a>
-                    </div>
-                    <div class="four4"><h4>Auto-Mart Internationl</h4>
-                        <a href=""> Nigeria</a>
-                        <a href="">South Africa</a>
-                    </div>
+    </aside>
+
+    <main id = main>
+        <nav id = mainnav>
+            <div class = container>
+                <div id = search>
+                    <input type="text" placeholder="Search">
                 </div>
+                     <div id = username>
+                            <span>
+                                <img src="./images/dumy.jpg" alt="">
+                            </span>
+                            <span><h4>Justin Efe</h4></span>
+                </div>
+            </div>
+        </nav>
+        <section class = mainsection>
+                <div class="adheader"> 
+                        <h1>My  Advertizement</h1>
+                    </div>
+                    <section class="add">
+                            <section class="ad-details">
+                                    <div class="line">
+                                        <h4>Ad information</h4>
+                                        <button class="clear">Clear all fields</button>
+                                    </div>
+                                    <div class="deta">
+                                        <form action="">
+                                            <div class="details"><label for=""> Manufacturer</label> <input type="text"> </div>
+                                            <div class="details"><label for=""> Model</label> <input type="text"></div>
+                                            <div class="details"><label for=""> Price</label> <input type="text"></div>
+                                            <div class="details status">
+                                                    <span>
+                                                    <label for=""> Car state </label>
+                                                    <select name="" id="">
+                                                        <option value="">New</option>
+                                                        <option value="">Used</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                            <div class="details"> 
+                                                <label for="">Description</label>
+                                                <input type="text"> 
+                                            </div> 
+                                            <div>
+                                                <label for="">Location</label>
+                                                <input type="text">
+                                        </div>
+                                        <label >Upload Image </label>
+                                          <div class = imageDiv>
+                                            <label class="upload" for = image1> 
+                                                <img src="./images/camera.png">
+                                                <input class="up-load icon" id = image1 type="file">
+                                            </label>
+
+                                          </div>
+                                          <div id="postal">
+                                            <button class="post"> Post</button>
+                                          </div>    
+                                        </div>                                        
+                                        </form>
+                                    
+                                    </div>
+                    
+                                </section>
+                        </section>
             </section>
-        </footer>
-            <script src="./JS/main.js"></script>
+     </main>
+    <script src="./JS/admin.js"></script>
 </body>
 </html>

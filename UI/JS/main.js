@@ -1,6 +1,5 @@
 const navmenu = document.querySelector(".navmenu");
 const navul = document.querySelector("nav ul");
-const view = document.querySelectorAll('.carCard');
 
 navmenu.addEventListener('click', event => {
    
@@ -14,8 +13,16 @@ navmenu.addEventListener('click', event => {
     }
 })
 
-// view.forEach(card => {
-//     card.addEventListener('click', () => {
-//         window.location = 'login.html';
-//     })
-// })
+deletes.forEach(del => {
+  del.addEventListener('click', (e) => {
+      dialog.showModal();
+  });
+});
+
+delButton.addEventListener('click', (e) => {
+  dialog.close();
+});
+
+cancelButton.addEventListener('click', (e) => {
+  dialog.close();
+});
