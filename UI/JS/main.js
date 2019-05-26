@@ -12,3 +12,17 @@ navmenu.addEventListener('click', event => {
         navul.classList.add('shownav');
     }
 })
+
+deletes.forEach(del => {
+  del.addEventListener('click', (e) => {
+      dialog.showModal();
+  });
+});
+
+delButton.addEventListener('click', (e) => {
+  dialog.close();
+});
+
+cancelButton.addEventListener('click', (e) => {
+  dialog.close();
+});
