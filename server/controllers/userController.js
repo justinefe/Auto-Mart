@@ -1,4 +1,4 @@
-import { hash } from '../helpers/passwordHash';
+import { hash, unhash } from '../helpers/passwordHash';
 import token from '../helpers/token';
 import users from '../model/user';
 
@@ -30,6 +30,32 @@ class userController {
       data: {
         token: token({ id }), id, firstName, lastName, email,
       },
+    });
+  }
+
+  static signin(req, res) {
+    const {
+      email, password,
+    } = req.body;
+    const checkUser = users.find(user => user.email === email);
+    if (checkUser) {
+      const passwordState = unhash(password, checkUser.hashPassword);
+      if (passwordState) {
+        return res.status(200).json({
+          status: 200,
+          data: {
+            token: token({ id: checkUser.id }),
+            id: checkUser.id,
+            firstName: checkUser.firstName,
+            lastName: checkUser.lastName,
+            email: checkUser.email,
+          },
+        });
+      }
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Email or password is incorrect',
     });
   }
 }
