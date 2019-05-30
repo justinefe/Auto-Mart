@@ -13,6 +13,12 @@ const schema = {
     password: joi.string().alphanum().min(6).max(8)
       .required(),
   }),
+  postAd: joi.object().keys({
+    manufacturer: joi.string().required(),
+    state: joi.string().required(),
+    model: joi.string().required(),
+    price: joi.number().required(),
+  }),
 };
 
 export default schema;

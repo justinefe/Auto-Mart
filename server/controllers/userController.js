@@ -1,5 +1,5 @@
 import { hash, unhash } from '../helpers/passwordHash';
-import token from '../helpers/token';
+import { token } from '../helpers/token';
 import users from '../model/user';
 
 class userController {
@@ -20,7 +20,7 @@ class userController {
     const hashPassword = hash(password);
     const id = users.length + 1;
     const newUser = {
-      id, firstName, lastName, email, hashPassword,
+      id, firstName, lastName, email, hashPassword, role: 'user',
     };
 
     users.push(newUser);
