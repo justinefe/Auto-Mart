@@ -3,6 +3,7 @@ import chaihttp from 'chai-http';
 import app from '../app';
 import users from './datas/user';
 import cars from './datas/car';
+import orders from './datas/order';
 
 chai.use(chaihttp);
 const { expect } = chai;
@@ -117,8 +118,6 @@ describe('Post ads test', () => {
       .post(`${url}/car`)
       .send({
         ...cars[0],
-        state: '',
-        price: '',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(403);
@@ -133,11 +132,82 @@ describe('Post ads test', () => {
       .set('token', userToken)
       .send({
         ...cars[0],
-        state: '',
-        price: '',
+        manufacturer: '',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an ads with unauthorise token', (done) => {
+    server()
+      .post(`${url}/car`)
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTU1OTMxODcxMX0.LeWYi-mNv7bZvu1N3CsIKuHdCyqVpLDvRu0tgveZYnA')
+      .send({
+        ...cars[0],
+        manufacturer: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
+describe('creates purchase order', () => {
+  it('should make a purchase order of an existing user', (done) => {
+    server()
+      .post(`${url}/order/1`)
+      .set('token', userToken)
+      .send(orders[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('it should not make a purchase order of a user who is not authenticated', (done) => {
+    server()
+      .post(`${url}/order/1`)
+      .send({
+        ...orders[0],
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an order without a purchase price', (done) => {
+    server()
+      .post(`${url}/order/1`)
+      .set('token', userToken)
+      .send({
+        ...orders[0],
+        priceOffered: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an order of a car that does not exist', (done) => {
+    server()
+      .post(`${url}/order/18`)
+      .set('token', userToken)
+      .send({
+        ...orders[0],
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
         expect(res.body).to.have.property('error');
         done();
       });

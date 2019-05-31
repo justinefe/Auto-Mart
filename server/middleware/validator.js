@@ -32,19 +32,37 @@ class Validator {
   }
 
   static postAd(req, res, next) {
-    const validate = joi.validate(req.body, schema.postAd, (err) => {
+    const {
+      manufacturer, state, model, price,
+    } = req.body;
+    const newObject = {
+      manufacturer, state, model, price,
+    };
+    joi.validate(newObject, schema.postAd, (err) => {
       if (err) {
-        return err;
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
       }
-      return true;
+      return next();
     });
-    if (validate !== true) {
-      return res.status(400).json({
-        status: 400,
-        error: validate.details[0].message,
-      });
-    }
-    return next();
+  }
+
+  static purchaseOrder(req, res, next) {
+    const { priceOffered } = req.body;
+    const obj = { priceOffered };
+    joi.validate(obj, schema.purchaseOrder, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
   }
 }
 
