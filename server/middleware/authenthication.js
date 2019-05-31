@@ -7,6 +7,12 @@ const isAuthenthicated = (req, res, next) => {
   const { id } = verifyToken(token);
   if (id) {
     const checkUser = users.find(user => user.id === id);
+    if (!checkUser) {
+      return res.status(401).json({
+        status: 401,
+        error: 'Unauthorised User',
+      });
+    }
     req.user = { id, email: checkUser.email, role: checkUser.role };
     return next();
   }
