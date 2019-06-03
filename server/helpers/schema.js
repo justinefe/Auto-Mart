@@ -23,6 +23,9 @@ const schema = {
     priceOffered: joi.number().required(),
   }),
 
+  updateOrder: joi.object().keys({
+    newPriceOffered: joi.number().required(),
+  }),
 };
 
 export default schema;

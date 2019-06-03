@@ -6,7 +6,7 @@ const car = [
     price: 600000.23,
     state: 'new',
   },
-  { 
+  {
     id: 2,
     manufacturer: 'Toyota',
     model: 'pathfinder',
