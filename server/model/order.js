@@ -21,7 +21,7 @@ const order = [
     carId: 2,
     price: 600000.23,
     status: "approved",
-    priceOffered: 400000.58,
+    priceOffered: 400000.58,  
   },
 ];
 
