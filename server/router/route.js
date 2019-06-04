@@ -14,5 +14,6 @@ route.post('/auth/signin', validator.signin, userController.signin);
 route.post('/car', auth.isAuthenthicated, validator.postAd, carController.postAd);
 route.post('/order/:carId', auth.isAuthenthicated, validator.purchaseOrder, carController.purchaseOrder);
 route.patch('/order/:orderId/price', auth.isAuthenthicated, validator.updateOrder, carController.updateOrder);
+route.patch('/car/:carId/status', auth.isAuthenthicated, carController.updateStatus);
 
 export default route;
