@@ -273,3 +273,53 @@ describe('updatePurchase', () => {
       });
   });
 });
+
+describe('updateStatus', () => {
+  it('should mark posted ads sold order update', (done) => {
+    server()
+      .patch(`${url}/car/3/status`)
+      .set('token', userToken)
+      .send(cars[0])
+      .end((err, res) => {
+        console.log('>>>>', res.body);
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('should not update the car status of a user who is not authenticated', (done) => {
+    server()
+      .patch(`${url}/car/1/status`)
+      .set('token', userToken)
+      .send(cars[1])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.a.property('error');
+        done();
+      });
+  });
+  it('should not update status of a user whose car has been marked sold', (done) => {
+    server()
+      .patch(`${url}/car/3/status`)
+      .set('token', userToken)
+      .send(cars[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('should not update price of a car when the resource can not be found', (done) => {
+    server()
+      .patch(`${url}/car/6/status`)
+      .set('token', userToken)
+      .send(cars[8])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});

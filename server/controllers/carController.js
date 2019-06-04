@@ -78,6 +78,38 @@ class carController {
       error: 'Order Already Approved',
     });
   }
+
+  static updateStatus(req, res) {
+    const { carId } = req.params;
+    const { email } = req.user;
+    const carDetails = cars.find(car => car.id === Number(carId));
+    if (!carDetails) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Car Not Found',
+      });
+    }
+
+    if (email !== carDetails.email) {
+      return res.status(403).json({
+        status: 403,
+        error: 'unauthorized user',
+      });
+    }
+
+    const objectPosition = cars.findIndex(car => car.id === Number(carId));
+    if (cars[objectPosition].status !== 'sold') {
+      cars[objectPosition].status = 'sold';
+      return res.status(201).json({
+        status: 201,
+        data: cars[objectPosition],
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Car Already Sold',
+    });
+  }
 }
 
 export default carController;
