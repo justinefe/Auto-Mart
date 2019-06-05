@@ -277,11 +277,10 @@ describe('updatePurchase', () => {
 describe('updateStatus', () => {
   it('should mark posted ads sold order update', (done) => {
     server()
-      .patch(`${url}/car/3/status`)
+      .patch(`${url}/car/5/status`)
       .set('token', userToken)
       .send(cars[0])
       .end((err, res) => {
-        console.log('>>>>', res.body);
         expect(res.statusCode).to.equal(201);
         expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('data');
@@ -302,7 +301,7 @@ describe('updateStatus', () => {
   });
   it('should not update status of a user whose car has been marked sold', (done) => {
     server()
-      .patch(`${url}/car/3/status`)
+      .patch(`${url}/car/5/status`)
       .set('token', userToken)
       .send(cars[0])
       .end((err, res) => {
@@ -318,6 +317,67 @@ describe('updateStatus', () => {
       .send(cars[8])
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
+describe('update Ads price', () => {
+  it('it should update the price of a posted Ads', (done) => {
+    server()
+      .patch(`${url}/car/4/price`)
+      .set('token', userToken)
+      .send(cars[4])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('should not update the price of a posted Ads of a user who is not authenticated', (done) => {
+    server()
+      .patch(`${url}/car/1/price`)
+      .set('token', userToken)
+      .send(cars[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.a.property('error');
+        done();
+      });
+  });
+  it('should not update price of an Ads that does not exist', (done) => {
+    server()
+      .patch(`${url}/car/99/price`)
+      .set('token', userToken)
+      .send(cars[4])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not update price of an Ads posted by another user', (done) => {
+    server()
+      .patch(`${url}/car/1/price`)
+      .set('token', userToken)
+      .send(cars[4])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('should not update price of an Ads posted by another user', (done) => {
+    server()
+      .patch(`${url}/car/4/price`)
+      .set('token', userToken)
+      .send(cars[5])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
         expect(res.body).to.have.property('error');
         done();
       });
