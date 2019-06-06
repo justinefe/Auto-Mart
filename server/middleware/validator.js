@@ -94,6 +94,21 @@ class Validator {
       return next();
     });
   }
+
+  static viewACar(req, res, next) {
+    const { carId } = req.params;
+    const obj = { carId };
+    joi.validate(obj, schema.viewACar, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validator;

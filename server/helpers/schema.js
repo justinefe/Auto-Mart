@@ -29,6 +29,9 @@ const schema = {
   updateAd: joi.object().keys({
     newPrice: joi.number().required(),
   }),
+  viewACar: joi.object().keys({
+    carId: joi.number().required(),
+  }),
 };
 
 export default schema;
