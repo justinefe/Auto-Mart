@@ -122,7 +122,6 @@ class carController {
         error: 'Car Not Found',
       });
     }
-    console.log(carDetails.owner, id);
     if (carDetails.owner !== id) {
       return res.status(403).json({
         status: 403,
@@ -131,6 +130,22 @@ class carController {
     }
     const objectPosition = cars.findIndex(car => car.id === Number(carId));
     cars[objectPosition].price = newPrice;
+    return res.status(201).json({
+      status: 201,
+      data: cars[objectPosition],
+    });
+  }
+
+  static viewACar(req, res) {
+    const { carId } = req.params;
+    const carDetails = cars.find(car => car.id === Number(carId));
+    if (!carDetails) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Car Not Found',
+      });
+    }
+    const objectPosition = cars.findIndex(car => car.id === Number(carId));
     return res.status(201).json({
       status: 201,
       data: cars[objectPosition],

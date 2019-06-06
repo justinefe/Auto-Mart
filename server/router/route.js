@@ -16,5 +16,5 @@ route.post('/order/:carId', auth.isAuthenthicated, validator.purchaseOrder, carC
 route.patch('/order/:orderId/price', auth.isAuthenthicated, validator.updateOrder, carController.updateOrder);
 route.patch('/car/:carId/status', auth.isAuthenthicated, carController.updateStatus);
 route.patch('/car/:carId/price', auth.isAuthenthicated, validator.updateAd, carController.updateAd);
-
+route.get('/car/:carId', auth.isAuthenthicated, validator.viewACar, carController.viewACar);
 export default route;
