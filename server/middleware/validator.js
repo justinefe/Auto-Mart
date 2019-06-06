@@ -109,6 +109,21 @@ class Validator {
       return next();
     });
   }
+
+  static viewAllUnsoldCars(req, res, next) {
+    const { status } = req.query;
+    const obj = { status };
+    joi.validate(obj, schema.viewAllUnsoldCars, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validator;
