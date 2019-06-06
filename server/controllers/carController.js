@@ -151,6 +151,20 @@ class carController {
       data: cars[objectPosition],
     });
   }
+
+  static viewAllUnsoldCars(req, res) {
+    const allAvailableUnsoldCars = cars.filter(car => car.status === 'available');
+    if (!allAvailableUnsoldCars) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Car Not Find Available Cars',
+      });
+    }
+    return res.status(201).json({
+      status: 201,
+      data: allAvailableUnsoldCars,
+    });
+  }
 }
 
 export default carController;

@@ -21,26 +21,4 @@ const isAuthenthicated = (req, res, next) => {
     error: 'Unauthorized',
   });
 };
-
-// const isUser = (req, res, next) => {
-//   const { role } = req.user;
-//   if (role !== 'user') {
-//     return res.status(403).json({
-//       status: 403,
-//       error: 'unauthorized route',
-//     });
-//   }
-//   return next();
-// };
-// //   isAdmin: async (req, res, next) => {
-//     const { role } = req.user;
-//     if (role !== 'admin') {
-//       return res.status(403).json({
-//         status: 403,
-//         error: 'unauthorized route',
-//       });
-//     }
-//     return next();
-//   };
-
 export default { isAuthenthicated };

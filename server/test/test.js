@@ -420,3 +420,36 @@ describe('get a specific car', () => {
       });
   });
 });
+
+describe('User can view all unsold cars', () => {
+  it('should view all unsold cars ', (done) => {
+    server()
+      .get(`${url}/car?status=available`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+  it('should not view a car that can not be found', (done) => {
+    server()
+      .get(`${url}/car/88`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('should not view all unsold cars that are not availabe', (done) => {
+    server()
+      .get(`${url}/car?status=sold`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
