@@ -4,9 +4,9 @@ const user = [
     email: 'efejustin3@gmail.com',
     firstName: 'Justin',
     lastName: 'Igugu',
-    password: '$2a$10$cncezZRk3ht3gx6FDQ1vHuIyVJnmGGB8ZcJ2lV5.rPLKXP9OEvsSO',
+    password: '$2a$10$XNCZHlW/XUjWg/s9UHMoPu1x6.RkZuXRykTqxSKG0RPXg8VUdkZaa',
     address: '15 omo avenue',
-    isAdmin: 'true'
+    isAdmin: true
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const user = [
     lastName: 'Amos',
     password: 'efe',
     address: '15 uloho avenue',
-    isAdmin: 'false'
+    isAdmin: false
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const user = [
     lastName: 'Aass',
     password: 'thejust',
     address: '15 uloho avenue',
-    isAdmin: 'false'
+    isAdmin: false
   },
 
 ];
