@@ -1,11 +1,11 @@
 const car = [
   {
     id: 1,
-    owner: 1, //userId
+    owner: 1, 
     createdOn: new Date(),
     state: 'new',
     status: 'available',
-    price: '150000000',
+    price: 2000000,
     manufacturer: 'Toyota',
     model: 'pathfinder',
     bodyType: 'car'
@@ -16,7 +16,7 @@ const car = [
     createdOn: new Date(),
     state: 'new',
     status: 'available',
-    price: '2500000',
+    price: 2500000,
     manufacturer: 'Toyota',
     model: 'hilux',
     bodyType: 'truck'
@@ -27,7 +27,7 @@ const car = [
     createdOn: new Date(),
     state: 'new',
     status: 'available',
-    price: '2500000',
+    price: 2500000,
     manufacturer: 'Toyota',
     model: 'hilux',
     bodyType: 'truck'
@@ -38,7 +38,7 @@ const car = [
     createdOn: new Date(),
     state: 'new',
     status: 'available',
-    price: '2500000',
+    price: 5000000,
     manufacturer: 'Toyota',
     model: 'hilux',
     bodyType: 'truck'

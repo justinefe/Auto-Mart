@@ -154,17 +154,38 @@ class carController {
 
   static viewAllUnsoldCars(req, res) {
     const allAvailableUnsoldCars = cars.filter(car => car.status === 'available');
-    if (!allAvailableUnsoldCars) {
+    const { minPrice, maxPrice } = req.query;
+    if (allAvailableUnsoldCars && minPrice && !maxPrice) {
       return res.status(400).json({
         status: 400,
-        error: 'Car Not Find Available Cars',
+        error: 'No Available Cars',
+      });
+    }
+
+    if (allAvailableUnsoldCars && !minPrice && maxPrice) {
+      return res.status(400).json({
+        status: 400,
+        error: 'No Available Cars',
+      });
+    }
+
+    if (allAvailableUnsoldCars && (!minPrice || !maxPrice)) {
+      return res.status(201).json({
+        status: 201,
+        data: allAvailableUnsoldCars,
+      });
+    }
+    const answer = allAvailableUnsoldCars.filter(car => car.price >= Number(minPrice) && car.price <= Number(maxPrice));
+    if (!answer[0]) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Cars Not Found',
       });
     }
     return res.status(201).json({
       status: 201,
-      data: allAvailableUnsoldCars,
+      data: answer,
     });
   }
 }
-
 export default carController;
