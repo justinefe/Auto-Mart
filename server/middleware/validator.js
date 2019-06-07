@@ -111,8 +111,8 @@ class Validator {
   }
 
   static viewAllUnsoldCars(req, res, next) {
-    const { status } = req.query;
-    const obj = { status };
+    const { status, minPrice, maxPrice } = req.query;
+    const obj = { status, minPrice, maxPrice };
     joi.validate(obj, schema.viewAllUnsoldCars, (err) => {
       if (err) {
         const error = err.details[0].message;

@@ -431,23 +431,58 @@ describe('User can view all unsold cars', () => {
         expect(res.body).to.have.property('data');
         done();
       });
-  });
-  it('should not view a car that can not be found', (done) => {
-    server()
-      .get(`${url}/car/88`)
-      .set('token', userToken)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(404);
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
+  });  
   it('should not view all unsold cars that are not availabe', (done) => {
     server()
       .get(`${url}/car?status=sold`)
       .set('token', userToken)
       .end((err, res) => {
         expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should view all unsold cars within a given price range', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=2000000&maxPrice=5000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should not view all unsold cars within a range when the maxPrice is not given', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=4000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not view all unsold cars within a range when the maxPrice is not given', (done) => {
+    server()
+      .get(`${url}/car?status=available&maxPrice=4000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not view all unsold cars that are outside the range specified', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=40000000&maxPrice=50000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(404);
         expect(res.body).to.have.property('error');
         done();
       });
