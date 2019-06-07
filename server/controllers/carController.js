@@ -204,5 +204,19 @@ class carController {
       data: 'Car Ad successfully deleted',
     });
   }
+
+  static adminViewAllCars(req, res) {
+    const allCars = cars.map(car => car);
+    if (allCars == '') {
+      res.status(404).json({
+        status: 404,
+        data: 'No car found',
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      data: allCars,
+    });
+  }
 }
 export default carController;
