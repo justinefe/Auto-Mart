@@ -5,7 +5,7 @@ import users from '../model/user';
 class userController {
   static signup(req, res) {
     const {
-      firstName, lastName, email, password,
+      firstName, lastName, address, email, password,
     } = req.body;
 
     const checkUser = users.some(user => user.email === email);
@@ -20,7 +20,7 @@ class userController {
     const hashPassword = hash(password);
     const id = users.length + 1;
     const newUser = {
-      id, firstName, lastName, email, hashPassword, role: 'user',
+      id, firstName, lastName, email, address, password: hashPassword, isAdmin: false,
     };
 
     users.push(newUser);
@@ -39,7 +39,7 @@ class userController {
     } = req.body;
     const checkUser = users.find(user => user.email === email);
     if (checkUser) {
-      const passwordState = unhash(password, checkUser.hashPassword);
+      const passwordState = unhash(password, checkUser.password);
       if (passwordState) {
         return res.status(200).json({
           status: 200,

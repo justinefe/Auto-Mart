@@ -10,6 +10,22 @@ const { expect } = chai;
 const server = () => chai.request(app);
 const url = '/api/v1';
 let userToken;
+let adminToken;
+
+before((done) => {
+  server()
+    .post(`${url}/auth/signup`)
+    .send({
+      email: 'efejustin3@gmail.com',
+      password: 'cookis',
+    })
+    .end((error, res) => {
+      if (error) done(error);
+      adminToken = res.headers.token;
+      done();
+    });
+});
+
 
 describe('Welcome', () => {
   it('should return a welcome message on start', (done) => {
@@ -431,7 +447,7 @@ describe('User can view all unsold cars', () => {
         expect(res.body).to.have.property('data');
         done();
       });
-  });  
+  });
   it('should not view all unsold cars that are not availabe', (done) => {
     server()
       .get(`${url}/car?status=sold`)
@@ -484,6 +500,27 @@ describe('User can view all unsold cars', () => {
       .end((err, res) => {
         expect(res.body.status).to.equal(404);
         expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+describe('admin can delete a posted Ad record', () => {
+  it('should not delete a posted Ad when token is not provided', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('Admin should be able to delete a posted Ad', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });

@@ -125,7 +125,7 @@ class carController {
     if (carDetails.owner !== id) {
       return res.status(403).json({
         status: 403,
-        error: 'nnnauthorised',
+        error: 'Unauthorised',
       });
     }
     const objectPosition = cars.findIndex(car => car.id === Number(carId));
@@ -185,6 +185,23 @@ class carController {
     return res.status(201).json({
       status: 201,
       data: answer,
+    });
+  }
+
+  static adminDelete(req, res) {
+    const { carId } = req.params;
+    const carDetails = cars.find(car => car.id === Number(carId));
+    if (!carDetails) {
+      return res.status(404).json({
+        status: 404,
+        data: 'Car Not Found',
+      });
+    }
+    const carPosition = cars.findIndex(car => car.id === Number(carId));
+    cars.splice(carPosition, 1);
+    return res.status(201).json({
+      status: 201,
+      data: 'Car Ad successfully deleted',
     });
   }
 }

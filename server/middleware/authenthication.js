@@ -13,7 +13,7 @@ const isAuthenthicated = (req, res, next) => {
         error: 'Unauthorised User',
       });
     }
-    req.user = { id, email: checkUser.email, role: checkUser.role };
+    req.user = { id, email: checkUser.email, isAdmin: checkUser.isAdmin };
     return next();
   }
   return res.status(403).json({
@@ -21,4 +21,26 @@ const isAuthenthicated = (req, res, next) => {
     error: 'Unauthorized',
   });
 };
+
+// const isUser = (req, res, next) => {
+// 	  const { role } = req.user;
+// 	  if (role !== 'user') {
+// 	    return res.status(403).json({
+// 	      status: 403,
+// 	      error: 'unauthorized route',
+// 	    });
+// 	  }
+// 	  return next();
+//   };
+// const isAdmin = (req, res, next) => {
+//       const { role } = req.user;
+//       if (role !== 'admin') {
+//        return res.status(403).json({
+//       status: 403,
+//   	        error: 'unauthorized route',
+//   	      });
+//   	    }
+//   	    return next();
+//    };
+  
 export default { isAuthenthicated };
