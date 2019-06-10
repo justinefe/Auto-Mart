@@ -16,19 +16,16 @@ class Validator {
   }
 
   static signin(req, res, next) {
-    const validate = joi.validate(req.body, schema.signin, (err) => {
+    joi.validate(req.body, schema.signin, (err) => {
       if (err) {
-        return err;
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
       }
-      return true;
+      return next();
     });
-    if (validate !== true) {
-      return res.status(400).json({
-        status: 400,
-        error: validate.details[0].message,
-      });
-    }
-    return next();
   }
 
   static postAd(req, res, next) {
@@ -110,19 +107,23 @@ class Validator {
     });
   }
 
-  static viewAllUnsoldCars(req, res, next) {
+  static viewCars(req, res, next) {
     const { status, minPrice, maxPrice } = req.query;
     const obj = { status, minPrice, maxPrice };
-    joi.validate(obj, schema.viewAllUnsoldCars, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const { isAdmin } = req.user;
+    if (isAdmin === false) {
+      joi.validate(obj, schema.viewCars, (err) => {
+        if (err) {
+          const error = err.details[0].message;
+          return res.status(400).json({
+            status: 400,
+            error: error.replace(/"/gi, ''),
+          });
+        }
+        return next();
+      });
+    }
+    return next();
   }
 }
 

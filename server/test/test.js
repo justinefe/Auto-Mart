@@ -12,20 +12,6 @@ const url = '/api/v1';
 let userToken;
 let adminToken;
 
-before((done) => {
-  server()
-    .post(`${url}/auth/signup`)
-    .send({
-      email: 'efejustin3@gmail.com',
-      password: 'cookis',
-    })
-    .end((error, res) => {
-      if (error) done(error);
-      adminToken = res.headers.token;
-      done();
-    });
-});
-
 
 describe('Welcome', () => {
   it('should return a welcome message on start', (done) => {
@@ -79,10 +65,24 @@ describe('Login tests', () => {
       });
   });
 
+  it('Should sign in an existing admin', (done) => {
+    server()
+      .post(`${url}/auth/signin`)
+      .send(users[6])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('token');
+        expect(res.body.data).to.have.property('id');
+        adminToken = res.body.data.token;
+        done();
+      });
+  });
+
   it('Should not signin a user with incorrect password', (done) => {
     server()
       .post(`${url}/auth/signin`)
-      .send(users[3])
+      .send(users[5])
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
         expect(res.body).to.have.property('error');
@@ -93,20 +93,9 @@ describe('Login tests', () => {
   it('Should not signin a user with incorrect email', (done) => {
     server()
       .post(`${url}/auth/signin`)
-      .send(users[4])
+      .send(users[7])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
-
-  it('Should not signin a user with correct email and incorret password', (done) => {
-    server()
-      .post(`${url}/auth/signin`)
-      .send(users[5])
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
+        expect(res.statusCode).to.equal(404);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -233,9 +222,9 @@ describe('creates purchase order', () => {
 describe('updatePurchase', () => {
   it('should create purchase order update', (done) => {
     server()
-      .patch(`${url}/order/1/price`)
+      .patch(`${url}/order/2/price`)
       .set('token', userToken)
-      .send(orders[1])
+      .send(orders[0])
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
         expect(res.body.status).to.equal(201);
@@ -246,9 +235,8 @@ describe('updatePurchase', () => {
   });
   it('should not update price of a user who is not authenticated', (done) => {
     server()
-      .patch(`${url}/order/3/price`)
-      .set('token', userToken)
-      .send(orders[1])
+      .patch(`${url}/order/777/price`)
+      .send(orders[2])
       .end((err, res) => {
         expect(res.statusCode).to.equal(403);
         expect(res.body).to.a.property('error');
@@ -257,7 +245,7 @@ describe('updatePurchase', () => {
   });
   it('should not update price of a user whose order has been approved', (done) => {
     server()
-      .patch(`${url}/order/2/price`)
+      .patch(`${url}/order/3/price`)
       .set('token', userToken)
       .send(orders[1])
       .end((err, res) => {
@@ -268,11 +256,22 @@ describe('updatePurchase', () => {
   });
   it('should not update price of an order when the resource can not be found', (done) => {
     server()
-      .patch(`${url}/order/6/price`)
+      .patch(`${url}/order/888/price`)
       .set('token', userToken)
       .send(orders[1])
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('should not update price of an order of another user', (done) => {
+    server()
+      .patch(`${url}/order/4/price`)
+      .set('token', userToken)
+      .send(orders[1])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -293,7 +292,7 @@ describe('updatePurchase', () => {
 describe('updateStatus', () => {
   it('should mark posted ads sold order update', (done) => {
     server()
-      .patch(`${url}/car/5/status`)
+      .patch(`${url}/car/2/status`)
       .set('token', userToken)
       .send(cars[0])
       .end((err, res) => {
@@ -315,7 +314,7 @@ describe('updateStatus', () => {
         done();
       });
   });
-  it('should not update status of a user whose car has been marked sold', (done) => {
+  it('should not update status of a sold car', (done) => {
     server()
       .patch(`${url}/car/5/status`)
       .set('token', userToken)
@@ -328,7 +327,7 @@ describe('updateStatus', () => {
   });
   it('should not update price of a car when the resource can not be found', (done) => {
     server()
-      .patch(`${url}/car/6/status`)
+      .patch(`${url}/car/777/status`)
       .set('token', userToken)
       .send(cars[8])
       .end((err, res) => {
@@ -342,7 +341,7 @@ describe('updateStatus', () => {
 describe('update Ads price', () => {
   it('it should update the price of a posted Ads', (done) => {
     server()
-      .patch(`${url}/car/4/price`)
+      .patch(`${url}/car/2/price`)
       .set('token', userToken)
       .send(cars[4])
       .end((err, res) => {
@@ -504,23 +503,48 @@ describe('User can view all unsold cars', () => {
       });
   });
 });
-describe('admin can delete a posted Ad record', () => {
-  it('should not delete a posted Ad when token is not provided', (done) => {
+
+describe('Admin can view all cars', () => {
+  it('Admin should view all cars', (done) => {
     server()
-      .delete(`${url}/car/1`)
+      .get(`${url}/car`)
+      .set('token', adminToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(403);
-        expect(res.body).to.have.property('error');
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
         done();
       });
   });
-  it('Admin should be able to delete a posted Ad', (done) => {
+});
+
+describe('Admin can delete a posted Ad record', () => {
+  it('Admin should delete a posted ad', (done) => {
     server()
       .delete(`${url}/car/1`)
       .set('token', adminToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(200);
+        expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+  it('admin should not delete a car that can not  be found', (done) => {
+    server()
+      .delete(`${url}/car/8856556`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('admin should not delete a car that can not  be found', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(403);
+        expect(res.body).to.have.property('error');
         done();
       });
   });

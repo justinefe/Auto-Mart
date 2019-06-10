@@ -38,8 +38,8 @@ const schema = {
     carId: joi.number().required(),
   }),
 
-  viewAllUnsoldCars: joi.object().keys({
-    status: joi.string().valid('available').required(),
+  viewCars: joi.object().keys({
+    status: joi.string().valid('available'),
     minPrice: joi.number(),
     maxPrice: joi.number(),
   }),

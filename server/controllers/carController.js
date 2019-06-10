@@ -61,7 +61,7 @@ class carController {
     if (id !== orderDetails.buyer) {
       return res.status(403).json({
         status: 403,
-        error: 'unauthorized user',
+        error: 'Unauthorized user',
       });
     }
     const objectPosition = orders.findIndex(order => order.id === Number(orderId));
@@ -81,7 +81,7 @@ class carController {
 
   static updateStatus(req, res) {
     const { carId } = req.params;
-    const { email } = req.user;
+    const { id } = req.user;
     const carDetails = cars.find(car => car.id === Number(carId));
     if (!carDetails) {
       return res.status(404).json({
@@ -89,11 +89,10 @@ class carController {
         error: 'Car Not Found',
       });
     }
-
-    if (email !== carDetails.email) {
+    if (id !== carDetails.owner) {
       return res.status(403).json({
         status: 403,
-        error: 'unauthorized user',
+        error: 'Unauthorized user',
       });
     }
 
@@ -152,39 +151,46 @@ class carController {
     });
   }
 
-  static viewAllUnsoldCars(req, res) {
+  static viewCars(req, res) {
     const allAvailableUnsoldCars = cars.filter(car => car.status === 'available');
     const { minPrice, maxPrice } = req.query;
-    if (allAvailableUnsoldCars && minPrice && !maxPrice) {
-      return res.status(400).json({
-        status: 400,
-        error: 'No Available Cars',
-      });
-    }
+    const { isAdmin } = req.user;
+    if (isAdmin === false) {
+      if (allAvailableUnsoldCars && minPrice && !maxPrice) {
+        return res.status(400).json({
+          status: 400,
+          error: 'No Available Cars',
+        });
+      }
 
-    if (allAvailableUnsoldCars && !minPrice && maxPrice) {
-      return res.status(400).json({
-        status: 400,
-        error: 'No Available Cars',
-      });
-    }
+      if (allAvailableUnsoldCars && !minPrice && maxPrice) {
+        return res.status(400).json({
+          status: 400,
+          error: 'No Available Cars',
+        });
+      }
 
-    if (allAvailableUnsoldCars && (!minPrice || !maxPrice)) {
+      if (allAvailableUnsoldCars && (!minPrice || !maxPrice)) {
+        return res.status(201).json({
+          status: 201,
+          data: allAvailableUnsoldCars,
+        });
+      }
+      const answer = allAvailableUnsoldCars.filter(car => car.price >= Number(minPrice) && car.price <= Number(maxPrice));
+      if (!answer[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Cars Not Found',
+        });
+      }
       return res.status(201).json({
         status: 201,
-        data: allAvailableUnsoldCars,
-      });
-    }
-    const answer = allAvailableUnsoldCars.filter(car => car.price >= Number(minPrice) && car.price <= Number(maxPrice));
-    if (!answer[0]) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Cars Not Found',
+        data: answer,
       });
     }
     return res.status(201).json({
       status: 201,
-      data: answer,
+      data: cars,
     });
   }
 
@@ -194,7 +200,7 @@ class carController {
     if (!carDetails) {
       return res.status(404).json({
         status: 404,
-        data: 'Car Not Found',
+        error: 'Car Not Found',
       });
     }
     const carPosition = cars.findIndex(car => car.id === Number(carId));
@@ -202,20 +208,6 @@ class carController {
     return res.status(201).json({
       status: 201,
       data: 'Car Ad successfully deleted',
-    });
-  }
-
-  static adminViewAllCars(req, res) {
-    const allCars = cars.map(car => car);
-    if (allCars == '') {
-      res.status(404).json({
-        status: 404,
-        data: 'No car found',
-      });
-    }
-    return res.status(200).json({
-      status: 200,
-      data: allCars,
     });
   }
 }

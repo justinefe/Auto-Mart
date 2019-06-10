@@ -20,7 +20,7 @@ class userController {
     const hashPassword = hash(password);
     const id = users.length + 1;
     const newUser = {
-      id, firstName, lastName, email, address, password: hashPassword, isAdmin: false,
+      id, firstName, lastName, email, address, hashPassword, isAdmin: false,
     };
 
     users.push(newUser);
@@ -39,7 +39,7 @@ class userController {
     } = req.body;
     const checkUser = users.find(user => user.email === email);
     if (checkUser) {
-      const passwordState = unhash(password, checkUser.password);
+      const passwordState = unhash(password, checkUser.hashPassword);
       if (passwordState) {
         return res.status(200).json({
           status: 200,
@@ -53,9 +53,9 @@ class userController {
         });
       }
     }
-    return res.status(400).json({
-      status: 400,
-      error: 'Email or password is incorrect',
+    return res.status(404).json({
+      status: 404,
+      error: 'Account Not Found',
     });
   }
 }

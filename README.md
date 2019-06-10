@@ -34,7 +34,7 @@
 
 # Getting Setup and Installation
 >- Clone this repo to local device `ur cloned repo url`
->- Navigate to the Banka folder `cd Banka`
+>- Navigate to the Auto Mart folder `cd Auto Mart`
 >- Run command in terminal `npm install` to install all the neccessary dependencies
 >- Create a .env file in the project folder, an set all the environmental variables used in the project
 >- Done setting up, run command `npm run startdev` to run the app in development environment

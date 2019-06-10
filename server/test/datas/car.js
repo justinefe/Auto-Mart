@@ -1,15 +1,17 @@
 const car = [
   {
     id: 1,
+    owner: 1,
     manufacturer: 'Toyota',
     model: 'pathfinder',
     price: 600000.23,
     state: 'new',
-    status: 'available',
+    status: 'sold',
     newPrice: '45555252555',
   },
   {
     id: 2,
+    owner: 1,
     manufacturer: 'Toyota',
     model: 'pathfinder',
     newPrice: '45555252555',
@@ -18,6 +20,7 @@ const car = [
   },
   {
     id: 3,
+    owner: 2,
     manufacturer: 'Toyota',
     model: 'highlander',
     price: 900000.23,
@@ -27,6 +30,7 @@ const car = [
   },
   {
     id: 4,
+    owner: 1,
     manufacturer: 'Toyota',
     model: 'camry',
     price: 5656256.23,

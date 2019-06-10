@@ -18,29 +18,19 @@ const isAuthenthicated = (req, res, next) => {
   }
   return res.status(403).json({
     status: 403,
-    error: 'Unauthorized',
+    error: 'Unauthorizedhjklkl',
   });
 };
 
-// const isUser = (req, res, next) => {
-// 	  const { role } = req.user;
-// 	  if (role !== 'user') {
-// 	    return res.status(403).json({
-// 	      status: 403,
-// 	      error: 'unauthorized route',
-// 	    });
-// 	  }
-// 	  return next();
-//   };
-// const isAdmin = (req, res, next) => {
-//       const { role } = req.user;
-//       if (role !== 'admin') {
-//        return res.status(403).json({
-//       status: 403,
-//   	        error: 'unauthorized route',
-//   	      });
-//   	    }
-//   	    return next();
-//    };
-  
-export default { isAuthenthicated };
+const isAdministrator = (req, res, next) => {
+  const { isAdmin } = req.user;
+  if (isAdmin === false) {
+    return res.status(403).json({
+      status: 403,
+      error: 'Unauthorized route',
+    });
+  }
+  return next();
+};
+
+export default { isAuthenthicated, isAdministrator };

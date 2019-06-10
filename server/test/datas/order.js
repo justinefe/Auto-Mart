@@ -5,6 +5,19 @@ const order = [
     newPriceOffered: '46525632612',
   },
   {
+    buyer: 2,
+    newPriceOffered: '46525632612',
+  },
+  {
+    buyer: 77,
+    newPriceOffered: '46525632612',
+  },
+  {
+    buyer: 77,
+    newPriceOffered: '46525632612',
+  },
+  {
+    buyer: 77,
     newPriceOffered: '46525632612',
   },
 ];
