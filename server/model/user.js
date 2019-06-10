@@ -4,7 +4,7 @@ const user = [
     email: 'efejustin3@gmail.com',
     firstName: 'Justin',
     lastName: 'Igugu',
-    password: '$2a$10$XNCZHlW/XUjWg/s9UHMoPu1x6.RkZuXRykTqxSKG0RPXg8VUdkZaa',
+    hashPassword: '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6',
     address: '15 omo avenue',
     isAdmin: true
   },
@@ -13,7 +13,7 @@ const user = [
     email: 'fejude3@gmail.com',
     firstName: 'Nonso',
     lastName: 'Amos',
-    password: 'efe',
+    hashPassword: '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6',
     address: '15 uloho avenue',
     isAdmin: false
   },
@@ -22,7 +22,7 @@ const user = [
     email: 'fejude3@rocketmail.com',
     firstName: 'Kanayo',
     lastName: 'Aass',
-    password: 'thejust',
+    hashPassword: '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6',
     address: '15 uloho avenue',
     isAdmin: false
   },

@@ -3,29 +3,37 @@ const user = [
     firstName: 'Jude',
     lastName: 'Chinoso',
     email: 'jjviolet@gmail.com',
-    password: 'violet',
+    password: 'cookies',
   },
   {
     firstName: '',
     lastName: 'Chinoso',
     email: 'jjviolet@gmail.com',
-    password: 'violet',
+    password: 'cookies',
   },
   {
-    email: 'jjviolet@gmail.com',
-    password: 'violet',
+    email: 'fejude3@gmail.com',
+    password: 'cookies',
   },
   {
-    email: 'jj@gmail.com',
-    password: 'violet',
+    email: 'fejude3@gmail.com',
+    password: '',
   },
   {
-    email: 'jjviolet@gmail.com',
-    password: 'v7876666666669',
+    email: '',
+    password: 'cookies',
   },
   {
-    email: 'jjviolet@gmail.com',
-    password: 'kkkkkk',
+    email: 'efejustin3@gmail.com',
+    password: 'cookijeskk',
+  },
+  {
+    email: 'efejustin3@gmail.com',
+    password: 'cookies',
+  },
+  {
+    email: 'efeoghenejustinl3@gmail.com',
+    password: 'cookies',
   },
 ];
 

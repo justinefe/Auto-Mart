@@ -4,7 +4,6 @@ import carController from '../controllers/carController';
 import validator from '../middleware/validator';
 import auth from '../middleware/authenthication';
 import userController from '../controllers/userController';
-import authenticateAdmin from '../middleware/adminAuthentication';
 
 const route = express();
 
@@ -18,6 +17,6 @@ route.patch('/order/:orderId/price', auth.isAuthenthicated, validator.updateOrde
 route.patch('/car/:carId/status', auth.isAuthenthicated, carController.updateStatus);
 route.patch('/car/:carId/price', auth.isAuthenthicated, validator.updateAd, carController.updateAd);
 route.get('/car/:carId', auth.isAuthenthicated, validator.viewACar, carController.viewACar);
-route.get('/car', auth.isAuthenthicated, validator.viewAllUnsoldCars, carController.viewAllUnsoldCars);
-route.delete('/car/:carId', authenticateAdmin, carController.adminDelete);
+route.get('/car', auth.isAuthenthicated, validator.viewCars, carController.viewCars);
+route.delete('/car/:carId', auth.isAuthenthicated, auth.isAdministrator, carController.adminDelete);
 export default route;

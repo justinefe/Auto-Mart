@@ -12,7 +12,7 @@ const car = [
   },
   {
     id: 2,
-    owner: 1, 
+    owner: 2, 
     createdOn: new Date(),
     state: 'new',
     status: 'available',
@@ -42,6 +42,28 @@ const car = [
     manufacturer: 'Toyota',
     model: 'hilux',
     bodyType: 'truck'
+  },
+  {
+    id: 5,
+    owner: 2, 
+    createdOn: new Date(),
+    state: 'new',
+    status: 'sold',
+    price: 5000000,
+    manufacturer: 'Toyota',
+    model: 'hilux',
+    bodyType: 'truck'
+  },
+  {
+    id: 6,
+    owner: 2, 
+    createdOn: new Date(),
+    state: 'used',
+    status: 'sold',
+    price: 4000000,
+    manufacturer: 'Toyota',
+    model: '530',
+    bodyType: 'SUV'
   },
 ];
 
