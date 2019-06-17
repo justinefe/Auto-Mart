@@ -1,114 +1,3 @@
-*, *::before, *::after{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-a{
-    text-decoration: none;
-    
-}
-:root{
-    --theme-color: rgb(231, 113, 125);
-}
-body {
-    overflow: hidden;
-    display: flex;
-    margin: 0px 0px;
-    padding: 0px 0px;
-    background: #fff;
-    width: 100%;
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.icon::before {
-    font-family: "Font Awesome 5 Free";
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    padding-right: 5px;
-    -webkit-font-smoothing: antialiased;
-}
-
-aside {
-    width: 15%;
-}
-
-aside nav {
-    height: 8%;
-    background: rgba(231, 113, 125, 0.8);
-    display: flex;
-    align-items: center;
-    box-shadow: 0px 2px 8px -4px rgba(0, 0, 0, 0.2);
-}
-
-aside nav h4{
-    margin-left: 10px;
-    color: white;
-    font-weight: 400;
-}
-
-#asidemain{
-    height: 92%;
-    background: #655;
-    display: flex;
-    justify-content: center;
-}
-
-#asidemain section{
-    width: 100%;
-    height: 100%;
-    padding-top: 10px;
-}
-
-#asidemain section ul{
-    display: block;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: .9em;
-}
-
-#asidemain section ul li{
-    list-style-type: none;
-    padding: .8em 1em;
-}
-
-#asidemain section ul li:nth-child(1)::before{
-    content: '\f2c2';
-}
-
-#asidemain section ul li:nth-child(2)::before{
-    content: '\f2c2';
-}
-#asidemain section ul li:nth-child(3)::before{
-    content: '\f641';
-    font-weight: 900;
-}
-
-#asidemain section ul li:nth-child(4)::before{
-    content: '\f641';
-    font-weight: 900;
-}
-
-#asidemain section ul li:nth-child(5)::before{
-    content: '\f641';
-    font-weight: 900;
-}
-
-#asidemain section ul li:hover{
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.2)
-}
-
-#asidemain section ul li:nth-child(6)::before{
-    content: '\f2c2';
-}
-
-#main {
-    width: 85%;
-    height: 100vh;
-}
-
 #mainnav{
     height: 8%;
     display:flex;
@@ -212,7 +101,7 @@ h4, h1{
     display:flex;
     justify-content: flex-end;
     background: url('../images/background.jpg');
-}
+} 
 
 .mainsection .container{
     display: flex;
@@ -230,9 +119,8 @@ h4, h1{
 }
 
 .mainsection .container section{
-    background: rgb(90, 90, 90);
     position: relative;
-    width: 85%;
+    width: 75%;
     overflow: auto;
 }
 
@@ -240,9 +128,8 @@ h4, h1{
     background: #fff;
     display: flex;
     justify-content: center;
-    width: 180px;
+    width: 90%;
     height: 100%;
-    margin-bottom: 20px;
     box-shadow:0px 0px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -369,33 +256,6 @@ ul li:hover{
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
-
-.cardsection nav {
-    height: 8%;
-    font-size: 1em;
-    position: sticky;
-    top:0;
-    z-index:201;
-    overflow: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgb(90, 90, 90);
-    border-bottom: .3px solid silver;
-    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
-    padding: 5px 20px;
-}
-
-.cardsection nav .addsection{
-    width: 50%;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.cardsection nav .button{
-    margin-right: 20px;
-  
-}
-
 button{
     text-align: center;
     display: block;
@@ -414,13 +274,10 @@ button{
     padding-top: 6px;
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 200px;
     grid-gap: 10px;
-    height: 100%;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-bottom: 100px;
+    height: 90%;
 }
 
 
