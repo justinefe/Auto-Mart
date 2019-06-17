@@ -59,8 +59,7 @@ This project is open for contributions. All contributions must adhere to the [Ai
 # Author(s)
 >- [Efeoghene Justin ](https://github.com/justinefe)
 
-# Deployment
 >- This api is deployed on here (https://justinefeautomart.herokuapp.com/)
->- Ui is deployed on gh-pages view [here](your app ui on gh-pages)
 
 # Acknowledgments
+The Andela team
