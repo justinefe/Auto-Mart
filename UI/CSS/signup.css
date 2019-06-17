@@ -20,10 +20,6 @@ body {
 main{
     height: 100%;
 }
-
-html{
-    scroll-behavior: smooth;
-}
 .container {
     width: 90%;
     margin: auto;
@@ -192,72 +188,14 @@ button{
     border-radius: 2em;
     margin-bottom: 20px;
 }
+
 .scrollCars >div >h4{
-    padding: 30px;
+    padding: 30px 30px 0 30px;
     text-align: center;
     font-size: 2em;
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--theme-color);
-}
-
-.cars {
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    width: 100%;
-    grid-gap: 20px;
-    grid-template-rows: repeat(auto, minmax(150px, 150px));
-}
-
-.carCard{
-    position: relative;
-    width: auto;
-    height: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    background: linear-gradient(to bottom, rgba(31, 37, 38, 0.2) 100%,
-    transparent);
-    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
-    transition: all 0.9s ease;
-}
-
-.carCard:hover  .cardContainer{
-    top: 0;
-    cursor: pointer;
-    
-}
-
-.carCard:hover {
-    background: linear-gradient(to bottom, rgba(31, 37, 38, 0.5) 100%,
-    transparent);
-}
-.carCard img{
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-    object-fit: cover;
-}
-
-.cardContainer{
-    position: absolute;
-    top: 150px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    text-align: center;
-    padding: 20px;
-    transition: all 0.5s ease;
-}
-
-.cardDetails{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-left: 1px solid #ffff;
-    color: #fff;
-    height: 100%;
-    padding-top: 25px;
 }
 
 .about{
@@ -290,104 +228,6 @@ button{
 div.us{
     margin: 1em auto;
     padding: 2em 2em;
-}
-.box-container{
-    background-color:transparent;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-wrap: wrap;
-    flex: 1 1 0;
-    max-width: 950px;
-    margin: 3em auto;
-    box-shadow: 2px 2px 4px 0px silver;
-
-}
-.box{
-    height: 31em;
-    min-width: 20em;
-    flex-grow: 1;
-    max-width: 100%;
-
-}
-.one{
-     width:50%;
-     background: linear-gradient(rgba(31, 33, 37, 0.7) 100%, transparent),url('../images/car3.jpg'); 
-     background-size: 100% 100%;
-     background-repeat: no-repeat;
-
-   }
-   .one h2{
-    font-weight: 500;
-    color: white;
-    font-size: 2em;
-   }
-  
-.two{
-    background-color: white; 
-    color: white;
-}
-.one h5{
-    padding: 30px;
-    text-align: left;
-    font-size: 2em;
-    font-weight: 500;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--theme-color);
-}
-
-a.log{
-    
-    color: grey;
-    font-size: 1em;
-    font-weight: normal;
-    text-decoration: none;
-    display: block;
-    transition: all 0.3s ease;
-}
-a.log:hover{
-       color: var(--theme-color);
-}
-
-.box h4{
-    margin: 1em 1em;
-    padding: 0;
-  color:grey;
-  display: flex;
-  justify-content: left;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-}
-h2{
-    padding: 30px;
-    text-align: center;
-    font-size: 2em;
-    font-weight: 500;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--theme-color);
-}
-
-form{
-    padding-top: 6em;
-   text-align: center;
- 
-}
-
-input{
-    display: block;
-    margin: 0.7em auto;
-    padding: 0.8em 1em ;
-    border: none;
-    border-bottom: var(--theme-color) 0.1em solid;
-    border-left: var(--theme-color) 0.3em solid;
-    width: 85%;
-    outline: none;
-    background: transparent;
-    outline: none;
-}
-
-input:focus{
-    border-bottom: var(--theme-color) 0.1em solid;
 }
 
 .box button{
@@ -458,169 +298,218 @@ button:hover{
     outline: none;
 }
 
-@media screen and (max-width: 768px) {
-
-    .cars {
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        width: 100%;
-        grid-gap: 40px;
-    }
-   
-    nav {
-        display: block;
-        position: relative;
-        background-color: white;
-    }
-    .navmenu div {
-        width: 100%;
-        height: 0.3em;
-        background-color: var(--theme-color);
-        margin: 0.2em 0;
-    }
-    
-    .close div:nth-child(1) {
-      opacity: 0;
-    }
-    
-    .close div:nth-child(2) {
-      transform: rotate(45deg) translateY(0.35em);
-    }
-    .close div:nth-child(3) {
-     transform: rotate(-45deg) translateY(-0.35em);
-    }
-
-    nav ul {
-        display: block;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        transform: translateY(-150%);
-        transition: all 1s linear;
-        z-index: -1000;
-    }
-    
-    .shownav {
-        transform: translateY(15px);
-        z-index: 2;
-    }
-
-    .navwrap {
-    
-        width: 100%;
-    }
-
-    .welcome {
-        z-index: 1;
-    }
-    .one{
-        z-index: -400;
-    }
-
-    .navmenu {
-        position: absolute;
-        z-index: 1;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        display: initial;
-    }
-
-    .show{
-        right: -20%;
-    }
-
-    nav li {
-        border: none;
-        padding: 0.3em;
-        background: white;
-        z-index: 1;
-        text-decoration: none;
-        outline: none;
-    }
-
-    nav a {
-        color: var(--theme-color);
-        text-decoration: none;
-        outline: none;
-    }
-    nav a:hover{ 
-        color: silver;
-        transition: all 0.3s ease;
-    }
-    
-    .box-container{
-        background-color:transparent;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        flex-grow: 1;
-              
-    
-    }
-    .box{
-        width: 50%;
-        flex: 1 1 0;
-        min-width: 13em;
-            
-    }
-    .footer{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 20px;
-        background: white;
-        padding:20px; 
-                
-    }
-
+.cardContainer{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    grid-gap: 10px;
+    height: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-bottom: 100px;
 }
 
-@media only screen and (max-width: 550px) {
-    .cars {
-        margin:0;
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-
-    .carCard{
-        margin: auto;
-        width: 300px;
-
-    }
-    .footer{
-        display: grid;
-    grid-template-columns: repeat(auto, 1fr);
-    grid-gap: 20px;
+.carCard {
+    padding: 0px;
+    width: 98%;
+    height: 90%;
+    margin: 0px 1%;
     background: white;
-    padding:20px; 
-    box-shadow: 2px 2px 4px 0px silver;
-    margin-top: 0;
-
-                
-    }
-    
-    .us h4{
-        margin: 0px auto;
-        text-align: centre;
-        font-size: 1em;
-        font-weight: 500;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: var(--theme-color);
-    }
-    .us h5{
-        font-weight: 500;
-        color: silver;
-        font-size: 1em;
-        padding: 5px;
-        text-align: left;
-    }
-    .us p{
-        margin: 10px auto;
-        text-align: left;
-        font-size: 1em;
-        font-weight: 500;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-       
-    }
-
+    overflow: hidden;
+    border: 1px solid transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
 }
+
+.cardImage{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    width: 100%;
+}
+
+.cardImage h6{
+    text-align: right;
+    font-size: .7em;
+    font-weight: 500;
+    padding-right: 5px;
+    color: #fff;
+    background: linear-gradient(135deg, transparent 65%, var(--theme-color) 0)
+}
+
+.cardImage p{
+    text-align: left;
+    font-size: .8em
+}
+
+.cardImage img{
+    margin-top: 1px;
+    height: 160px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.carCard:hover {
+    z-index: 200;
+    height: 240px;
+    cursor: pointer;
+    box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.2);
+}
+
+.classInfo {
+    display: flex;
+    justify-content: space-between;
+    font-size: .8em;
+    width:100%;
+    padding: 5px 10px;
+    margin: 5px auto;
+    border: .5px solid var(--theme-color);
+}
+
+.classInfo h2{
+    display: inline-block;
+    font-weight: 500;
+    font-size: .9em;
+    text-decoration: underline;
+    padding: 0px;
+}
+
+.classInfo p {
+    display: inline-block;
+    line-height: 1;
+    display: inline-block;
+    padding: 1.2px 0px;
+    font-size: .9em;
+}
+
+.classInfo p >span {
+    text-decoration: line-through;
+    text-decoration-style: double;
+    padding-right: 2px;
+    padding-bottom:0px; 
+}
+/* Tablet views */
+@media screen and (max-width: 768px) {
+    .container{
+        margin-bottom: 0;
+    }
+    .scrollCars .container h4{
+        font-weight: 500;
+        font-size: 4em;
+        padding-bottom: 10px;
+    }
+        .cardContainer{
+        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 0; 
+    }
+     
+    .footer{
+            grid-template-columns: repeat(2, 1fr);
+            text-align: center;
+        }
+    }
+     
+    /* Mobile view*/
+    @media only screen and (max-width: 480px) {
+
+          
+        nav {
+            display: block;
+            position: relative;
+            background-color: white;
+        }
+        .navmenu div {
+            width: 100%;
+            height: 0.3em;
+            background-color: var(--theme-color);
+            margin: 0.2em 0;
+        }
+        
+        .close div:nth-child(1) {
+          opacity: 0;
+        }
+        
+        .close div:nth-child(2) {
+          transform: rotate(45deg) translateY(0.35em);
+        }
+        .close div:nth-child(3) {
+         transform: rotate(-45deg) translateY(-0.35em);
+        }
+    
+        nav ul {
+            display: block;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            transform: translateY(-150%);
+            transition: all 1s linear;
+            z-index: -1000;
+        }
+        
+        .shownav {
+            transform: translateY(15px);
+            z-index: 2;
+        }
+    
+        .navwrap {
+        
+            width: 100%;
+        }
+    
+        .welcome {
+            z-index: 1;
+        }
+        .one{
+            z-index: -400;
+        }
+    
+        .navmenu {
+            position: absolute;
+            z-index: 1;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: initial;
+        }
+    
+        .show{
+            right: -20%;
+        }
+    
+        nav li {
+            border: none;
+            padding: 0.3em;
+            background: white;
+            z-index: 1;
+            text-decoration: none;
+            outline: none;
+        }
+    
+        nav a {
+            color: var(--theme-color);
+            text-decoration: none;
+            outline: none;
+        }
+        nav a:hover{ 
+            color: silver;
+            transition: all 0.3s ease;
+        }
+    .container{
+        margin-bottom: 0;
+    }
+    .scrollCars .container h4{
+        font-weight: 500;
+        font-size: 1.5em;
+        padding-bottom: 10px;
+    }          
+    .cardContainer{
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0;
+    }
+
+        .footer{
+        grid-template-columns: repeat(1, 1fr); 
+        text-align: center;                    
+        }
+}
+    

@@ -1,3 +1,28 @@
+.classInfo h4{
+    color: black;
+    text-align: left;
+    font-size: 0.9em;
+     margin-top: 15px;
+}
+
+.classInfo p {
+    line-height: 1;
+    padding: 1.2px 0px;
+    font-size: .9em;
+  
+}
+
+dialog {
+    text-align: center;
+    margin: auto;
+    padding:30px;
+    border:0;
+}
+
+dialog > p {
+    font-size: 18px;
+    margin-bottom: 20px
+}
 *, *::before, *::after{
     box-sizing: border-box;
     margin: 0;
@@ -29,24 +54,21 @@ body {
 }
 
 .cardContainer{
-    padding-top: 6px;
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
     width: 100%;
-    grid-template-columns: repeat(4, 1fr);
+    overflow: auto;
+    overflow-y: scroll;
     grid-auto-rows: 220px;
-    grid-gap: 10px;
     height: 100%;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-bottom: 100px;
 }
 
 
 .carCard {
     padding: 0px;
-    width: 300px;
-    height: 200px;
-    margin: 50px auto;
+    width: 98%;
+    height: 98%px;
+    margin: 10px auto;
     background: white;
     overflow: hidden;
     border: 1px solid transparent;
@@ -121,23 +143,20 @@ body {
     padding-bottom:0px; 
 }
 .search-bar{
-    height: 15%;
-    width: 50%;
-    margin: 20px auto;
-    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    justify-items: center;
-   
+    height: 10%;
+    margin: 20px auto;
+    width: 80%;   
+    padding: 0;
 }
 .search-bar input{
-    width: 200px;
+    width: 20%;
     border: 1px solid var(--theme-color);
     padding: 10px;
     outline: 0;
 }
 .search-bar select{
-    width: 200px;
+    width: 20%;
     border: 1px solid var(--theme-color);
     padding: 10px;
     outline: 0;
@@ -147,8 +166,6 @@ body {
 
 .search-bar button{
     text-align: center;
-    display: block;
-    width: 100px; 
     border: none;
     border-radius: 5px;
     outline: none;
@@ -222,26 +239,6 @@ table{
     outline: none;
     border: solid 2px silver;
 }
-
-.purchase-action button{
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    width: 11em; 
-    outline: none;
-    border: none;
-    font-size: 0.8em;
-    color: white;
-    background-color: var(--theme-color);
-    box-shadow: 2px 2px 4px 0px var(--theme-color)r;
-    margin: 25px 0px; 
-    padding: 0.5em 0.5em;
-    border: solid 2px var(--theme-color);
-    border-radius: 0.3em;
-   
-}
-
-
 dialog {
     text-align: center;
     margin: auto;
