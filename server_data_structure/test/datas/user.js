@@ -4,7 +4,6 @@ const user = [
     lastName: 'Chinoso',
     email: 'jjviolet@gmail.com',
     password: 'cookies',
-    address: 'fgfhgfhgfh',
   },
   {
     firstName: '',

@@ -4,12 +4,12 @@
   "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
   "main": "main.js",
   "scripts": {
-    "create": "babel-node server/migrations/createTables.js",
-    "drop": "babel-node server/migrations/deleteTables.js",
+    "create": "cross-env NODE_ENV=test babel-node server/migrations/createTables.js",
+    "drop": "cross-env NODE_ENV=test babel-node server/migrations/deleteTables.js",
     "hash": "babel-node server/helpers/passwordHash",
-    "start": "rimraf dist/ && babel ./server -d dist && node dist/app.js",
+    "start": "NODE_ENV=production rimraf dist/ && babel ./server -d dist && node dist/app.js",
     "startdev": "nodemon --exec babel-node server/app.js",
-    "test": "cross-env NODE_ENV=test nyc --require @babel/register mocha server/test --exit",
+    "test": " npm run drop && npm run create && cross-env NODE_ENV=test nyc --require @babel/register mocha server/test --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rimraf dist/ && babel ./server -d dist"
   },

@@ -1,61 +1,46 @@
-import { hash, unhash } from '../helpers/passwordHash';
-import { token } from '../helpers/token';
-import users from '../model/user';
+import hash from '../helpers/passwordHash';
+import token from '../helpers/token';
+import pool from '../config/config';
 
 class userController {
-  static signup(req, res) {
+  static async signup(req, res) {
     const {
       firstName, lastName, address, email, password,
     } = req.body;
+    let newUser;
+    try {
+      const checkUser = await pool.query('SELECT* from users where email = $1', [email]);
+      if (checkUser.rows[0]) {
+        return res.status(409).json({
+          status: 409,
+          error: 'User already exists',
+        });
+      }
 
-    const checkUser = users.some(user => user.email === email);
+      const isAdmin = false;
+      const hashPassword = hash.hash(password);
+      newUser = {
+        firstName, lastName, email, address, hashPassword, isAdmin,
+      };
+      const keys = Object.keys(newUser);
+      const values = Object.values(newUser);
+      const insert = {
+        text: `INSERT into users (${[...keys]}) values ($1, $2, $3, $4, $5, $6) returning id`, values,
+      };
 
-    if (checkUser) {
-      return res.status(409).json({
-        status: 409,
-        error: 'User already exists',
+      newUser = await pool.query(insert);
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
       });
     }
-
-    const hashPassword = hash(password);
-    const id = users.length + 1;
-    const newUser = {
-      id, firstName, lastName, email, address, hashPassword, isAdmin: false,
-    };
-
-    users.push(newUser);
-
+    const { id } = newUser.rows[0];
     return res.status(201).json({
       status: 201,
       data: {
-        token: token({ id }), id, firstName, lastName, email,
+        token: token.token({ id }), id, firstName, lastName, email,
       },
-    });
-  }
-
-  static signin(req, res) {
-    const {
-      email, password,
-    } = req.body;
-    const checkUser = users.find(user => user.email === email);
-    if (checkUser) {
-      const passwordState = unhash(password, checkUser.hashPassword);
-      if (passwordState) {
-        return res.status(200).json({
-          status: 200,
-          data: {
-            token: token({ id: checkUser.id }),
-            id: checkUser.id,
-            firstName: checkUser.firstName,
-            lastName: checkUser.lastName,
-            email: checkUser.email,
-          },
-        });
-      }
-    }
-    return res.status(404).json({
-      status: 404,
-      error: 'Account Not Found',
     });
   }
 }
