@@ -6,7 +6,7 @@ const user = [
     lastName: 'Igugu',
     hashPassword: '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6',
     address: '15 omo avenue',
-    isAdmin: true
+    isAdmin: true,
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const user = [
     lastName: 'Amos',
     hashPassword: '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6',
     address: '15 uloho avenue',
-    isAdmin: false
+    isAdmin: false,
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const user = [
     lastName: 'Aass',
     hashPassword: '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6',
     address: '15 uloho avenue',
-    isAdmin: false
+    isAdmin: false,
   },
 
 ];

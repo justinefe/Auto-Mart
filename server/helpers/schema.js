@@ -21,6 +21,9 @@ const schema = {
     price: joi.number().required(),
     bodyType: joi.string().required(),
   }),
+  purchaseOrder: joi.object().keys({
+    priceOffered: joi.number().required(),
+  }),
 };
 
 export default schema;

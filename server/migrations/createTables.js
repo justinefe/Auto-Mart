@@ -22,9 +22,18 @@ const carTable = `CREATE TABLE IF NOT EXISTS cars(
   bodytype text NOT NULL 
 );
 `;
-
+const orderTable = `CREATE TABLE IF NOT EXISTS orders(
+  id serial PRIMARY KEY,
+  car_id integer NOT NULL,
+  email text NOT NULL,
+  created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  status text NOT NULL,
+  price float NOT NULL,
+  price_offered float NOT NULL
+);
+`;
 const createTable = async () => {
-  const create = `${userTable}${carTable}`;
+  const create = `${userTable}${carTable}${orderTable}`;
   const user = {
     text: `INSERT INTO users (firstname, lastname, email, hashpassword, address, isadmin)
       VALUES($1, $2, $3, $4, $5, $6)`,
@@ -36,10 +45,17 @@ const createTable = async () => {
       VALUES($1, $2, $3, $4, $5, $6)`,
     values: ['Justin', 'Igugu', 'efejustin3@gmail.com', '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6', '15 omo avenue', true],
   };
+
   const car = {
     text: `INSERT INTO cars (email, state, status, price, manufacturer, model, bodytype)
       VALUES($1, $2, $3, $4, $5, $6, $7)`,
     values: ['email@email.com', 'new', 'available', '2000000', 'Toyota', 'pathfinder', 'car'],
+  };
+
+  const order = {
+    text: `INSERT INTO orders (email, car_id, price_offered, price, status)
+      VALUES($1, $2, $3, $4, $5)`,
+    values: ['email@email.com', '2', '400000.58', '600000.23', 'pending'],
   };
 
   try {
@@ -47,6 +63,7 @@ const createTable = async () => {
     await pool.query(admin);
     await pool.query(user);
     await pool.query(car);
+    await pool.query(order);
     console.log('Tables Successful created');
   } catch (error) {
     console.log(error);

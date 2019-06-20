@@ -36,5 +36,46 @@ class carController {
       ,
     });
   }
+
+  static async purchaseOrder(req, res) {
+    const { priceOffered } = req.body;
+    const { carId } = req.params;
+    const { email } = req.user;
+    let newOrder;
+    try {
+      const orderDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+
+      if (!orderDetails.rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Car Not Found',
+        });
+      }
+      const { price } = orderDetails.rows[0];
+      const newOrders = {
+        car_id: carId,
+        email,
+        status: 'pending',
+        price,
+        price_offered: priceOffered,
+      };
+      const keys = Object.keys(newOrders);
+      const values = Object.values(newOrders);
+      const insert = {
+        text: `INSERT into orders (${[...keys]}) values ($1, $2, $3, $4, $5) returning *`, values,
+      };
+      newOrder = await pool.query(insert);
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
+      });
+    }
+
+    return res.status(201).json({
+      status: 201,
+      data: newOrder.rows[0],
+    });
+  }
 }
 export default carController;
