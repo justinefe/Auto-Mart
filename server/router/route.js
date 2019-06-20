@@ -10,5 +10,6 @@ route.get('/', autoController.welcome);
 route.post('/auth/signup', validator.signup, userController.signup);
 route.post('/auth/signin', validator.signin, userController.signin);
 route.post('/car', auth, validator.postAd, carController.postAd);
+route.post('/order/:carId', auth, validator.purchaseOrder, carController.purchaseOrder);
 
 export default route;

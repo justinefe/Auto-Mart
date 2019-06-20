@@ -3,6 +3,7 @@ import chaihttp from 'chai-http';
 import app from '../app';
 import users from './datas/user';
 import cars from './datas/car';
+import orders from './datas/order';
 
 chai.use(chaihttp);
 const { expect } = chai;
@@ -117,7 +118,6 @@ describe('Post ads test', () => {
       .set('token', userToken)
       .send(cars[0])
       .end((err, res) => {
-        console.log(res.body, cars[0]);
         expect(res.statusCode).to.equal(201);
         expect(res.body).to.have.property('status');
         expect(res.body.status).to.equal(201);
@@ -165,6 +165,63 @@ describe('Post ads test', () => {
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(401);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
+describe('creates purchase order', () => {
+  it('should make a purchase order of an existing user', (done) => {
+    server()
+      .post(`${url}/order/1`)
+      .set('token', userToken)
+      .send(orders[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('it should not make a purchase order of a user who is not authenticated', (done) => {
+    server()
+      .post(`${url}/order/1`)
+      .send({
+        ...orders[0],
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an order without a purchase price', (done) => {
+    server()
+      .post(`${url}/order/1`)
+      .set('token', userToken)
+      .send({
+        ...orders[0],
+        priceOffered: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an order of a car that does not exist', (done) => {
+    server()
+      .post(`${url}/order/15558`)
+      .set('token', userToken)
+      .send({
+        ...orders[0],
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
         expect(res.body).to.have.property('error');
         done();
       });
