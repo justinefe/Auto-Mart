@@ -1,5 +1,5 @@
 import { hash, unhash } from '../helpers/passwordHash';
-import token from '../helpers/token';
+import { token } from '../helpers/token';
 import pool from '../config/config';
 
 class userController {
