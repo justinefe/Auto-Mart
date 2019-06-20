@@ -14,6 +14,19 @@ class Validator {
     }
     return next();
   }
+
+  static signin(req, res, next) {
+    joi.validate(req.body, schema.signin, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validator;

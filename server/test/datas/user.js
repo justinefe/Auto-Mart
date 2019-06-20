@@ -36,6 +36,10 @@ const user = [
     email: 'efeoghenejustinl3@gmail.com',
     password: 'cookies',
   },
+  {
+    email: 'jjviolet@gmail.com',
+    password: 'cookies',
+  },
 ];
 
 export default user;

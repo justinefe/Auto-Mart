@@ -9,6 +9,11 @@ const schema = {
       .required(),
     address: joi.string().required(),
   }),
+  signin: joi.object().keys({
+    email: joi.string().email().required(),
+    password: joi.string().alphanum().min(6).max(8)
+      .required(),
+  }),
 };
 
 export default schema;

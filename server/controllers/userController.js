@@ -1,4 +1,4 @@
-import hash from '../helpers/passwordHash';
+import { hash, unhash } from '../helpers/passwordHash';
 import token from '../helpers/token';
 import pool from '../config/config';
 
@@ -18,7 +18,7 @@ class userController {
       }
 
       const isAdmin = false;
-      const hashPassword = hash.hash(password);
+      const hashPassword = hash(password);
       newUser = {
         firstName, lastName, email, address, hashPassword, isAdmin,
       };
@@ -39,8 +39,41 @@ class userController {
     return res.status(201).json({
       status: 201,
       data: {
-        token: token.token({ id }), id, firstName, lastName, email,
+        token: token({ id }), id, firstName, lastName, email,
       },
+    });
+  }
+
+  static async signin(req, res) {
+    const {
+      email, password,
+    } = req.body;
+    try {
+      const checkUser = await pool.query('SELECT * from users where email = $1', [email]);
+      if (checkUser.rows[0]) {
+        const passwordState = unhash(password, checkUser.rows[0].hashpassword);
+        if (passwordState) {
+          return res.status(200).json({
+            status: 200,
+            data: {
+              token: token({ id: checkUser.rows[0].id }),
+              id: checkUser.rows[0].id,
+              firstName: checkUser.rows[0].firstname,
+              lastName: checkUser.rows[0].lastname,
+              email: checkUser.rows[0].email,
+            },
+          });
+        }
+      }
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'Account Not Found',
     });
   }
 }
