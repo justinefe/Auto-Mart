@@ -27,6 +27,25 @@ class Validator {
       return next();
     });
   }
+
+  static postAd(req, res, next) {
+    const {
+      manufacturer, state, model, price, bodyType,
+    } = req.body;
+    const newObject = {
+      manufacturer, state, model, price, bodyType,
+    };
+    joi.validate(newObject, schema.postAd, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validator;

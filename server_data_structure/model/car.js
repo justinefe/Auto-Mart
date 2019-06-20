@@ -1,25 +1,25 @@
 const car = [
   {
     id: 1,
-    owner: 1, 
+    owner: 1,
     createdOn: new Date(),
     state: 'new',
     status: 'available',
     price: 2000000,
     manufacturer: 'Toyota',
     model: 'pathfinder',
-    bodyType: 'car'
+    bodyType: 'car',
   },
   {
     id: 2,
-    owner: 2, 
+    owner: 2,
     createdOn: new Date(),
     state: 'new',
     status: 'available',
     price: 2500000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck'
+    bodyType: 'truck',
   },
   {
     id: 3,
@@ -30,40 +30,40 @@ const car = [
     price: 2500000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck'
+    bodyType: 'truck',
   },
   {
     id: 4,
-    owner: 4, 
+    owner: 4,
     createdOn: new Date(),
     state: 'new',
     status: 'available',
     price: 5000000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck'
+    bodyType: 'truck',
   },
   {
     id: 5,
-    owner: 2, 
+    owner: 2,
     createdOn: new Date(),
     state: 'new',
     status: 'sold',
     price: 5000000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck'
+    bodyType: 'truck',
   },
   {
     id: 6,
-    owner: 2, 
+    owner: 2,
     createdOn: new Date(),
     state: 'used',
     status: 'sold',
     price: 4000000,
     manufacturer: 'Toyota',
     model: '530',
-    bodyType: 'SUV'
+    bodyType: 'SUV',
   },
 ];
 

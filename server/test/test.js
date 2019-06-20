@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from '../app';
 import users from './datas/user';
+import cars from './datas/car';
 
 chai.use(chaihttp);
 const { expect } = chai;
@@ -77,7 +78,6 @@ describe('Login tests', () => {
       .post(`${url}/auth/signin`)
       .send(users[6])
       .end((err, res) => {
-        console.log(res.body);
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('token');
@@ -92,7 +92,6 @@ describe('Login tests', () => {
       .post(`${url}/auth/signin`)
       .send(users[5])
       .end((err, res) => {
-        console.log(res.body);
         expect(res.statusCode).to.equal(400);
         expect(res.body).to.have.property('error');
         done();
@@ -104,8 +103,68 @@ describe('Login tests', () => {
       .post(`${url}/auth/signin`)
       .send(users[7])
       .end((err, res) => {
-        console.log(res.body);
         expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
+describe('Post ads test', () => {
+  it('should be able to create an ads with correct details', (done) => {
+    server()
+      .post(`${url}/car`)
+      .set('token', userToken)
+      .send(cars[0])
+      .end((err, res) => {
+        console.log(res.body, cars[0]);
+        expect(res.statusCode).to.equal(201);
+        expect(res.body).to.have.property('status');
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+
+  it('should not create an ads of a user that is not authenticated', (done) => {
+    server()
+      .post(`${url}/car`)
+      .send({
+        ...cars[0],
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an ads without manufacturer', (done) => {
+    server()
+      .post(`${url}/car`)
+      .set('token', userToken)
+      .send({
+        ...cars[0],
+        manufacturer: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not create an ads with unauthorise token', (done) => {
+    server()
+      .post(`${url}/car`)
+      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTU1OTMxODcxMX0.LeWYi-mNv7bZvu1N3CsIKuHdCyqVpLDvRu0tgveZYnA')
+      .send({
+        ...cars[0],
+        manufacturer: '',
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
