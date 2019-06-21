@@ -19,7 +19,8 @@ const carTable = `CREATE TABLE IF NOT EXISTS cars(
   price float,
   manufacturer text NOT NULL,
   model text NOT NULL,
-  bodytype text NOT NULL 
+  bodytype text NOT NULL,
+  image_url VARCHAR 
 );
 `;
 const orderTable = `CREATE TABLE IF NOT EXISTS orders(
@@ -55,7 +56,7 @@ const createTable = async () => {
   const order = {
     text: `INSERT INTO orders (email, car_id, price_offered, price, status)
       VALUES($1, $2, $3, $4, $5)`,
-    values: ['email@email.com', '2', '400000.58', '600000.23', 'pending'],
+    values: (['justin@yahoo.com', '2', '400000.58', '600000.23', 'pending'], ['justin@yahoo.com', '3', '400000.58', '600000.23', 'approved']),
   };
 
   try {

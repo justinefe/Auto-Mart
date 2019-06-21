@@ -61,6 +61,21 @@ class Validator {
       return next();
     });
   }
+
+  static updateOrder(req, res, next) {
+    const { newPriceOffered } = req.body;
+    const obj = { newPriceOffered };
+    joi.validate(obj, schema.updateOrder, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
+  }
 }
 
 export default Validator;
