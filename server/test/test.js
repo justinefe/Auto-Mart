@@ -227,3 +227,39 @@ describe('creates purchase order', () => {
       });
   });
 });
+
+describe('updatePurchase', () => {
+   it('should not update price of a user who is not authenticated', (done) => {
+    server()
+      .patch(`${url}/order/777/price`)
+      .send(orders[2])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.a.property('error');
+        done();
+      });
+  });
+    it('should not update price of an order when the resource can not be found', (done) => {
+    server()
+      .patch(`${url}/order/888/price`)
+      .set('token', userToken)
+      .send(orders[1])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+ 
+  it('should not update price of an order without newPriceOffered', (done) => {
+    server()
+      .patch(`${url}/order/1/price`)
+      .set('token', userToken)
+      .send({ newPriceOffered: '' })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
