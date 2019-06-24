@@ -62,10 +62,25 @@ class Validator {
     });
   }
 
-  static updateOrder(req, res, next) {
+  static updateOrderPrice(req, res, next) {
     const { newPriceOffered } = req.body;
     const obj = { newPriceOffered };
-    joi.validate(obj, schema.updateOrder, (err) => {
+    joi.validate(obj, schema.updateOrderPrice, (err) => {
+      if (err) {
+        const error = err.details[0].message;
+        return res.status(400).json({
+          status: 400,
+          error: error.replace(/"/gi, ''),
+        });
+      }
+      return next();
+    });
+  }
+  
+  static updateAd(req, res, next) {
+    const { newPrice } = req.body;
+    const obj = { newPrice };
+    joi.validate(obj, schema.updateAd, (err) => {
       if (err) {
         const error = err.details[0].message;
         return res.status(400).json({

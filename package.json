@@ -6,11 +6,12 @@
   "scripts": {
     "create": "babel-node server/migrations/createTables.js",
     "createtest": "cross-env NODE_ENV=test babel-node server/migrations/createTables.js",
-    "drop": "cross-env NODE_ENV=test babel-node server/migrations/deleteTables.js",
+    "drop": "cross-env NODE_ENV=production babel-node server/migrations/deleteTables.js",
+    "droptest": "cross-env NODE_ENV=test babel-node server/migrations/deleteTables.js",
     "hash": "babel-node server/helpers/passwordHash",
-    "start": "NODE_ENV=production rimraf dist/ && babel ./server -d dist && node dist/app.js",
+    "start": "NODE_ENV=productionn rimraf dist/ && babel ./server -d dist && node dist/app.js",
     "startdev": "nodemon --exec babel-node server/app.js",
-    "test": " npm run drop && npm run createtest && cross-env NODE_ENV=test nyc --require @babel/register mocha server/test --exit",
+    "test": " npm run droptest && npm run createtest && cross-env NODE_ENV=test nyc --require @babel/register mocha server/test --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rimraf dist/ && babel ./server -d dist"
   },
