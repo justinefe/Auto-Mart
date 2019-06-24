@@ -263,3 +263,49 @@ describe('updatePurchase', () => {
       });
   });
 });
+
+describe('updateCarStatus', () => {
+  it('should mark posted ads sold order update', (done) => {
+    server()
+      .patch(`${url}/car/4/status`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('should not update the car status of a user who is not authenticated', (done) => {
+    server()
+      .patch(`${url}/car/1/status`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.a.property('error');
+        done();
+      });
+  });
+  it('should not update status of a sold car', (done) => {
+    server()
+      .patch(`${url}/car/4/status`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('should not update status of a car that can not be found', (done) => {
+    server()
+      .patch(`${url}/car/777/status`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
