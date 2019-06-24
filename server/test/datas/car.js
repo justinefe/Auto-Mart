@@ -6,6 +6,7 @@ const car = [
     manufacturer: 'Toyota',
     model: 'pathfinder',
     bodyType: 'car',
+    newPrice: 60000044,
   },
   {
     state: 'new',
@@ -38,6 +39,7 @@ const car = [
     manufacturer: 'Toyota',
     model: 'hilux',
     bodyType: 'truck',
+    newPrice: 80000000,
   },
   {
     state: 'used',
@@ -46,6 +48,10 @@ const car = [
     manufacturer: 'Toyota',
     model: '530',
     bodyType: 'SUV',
+    newPrice: 9000000,
+  },
+  {
+    newPrice: '',
   },
 ];
 

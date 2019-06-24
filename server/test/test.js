@@ -229,7 +229,20 @@ describe('creates purchase order', () => {
 });
 
 describe('updatePurchase', () => {
-   it('should not update price of a user who is not authenticated', (done) => {
+  it('should create purchase order update', (done) => {
+    server()
+      .patch(`${url}/order/2/price`)
+      .set('token', userToken)
+      .send(orders[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('should not update price of a user who is not authenticated', (done) => {
     server()
       .patch(`${url}/order/777/price`)
       .send(orders[2])
@@ -239,7 +252,7 @@ describe('updatePurchase', () => {
         done();
       });
   });
-    it('should not update price of an order when the resource can not be found', (done) => {
+  it('should not update price of an order when the resource can not be found', (done) => {
     server()
       .patch(`${url}/order/888/price`)
       .set('token', userToken)
@@ -309,3 +322,63 @@ describe('updateCarStatus', () => {
   });
 });
 
+describe('update Ads price', () => {
+  it('it should update the price of a posted Ads', (done) => {
+    server()
+      .patch(`${url}/car/4/price`)
+      .set('token', userToken)
+      .send(cars[4])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+  it('should not update the price of a posted Ads of a user who is not authenticated', (done) => {
+    server()
+      .patch(`${url}/car/1/price`)
+      .set('token', userToken)
+      .send(cars[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.a.property('error');
+        done();
+      });
+  });
+  it('should not update price of an Ads that does not exist', (done) => {
+    server()
+      .patch(`${url}/car/99/price`)
+      .set('token', userToken)
+      .send(cars[4])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not update price of an Ads posted by another user', (done) => {
+    server()
+      .patch(`${url}/car/1/price`)
+      .set('token', userToken)
+      .send(cars[4])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('should not update price of an Ads posted without the correct input field', (done) => {
+    server()
+      .patch(`${url}/car/4/price`)
+      .set('token', userToken)
+      .send(cars[6])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});

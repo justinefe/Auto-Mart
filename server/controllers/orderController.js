@@ -52,17 +52,13 @@ class orderController {
           error: 'Order Not Found',
         });
       }
-      await pool.query('UPDATE orders SET price_offered = $1 WHERE id = $2', [newPriceOffered, Number(orderId)]);
-      const { car_id, status, price_offered } = orderDetails.rows[0];
+      const { price_offered } = orderDetails.rows[0];
+      const newOrderDetails = await pool.query('UPDATE orders SET price_offered = $1 WHERE id = $2 RETURNING id, car_id, status', [newPriceOffered, Number(orderId)]);
+      newOrderDetails.rows[0].old_price_offered = price_offered;
+      newOrderDetails.rows[0].new_price_offered = newPriceOffered;
       return res.status(201).json({
         status: 201,
-        data: {
-          orderId,
-          car_id,
-          status,
-          old_price_offered: price_offered,
-          new_price_offered: newPriceOffered,
-        },
+        data: newOrderDetails.rows[0],
       });
     } catch (error) {
       return res.status(500).json({

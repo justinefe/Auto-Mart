@@ -40,32 +40,72 @@ class carController {
 
   static async updateCarStatus(req, res) {
     const { carId } = req.params;
-    const { id } = req.user;
-    const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
-    if (!carDetails.rows[0]) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Car Not Found',
-      });
-    }
-    if (id !== carDetails.rows[0].owner) {
-      return res.status(403).json({
-        status: 403,
-        error: 'Unauthorized user',
-      });
-    }
+    const { id, email } = req.user;
+    try {
+      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      if (!carDetails.rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Car Not Found',
+        });
+      }
+      if (id !== carDetails.rows[0].owner) {
+        return res.status(403).json({
+          status: 403,
+          error: 'Unauthorized user',
+        });
+      }
 
-    if (carDetails.rows[0].status !== 'sold') {
-      await pool.query('UPDATE cars SET status = \'sold\' WHERE id = $1', [Number(carId)]);
-      return res.status(201).json({
-        status: 201,
-        data: carDetails.rows[0],
+      if (carDetails.rows[0].status !== 'sold') {
+        const newCarDetails = await pool.query('UPDATE cars SET status = \'sold\' WHERE id = $1   RETURNING id, created_on, manufacturer, model, price, state, status', [Number(carId)]);
+        newCarDetails.rows[0].email = email;
+        return res.status(201).json({
+          status: 201,
+          data: newCarDetails.rows[0],
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
       });
     }
     return res.status(400).json({
       status: 400,
       error: 'Car Already Sold',
     });
+  }
+
+  static async updateAd(req, res) {
+    const { newPrice } = req.body;
+    const { carId } = req.params;
+    const { id, email } = req.user;
+    try {
+      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      if (!carDetails.rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Car Not Found',
+        });
+      }
+      if (id !== carDetails.rows[0].owner) {
+        return res.status(403).json({
+          status: 403,
+          error: 'Unauthorized user',
+        });
+      }
+      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status;', [newPrice, Number(carId)]);
+      newCarDetails.rows[0].email = email;
+      return res.status(201).json({
+        status: 201,
+        data: newCarDetails.rows[0],
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
+      });
+    }
   }
 }
 export default carController;

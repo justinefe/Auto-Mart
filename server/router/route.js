@@ -14,5 +14,7 @@ route.post('/car', auth, validator.postAd, carController.postAd);
 route.post('/order/:carId', auth, validator.purchaseOrder, orderController.purchaseOrder);
 route.patch('/order/:orderId/price', auth, validator.updateOrderPrice, orderController.updateOrderPrice);
 route.patch('/car/:carId/status', auth, carController.updateCarStatus);
+route.patch('/car/:carId/price', auth, validator.updateAd, carController.updateAd);
+
 
 export default route;
