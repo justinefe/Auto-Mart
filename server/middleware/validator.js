@@ -106,6 +106,25 @@ class Validator {
       return next();
     });
   }
+
+  static viewCars(req, res, next) {
+    const { status, minPrice, maxPrice } = req.query;
+    const obj = { status, minPrice, maxPrice };
+    const { isAdmin } = req.user;
+    if (isAdmin === false) {
+      joi.validate(obj, schema.viewCars, (err) => {
+        if (err) {
+          const error = err.details[0].message;
+          return res.status(400).json({
+            status: 400,
+            error: error.replace(/"/gi, ''),
+          });
+        }
+        return next();
+      });
+    }
+    return next();
+  }
 }
 
 export default Validator;

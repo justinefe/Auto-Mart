@@ -34,6 +34,11 @@ const schema = {
   viewACar: joi.object().keys({
     carId: joi.number().required(),
   }),
+  viewCars: joi.object().keys({
+    status: joi.string().valid('available'),
+    minPrice: joi.number(),
+    maxPrice: joi.number(),
+  }),
 };
 
 export default schema;

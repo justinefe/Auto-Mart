@@ -18,7 +18,7 @@ const isAuthenthicated = (req, res, next) => {
   }
   return res.status(403).json({
     status: 403,
-    error: 'Unauthorizedhjklkl',
+    error: 'Unauthorized',
   });
 };
 
