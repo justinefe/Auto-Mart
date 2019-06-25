@@ -6,7 +6,6 @@ class carController {
       manufacturer, model, price, state, body_type, image_url,
     } = req.body;
     const { id } = req.user;
-    // let newAd;
     try {
       const newAds = {
         owner: id,
@@ -119,6 +118,27 @@ class carController {
       return res.status(201).json({
         status: 201,
         data: carDetails.rows[0],
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  static async viewCars(req, res) {
+    const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = \'available\'');
+    try {
+      if (allAvailableUnsoldCars.rows[0]) {
+        return res.status(201).json({
+          status: 201,
+          data: allAvailableUnsoldCars.rows,
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'Unsold Cars Not Found',
       });
     } catch (error) {
       return res.status(500).json({

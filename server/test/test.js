@@ -418,3 +418,15 @@ describe('get a specific car', () => {
       });
   });
 });
+describe('User can view all unsold cars', () => {
+  it('should view all unsold cars ', (done) => {
+    server()
+      .get(`${url}/car?status=available`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+});

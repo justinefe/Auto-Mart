@@ -16,6 +16,7 @@ route.patch('/order/:orderId/price', auth, validator.updateOrderPrice, orderCont
 route.patch('/car/:carId/status', auth, carController.updateCarStatus);
 route.patch('/car/:carId/price', auth, validator.updateAd, carController.updateAd);
 route.get('/car/:carId', auth, validator.viewACar, carController.viewACar);
+route.get('/car', auth, validator.viewCars, carController.viewCars);
 
 
 export default route;
