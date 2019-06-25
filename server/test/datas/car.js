@@ -5,7 +5,8 @@ const car = [
     price: 2000000,
     manufacturer: 'Toyota',
     model: 'pathfinder',
-    bodyType: 'car',
+    body_type: 'car',
+    image_url: 'fghjhjk',
     newPrice: 60000044,
   },
   {
@@ -14,7 +15,8 @@ const car = [
     price: 2500000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck',
+    body_type: 'truck',
+    image_url: 'fghjhjk',
   },
   {
     state: 'new',
@@ -22,7 +24,8 @@ const car = [
     price: 2500000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck',
+    image_url: 'fghjhjk',
+    body_type: 'truck',
   },
   {
     state: 'new',
@@ -30,7 +33,8 @@ const car = [
     price: 5000000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck',
+    image_url: 'fghjhjk',
+    body_type: 'truck',
   },
   {
     state: 'new',
@@ -38,7 +42,8 @@ const car = [
     price: 5000000,
     manufacturer: 'Toyota',
     model: 'hilux',
-    bodyType: 'truck',
+    image_url: 'fghjhjk',
+    body_type: 'truck',
     newPrice: 80000000,
   },
   {
@@ -47,10 +52,12 @@ const car = [
     price: 4000000,
     manufacturer: 'Toyota',
     model: '530',
-    bodyType: 'SUV',
+    body_type: 'SUV',
+    image_url: 'fghjhjk',
     newPrice: 9000000,
   },
   {
+    image_url: 'fghjhjk',
     newPrice: '',
   },
 ];
