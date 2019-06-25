@@ -3,10 +3,10 @@ import pool from '../config/config';
 class carController {
   static async postAd(req, res) {
     const {
-      manufacturer, model, price, state, bodyType, imageUrl,
+      manufacturer, model, price, state, body_type, image_url,
     } = req.body;
     const { id } = req.user;
-    let newAd;
+    // let newAd;
     try {
       const newAds = {
         owner: id,
@@ -15,27 +15,25 @@ class carController {
         price,
         manufacturer,
         model,
-        bodyType,
-        image_url: imageUrl,
+        body_type,
+        image_url,
       };
       const keys = Object.keys(newAds);
       const values = Object.values(newAds);
       const insert = {
-        text: `INSERT into cars (${[...keys]}) values ($1, $2, $3, $4, $5, $6, $7, $8) returning *`, values,
+        text: `INSERT into cars (${[...keys]}) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id, owner, created_on, state, status, price, manufacturer, model, body_type`, values,
       };
-      newAd = await pool.query(insert);
+      const newAd = await pool.query(insert);
+      return res.status(201).json({
+        status: 201,
+        data: newAd.rows[0],
+      });
     } catch (error) {
       return res.status(500).json({
         status: 500,
         error: 'Internal server error',
       });
     }
-    return res.status(201).json({
-      status: 201,
-      data:
-        newAd.rows[0]
-      ,
-    });
   }
 
   static async updateCarStatus(req, res) {
@@ -94,11 +92,33 @@ class carController {
           error: 'Unauthorized user',
         });
       }
-      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status;', [newPrice, Number(carId)]);
+      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [newPrice, Number(carId)]);
       newCarDetails.rows[0].email = email;
       return res.status(201).json({
         status: 201,
         data: newCarDetails.rows[0],
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  static async viewACar(req, res) {
+    const { carId } = req.params;
+    try {
+      const carDetails = await pool.query('SELECT id, owner, created_on, state, status, price, manufacturer, model, body_type from cars where id = $1', [Number(carId)]);
+      if (!carDetails.rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Car Not Found',
+        });
+      }
+      return res.status(201).json({
+        status: 201,
+        data: carDetails.rows[0],
       });
     } catch (error) {
       return res.status(500).json({

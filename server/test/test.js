@@ -119,7 +119,6 @@ describe('Post ads test', () => {
       .send(cars[0])
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
-        expect(res.body).to.have.property('status');
         expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
@@ -375,6 +374,43 @@ describe('update Ads price', () => {
       .patch(`${url}/car/4/price`)
       .set('token', userToken)
       .send(cars[6])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
+describe('get a specific car', () => {
+  it('should get a specific car', (done) => {
+    server()
+      .get(`${url}/car/1`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        done();
+      });
+  });
+
+  it('should not view a car that can not be found', (done) => {
+    server()
+      .get(`${url}/car/88`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not view a car with invalid request parameter ', (done) => {
+    server()
+      .get(`${url}/car/g`)
+      .set('token', userToken)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
         expect(res.body).to.have.property('error');

@@ -19,7 +19,7 @@ const carTable = `CREATE TABLE IF NOT EXISTS cars(
   price float,
   manufacturer text NOT NULL,
   model text NOT NULL,
-  bodytype text NOT NULL,
+  body_type text NOT NULL,
   image_url VARCHAR 
 );
 `;
@@ -53,36 +53,36 @@ const createTable = async () => {
     values: ['Kanayo', 'Aass', 'fejude3@rocketmail.com', '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6', '15 airport road', false],
   };
   const car1 = {
-    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, image_url)
+    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, body_type, image_url)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     values: [1, 'new', 'available', '2000000', 'Toyota', 'pathfinder', 'car', 'wwwrfgyjmg'],
   };
   const car2 = {
-    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, image_url)
+    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, body_type, image_url)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     values: [2, 'new', 'available', '2500000', 'Toyota', 'hilux', 'truck', 'jhfjgf'],
   };
 
   const car3 = {
-    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, image_url)
+    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, body_type, image_url)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     values: [3, 'new', 'available', '2000000', 'Toyota', 'pathfinder', 'car', 'hgfhgf'],
   };
 
   const car4 = {
-    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, image_url)
+    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, body_type, image_url)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     values: [4, 'new', 'available', '5000000', 'Toyota', 'hilux', 'truck', 'yfjffgh'],
   };
 
   const car5 = {
-    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, image_url)
+    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, body_type, image_url)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     values: [2, 'new', 'sold', '5000000', 'Toyota', 'pathfinder', 'car', 'fjhkjjjjjjjh'],
   };
 
   const car6 = {
-    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, bodytype, image_url)
+    text: `INSERT INTO cars (owner, state, status, price, manufacturer, model, body_type, image_url)
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)`,
     values: [2, 'used', 'sold', '4000000', 'Toyota', '530', 'SUV', 'fjhkjjjjjjjh'],
   };
