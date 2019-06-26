@@ -157,13 +157,13 @@ describe('Post ads test', () => {
   it('should not create an ads with unauthorise token', (done) => {
     server()
       .post(`${url}/car`)
-      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTU1OTMxODcxMX0.LeWYi-mNv7bZvu1N3CsIKuHdCyqVpLDvRu0tgveZYnA')
+      .set('tok', userToken)
       .send({
         ...cars[0],
         manufacturer: '',
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(401);
+        expect(res.statusCode).to.equal(403);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -262,7 +262,7 @@ describe('updatePurchase', () => {
         done();
       });
   });
- 
+
   it('should not update price of an order without newPriceOffered', (done) => {
     server()
       .patch(`${url}/order/1/price`)
@@ -426,6 +426,94 @@ describe('User can view all unsold cars', () => {
       .end((err, res) => {
         expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should view all unsold cars within a given price range', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=2000000&maxPrice=5000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+
+  it('should not view all unsold cars within a range when the maxPrice is not given', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=4000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not view all unsold cars within a range when the maxPrice is not given', (done) => {
+    server()
+      .get(`${url}/car?status=available&maxPrice=4000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should not view all unsold cars that are outside the range specified', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=40000000&maxPrice=50000000`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('Users should not view all cars', (done) => {
+    server()
+      .get(`${url}/car?status=pending`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
+
+describe('Admin can delete a posted Ad record', () => {
+  it('Admin should delete a posted ad', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+  it('admin should not delete a car that can not  be found', (done) => {
+    server()
+      .delete(`${url}/car/8856556`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('admin should not delete a car that can not  be found', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(403);
+        expect(res.body).to.have.property('error');
         done();
       });
   });

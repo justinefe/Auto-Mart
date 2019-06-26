@@ -1,31 +1,40 @@
+/* eslint-disable camelcase */
 import joi from 'joi';
 import schema from '../helpers/schema';
 
+const validateJoi = (reqBody, resSchema) => {
+  const error = joi.validate(reqBody, resSchema, (err) => {
+    if (err) {
+      let joiError = err.details[0].message;
+      joiError = joiError.replace(/"/gi, '');
+      return joiError;
+    }
+    return undefined;
+  });
+  return error;
+};
+
 class Validator {
   static signup(req, res, next) {
-    const isError = joi.validate(req.body, schema.signup, (err) => {
-      if (err) { return err; }
-    });
-    if (isError) {
+    const error = validateJoi(req.body, schema.signup);
+    if (error) {
       return res.status(400).json({
         status: 400,
-        error: isError.details[0].message,
+        error,
       });
     }
     return next();
   }
 
   static signin(req, res, next) {
-    joi.validate(req.body, schema.signin, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const error = validateJoi(req.body, schema.signin);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
+    return next();
   }
 
   static postAd(req, res, next) {
@@ -35,92 +44,76 @@ class Validator {
     const newObject = {
       manufacturer, state, model, price, body_type, image_url,
     };
-    joi.validate(newObject, schema.postAd, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const error = validateJoi(newObject, schema.postAd);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
+    return next();
   }
 
   static purchaseOrder(req, res, next) {
     const { priceOffered } = req.body;
     const obj = { priceOffered };
-    joi.validate(obj, schema.purchaseOrder, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const error = validateJoi(obj, schema.purchaseOrder);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
+    return next();
   }
 
   static updateOrderPrice(req, res, next) {
     const { newPriceOffered } = req.body;
     const obj = { newPriceOffered };
-    joi.validate(obj, schema.updateOrderPrice, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const error = validateJoi(obj, schema.updateOrderPrice);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
+    return next();
   }
 
   static updateAd(req, res, next) {
     const { newPrice } = req.body;
     const obj = { newPrice };
-    joi.validate(obj, schema.updateAd, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const error = validateJoi(obj, schema.updateAd);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
+    return next();
   }
 
   static viewACar(req, res, next) {
     const { carId } = req.params;
     const obj = { carId };
-    joi.validate(obj, schema.viewACar, (err) => {
-      if (err) {
-        const error = err.details[0].message;
-        return res.status(400).json({
-          status: 400,
-          error: error.replace(/"/gi, ''),
-        });
-      }
-      return next();
-    });
+    const error = validateJoi(obj, schema.viewACar);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
+    return next();
   }
 
   static viewCars(req, res, next) {
     const { status, minPrice, maxPrice } = req.query;
     const obj = { status, minPrice, maxPrice };
-    const { isAdmin } = req.user;
-    if (isAdmin === false) {
-      joi.validate(obj, schema.viewCars, (err) => {
-        if (err) {
-          const error = err.details[0].message;
-          return res.status(400).json({
-            status: 400,
-            error: error.replace(/"/gi, ''),
-          });
-        }
-        return next();
+    const error = validateJoi(obj, schema.viewCars);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
       });
     }
     return next();
