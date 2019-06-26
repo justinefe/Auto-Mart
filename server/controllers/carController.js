@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import pool from '../config/config';
 
 class carController {
@@ -128,24 +129,53 @@ class carController {
   }
 
   static async viewCars(req, res) {
-    const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = \'available\'');
+    const { minPrice, maxPrice } = req.query;
+    const { isAdmin } = req.user;
     try {
-      if (allAvailableUnsoldCars.rows[0]) {
+      const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = \'available\'');
+      if (isAdmin !== true) {
+        if (allAvailableUnsoldCars.rows[0] && minPrice && !maxPrice) {
+          return res.status(400).json({
+            status: 400,
+            error: 'No Available Cars',
+          });
+        }
+
+        if (allAvailableUnsoldCars.rows[0] && !minPrice && maxPrice) {
+          return res.status(400).json({
+            status: 400,
+            error: 'No Available Cars',
+          });
+        }
+
+        if (allAvailableUnsoldCars.rows[0] && !minPrice && !maxPrice) {
+          return res.status(201).json({
+            status: 201,
+            data: allAvailableUnsoldCars.rows,
+          });
+        }
+        const allAvailableUnsoldCarsWithinRange = await pool.query('SELECT * FROM cars WHERE status = \'available\' AND price BETWEEN  $1 AND  $2', [Number(minPrice), Number(maxPrice)]);
+        if (!allAvailableUnsoldCarsWithinRange.rows[0]) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Cars Not Found',
+          });
+        }
         return res.status(201).json({
           status: 201,
-          data: allAvailableUnsoldCars.rows,
+          data: allAvailableUnsoldCarsWithinRange.rows,
         });
       }
-      return res.status(404).json({
-        status: 404,
-        error: 'Unsold Cars Not Found',
-      });
     } catch (error) {
       return res.status(500).json({
         status: 500,
         error: 'Internal server error',
       });
     }
+    return res.status(403).json({
+      status: 403,
+      error: 'Unauthorized Route',
+    });
   }
 }
 export default carController;

@@ -7,7 +7,7 @@ const userTable = ` CREATE TABLE IF NOT EXISTS users(
     email text NOT NULL,
     hashpassword text NOT NULL,
     address text NOT NULL,
-    isAdmin text NOT NULL
+    isAdmin boolean NOT NULL
 );
 `;
 const carTable = `CREATE TABLE IF NOT EXISTS cars(
