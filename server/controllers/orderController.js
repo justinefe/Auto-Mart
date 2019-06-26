@@ -1,4 +1,5 @@
 import pool from '../config/config';
+/* eslint-disable camelcase */
 
 class orderController {
   static async purchaseOrder(req, res) {

@@ -129,11 +129,11 @@ class carController {
   }
 
   static async viewCars(req, res) {
-    const { minPrice, maxPrice } = req.query;
+    const { status, minPrice, maxPrice } = req.query;
     const { isAdmin } = req.user;
+    const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = \'available\'');
     try {
-      const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = \'available\'');
-      if (isAdmin !== true) {
+      if (!isAdmin && (status || minPrice || maxPrice)) {
         if (allAvailableUnsoldCars.rows[0] && minPrice && !maxPrice) {
           return res.status(400).json({
             status: 400,
@@ -166,16 +166,22 @@ class carController {
           data: allAvailableUnsoldCarsWithinRange.rows,
         });
       }
+      if (isAdmin && (!status && !minPrice && !maxPrice)) {
+        const cars = await pool.query('SELECT * from cars');
+        return res.status(201).json({
+          status: 201,
+          data: cars.rows,
+        });
+      } return res.status(403).json({
+        status: 403,
+        error: 'Unauthorized route',
+      });
     } catch (error) {
       return res.status(500).json({
         status: 500,
         error: 'Internal server error',
       });
     }
-    return res.status(403).json({
-      status: 403,
-      error: 'Unauthorized Route',
-    });
   }
 
   static async adminDelete(req, res) {
