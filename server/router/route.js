@@ -10,13 +10,14 @@ const route = express();
 route.get('/', autoController.welcome);
 route.post('/auth/signup', validator.signup, userController.signup);
 route.post('/auth/signin', validator.signin, userController.signin);
-route.post('/car', auth, validator.postAd, carController.postAd);
-route.post('/order/:carId', auth, validator.purchaseOrder, orderController.purchaseOrder);
-route.patch('/order/:orderId/price', auth, validator.updateOrderPrice, orderController.updateOrderPrice);
-route.patch('/car/:carId/status', auth, carController.updateCarStatus);
-route.patch('/car/:carId/price', auth, validator.updateAd, carController.updateAd);
-route.get('/car/:carId', auth, validator.viewACar, carController.viewACar);
-route.get('/car', auth, validator.viewCars, carController.viewCars);
+route.post('/car', auth.isAuthenthicated, validator.postAd, carController.postAd);
+route.post('/order/:carId', auth.isAuthenthicated, validator.purchaseOrder, orderController.purchaseOrder);
+route.patch('/order/:orderId/price', auth.isAuthenthicated, validator.updateOrderPrice, orderController.updateOrderPrice);
+route.patch('/car/:carId/status', auth.isAuthenthicated, carController.updateCarStatus);
+route.patch('/car/:carId/price', auth.isAuthenthicated, validator.updateAd, carController.updateAd);
+route.get('/car/:carId', auth.isAuthenthicated, validator.viewACar, carController.viewACar);
+route.get('/car', auth.isAuthenthicated, validator.viewCars, carController.viewCars);
+route.delete('/car/:carId', auth.isAuthenthicated, auth.isAdministrator, carController.adminDelete);
 
 
 export default route;

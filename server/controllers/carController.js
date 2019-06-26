@@ -177,5 +177,28 @@ class carController {
       error: 'Unauthorized Route',
     });
   }
+
+  static async adminDelete(req, res) {
+    const { carId } = req.params;
+    try {
+      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      if (!carDetails.rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Car Not Found',
+        });
+      }
+      await pool.query('DELETE FROM cars where id = $1 RETURNING id = $1', [Number(carId)]);
+      return res.status(201).json({
+        status: 201,
+        data: 'Car Ad successfully deleted',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal server error',
+      });
+    }
+  }
 }
 export default carController;

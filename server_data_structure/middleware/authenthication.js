@@ -1,6 +1,5 @@
 import { verifyToken } from '../helpers/token';
 import pool from '../config/config';
-// import users from '../model/user';
 
 
 const isAuthenthicated = async (req, res, next) => {

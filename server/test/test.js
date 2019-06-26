@@ -485,3 +485,36 @@ describe('User can view all unsold cars', () => {
       });
   });
 });
+
+describe('Admin can delete a posted Ad record', () => {
+  it('Admin should delete a posted ad', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(201);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+  it('admin should not delete a car that can not  be found', (done) => {
+    server()
+      .delete(`${url}/car/8856556`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('admin should not delete a car that can not  be found', (done) => {
+    server()
+      .delete(`${url}/car/1`)
+      .set('token', userToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+});
