@@ -23,7 +23,7 @@ const isAuthenthicated = async (req, res, next) => {
 };
 const isAdministrator = (req, res, next) => {
   const { isAdmin } = req.user;
-  if (isAdmin === false) {
+  if (!isAdmin) {
     return res.status(403).json({
       status: 403,
       error: 'Unauthorized route',
