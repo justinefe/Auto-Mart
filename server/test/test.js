@@ -118,8 +118,8 @@ describe('Post ads test', () => {
       .set('token', userToken)
       .send(cars[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -177,8 +177,8 @@ describe('creates purchase order', () => {
       .set('token', userToken)
       .send(orders[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -424,7 +424,7 @@ describe('User can view all unsold cars', () => {
       .get(`${url}/car?status=available`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(201);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         done();
       });
@@ -435,20 +435,9 @@ describe('User can view all unsold cars', () => {
       .get(`${url}/car?status=available&minPrice=2000000&maxPrice=5000000`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        done();
-      });
-  });
-
-  it('should not view all unsold cars within a range when the maxPrice is not given', (done) => {
-    server()
-      .get(`${url}/car?status=available&minPrice=4000000`)
-      .set('token', userToken)
-      .end((err, res) => {
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.have.property('error');
         done();
       });
   });
@@ -458,19 +447,8 @@ describe('User can view all unsold cars', () => {
       .get(`${url}/car?status=available&maxPrice=4000000`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
-
-  it('should not view all unsold cars that are outside the range specified', (done) => {
-    server()
-      .get(`${url}/car?status=available&minPrice=40000000&maxPrice=50000000`)
-      .set('token', userToken)
-      .end((err, res) => {
-        expect(res.body.status).to.equal(404);
-        expect(res.body).to.have.property('error');
+        expect(res.body.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });
@@ -481,6 +459,16 @@ describe('User can view all unsold cars', () => {
       .end((err, res) => {
         expect(res.body.status).to.equal(400);
         expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('Admin should not view cars by make or status or price range', (done) => {
+    server()
+      .get(`${url}/car`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(200);
+        expect(res.body).to.have.property('data');
         done();
       });
   });

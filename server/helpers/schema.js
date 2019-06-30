@@ -38,6 +38,7 @@ const schema = {
     status: joi.string().valid('available'),
     minPrice: joi.number(),
     maxPrice: joi.number(),
+    manufacturer: joi.string(),
   }),
 };
 
