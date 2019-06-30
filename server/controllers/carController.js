@@ -24,8 +24,8 @@ class carController {
         text: `INSERT into cars (${[...keys]}) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id, owner, created_on, state, status, price, manufacturer, model, body_type`, values,
       };
       const newAd = await pool.query(insert);
-      return res.status(201).json({
-        status: 201,
+      return res.status(200).json({
+        status: 200,
         data: newAd.rows[0],
       });
     } catch (error) {
@@ -129,47 +129,46 @@ class carController {
   }
 
   static async viewCars(req, res) {
-    const { status, minPrice, maxPrice } = req.query;
+    const {
+      status, minPrice, maxPrice, manufacturer,
+    } = req.query;
     const { isAdmin } = req.user;
-    const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = \'available\'');
     try {
-      if (!isAdmin && (status || minPrice || maxPrice)) {
-        if (allAvailableUnsoldCars.rows[0] && minPrice && !maxPrice) {
+      if (!isAdmin && status) {
+        const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = $1', [status]);
+        if (!allAvailableUnsoldCars.rows[0]) {
           return res.status(400).json({
             status: 400,
             error: 'No Available Cars',
           });
         }
-
-        if (allAvailableUnsoldCars.rows[0] && !minPrice && maxPrice) {
-          return res.status(400).json({
-            status: 400,
-            error: 'No Available Cars',
-          });
-        }
-
-        if (allAvailableUnsoldCars.rows[0] && !minPrice && !maxPrice) {
-          return res.status(201).json({
-            status: 201,
+        if (!minPrice && !maxPrice && !manufacturer) {
+          return res.status(200).json({
+            status: 200,
             data: allAvailableUnsoldCars.rows,
           });
         }
-        const allAvailableUnsoldCarsWithinRange = await pool.query('SELECT * FROM cars WHERE status = \'available\' AND price BETWEEN  $1 AND  $2', [Number(minPrice), Number(maxPrice)]);
-        if (!allAvailableUnsoldCarsWithinRange.rows[0]) {
+        let foundCars;
+        if (manufacturer) {
+          foundCars = await pool.query('SELECT * from cars WHERE status = $1 AND manufacturer = $2', [status, manufacturer]);
+        } else {
+          foundCars = await pool.query('SELECT * FROM cars WHERE status = $1 AND price BETWEEN  $2 AND  $3', [status, Number(minPrice), Number(maxPrice)]);
+        }
+        if (!foundCars) {
           return res.status(404).json({
             status: 404,
             error: 'Cars Not Found',
           });
         }
-        return res.status(201).json({
-          status: 201,
-          data: allAvailableUnsoldCarsWithinRange.rows,
+        return res.status(200).json({
+          status: 200,
+          data: foundCars.rows,
         });
       }
-      if (isAdmin && (!status && !minPrice && !maxPrice)) {
+      if (isAdmin) {
         const cars = await pool.query('SELECT * from cars');
-        return res.status(201).json({
-          status: 201,
+        return res.status(200).json({
+          status: 200,
           data: cars.rows,
         });
       } return res.status(403).json({

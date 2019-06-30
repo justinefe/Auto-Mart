@@ -30,8 +30,8 @@ class orderController {
         text: `INSERT into orders (${[...keys]}) values ($1, $2, $3, $4, $5) returning *`, values,
       };
       const newOrder = await pool.query(insert);
-      return res.status(201).json({
-        status: 201,
+      return res.status(200).json({
+        status: 200,
         data: { ...newOrder.rows[0] },
       });
     } catch (error) {
