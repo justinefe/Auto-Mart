@@ -30,8 +30,8 @@ class orderController {
         text: `INSERT into orders (${[...keys]}) values ($1, $2, $3, $4, $5) returning *`, values,
       };
       const newOrder = await pool.query(insert);
-      return res.status(200).json({
-        status: 200,
+      return res.status(201).json({
+        status: 201,
         data: { ...newOrder.rows[0] },
       });
     } catch (error) {
@@ -57,8 +57,8 @@ class orderController {
       const newOrderDetails = await pool.query('UPDATE orders SET price_offered = $1 WHERE id = $2 RETURNING id, car_id, status', [newPriceOffered, Number(orderId)]);
       newOrderDetails.rows[0].old_price_offered = price_offered;
       newOrderDetails.rows[0].new_price_offered = newPriceOffered;
-      return res.status(201).json({
-        status: 201,
+      return res.status(200).json({
+        status: 200,
         data: newOrderDetails.rows[0],
       });
     } catch (error) {

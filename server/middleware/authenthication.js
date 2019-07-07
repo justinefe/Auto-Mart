@@ -16,20 +16,30 @@ const isAuthenthicated = async (req, res, next) => {
     req.user = { id, email: checkUser.rows[0].email, isAdmin: checkUser.rows[0].isadmin };
     return next();
   }
-  return res.status(403).json({
-    status: 403,
+  return res.status(401).json({
+    status: 401,
     error: 'Unauthorized',
   });
 };
 const isAdministrator = (req, res, next) => {
   const { isAdmin } = req.user;
   if (!isAdmin) {
-    return res.status(403).json({
-      status: 403,
+    return res.status(401).json({
+      status: 401,
       error: 'Unauthorized route',
     });
   }
   return next();
 };
 
-export default { isAuthenthicated, isAdministrator };
+const isUser = (req, res, next) => {
+  const { isAdmin } = req.user;
+  if (isAdmin) {
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized route',
+    });
+  }
+  return next();
+};
+export default { isAuthenthicated, isAdministrator, isUser };
