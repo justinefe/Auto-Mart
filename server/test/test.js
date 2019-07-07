@@ -133,7 +133,7 @@ describe('Post ads test', () => {
         ...cars[0],
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -163,7 +163,7 @@ describe('Post ads test', () => {
         manufacturer: '',
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -177,8 +177,8 @@ describe('creates purchase order', () => {
       .set('token', userToken)
       .send(orders[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(200);
-        expect(res.body.status).to.equal(200);
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -191,7 +191,7 @@ describe('creates purchase order', () => {
         ...orders[0],
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -234,8 +234,8 @@ describe('updatePurchase', () => {
       .set('token', userToken)
       .send(orders[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -246,7 +246,7 @@ describe('updatePurchase', () => {
       .patch(`${url}/order/777/price`)
       .send(orders[2])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.a.property('error');
         done();
       });
@@ -282,8 +282,8 @@ describe('updateCarStatus', () => {
       .patch(`${url}/car/4/status`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -328,8 +328,8 @@ describe('update Ads price', () => {
       .set('token', userToken)
       .send(cars[4])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -388,8 +388,8 @@ describe('get a specific car', () => {
       .get(`${url}/car/1`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -402,6 +402,16 @@ describe('get a specific car', () => {
       .set('token', userToken)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('Admin should not view a specific', (done) => {
+    server()
+      .get(`${url}/car/88`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -480,7 +490,7 @@ describe('Admin can delete a posted Ad record', () => {
       .delete(`${url}/car/1`)
       .set('token', adminToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(201);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         done();
       });
@@ -500,7 +510,7 @@ describe('Admin can delete a posted Ad record', () => {
       .delete(`${url}/car/1`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(403);
+        expect(res.body.status).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });

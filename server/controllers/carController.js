@@ -57,8 +57,8 @@ class carController {
       if (carDetails.rows[0].status !== 'sold') {
         const newCarDetails = await pool.query('UPDATE cars SET status = \'sold\' WHERE id = $1   RETURNING id, created_on, manufacturer, model, price, state, status', [Number(carId)]);
         newCarDetails.rows[0].email = email;
-        return res.status(201).json({
-          status: 201,
+        return res.status(200).json({
+          status: 200,
           data: newCarDetails.rows[0],
         });
       }
@@ -89,13 +89,13 @@ class carController {
       if (id !== carDetails.rows[0].owner) {
         return res.status(403).json({
           status: 403,
-          error: 'Unauthorized user',
+          error: 'Access denied',
         });
       }
       const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [newPrice, Number(carId)]);
       newCarDetails.rows[0].email = email;
-      return res.status(201).json({
-        status: 201,
+      return res.status(200).json({
+        status: 200,
         data: newCarDetails.rows[0],
       });
     } catch (error) {
@@ -116,8 +116,8 @@ class carController {
           error: 'Car Not Found',
         });
       }
-      return res.status(201).json({
-        status: 201,
+      return res.status(200).json({
+        status: 200,
         data: carDetails.rows[0],
       });
     } catch (error) {
@@ -137,8 +137,8 @@ class carController {
       if (!isAdmin && status) {
         const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = $1', [status]);
         if (!allAvailableUnsoldCars.rows[0]) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(404).json({
+            status: 404,
             error: 'No Available Cars',
           });
         }
@@ -165,7 +165,7 @@ class carController {
           data: foundCars.rows,
         });
       }
-      if (isAdmin) {
+      if (isAdmin && !status) {
         const cars = await pool.query('SELECT * from cars');
         return res.status(200).json({
           status: 200,
@@ -194,8 +194,8 @@ class carController {
         });
       }
       await pool.query('DELETE FROM cars where id = $1 RETURNING id = $1', [Number(carId)]);
-      return res.status(201).json({
-        status: 201,
+      return res.status(200).json({
+        status: 200,
         data: 'Car Ad successfully deleted',
       });
     } catch (error) {
