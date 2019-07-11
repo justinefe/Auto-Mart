@@ -11,7 +11,7 @@ const schema = {
   }),
   signin: joi.object().keys({
     email: joi.string().email().required(),
-    password: joi.string().alphanum().min(6).max(8)
+    password: joi.string().alphanum().min(4).max(50)
       .required(),
   }),
   postAd: joi.object().keys({
