@@ -35,20 +35,30 @@
                     </div>
                 </div>
                 <div class="box-two">
-                    <div>
-                        <h4>Already have an account? <a class="log" href="./login.html">Sign In</a></h4> 
-                        <form action="">
-                                <input type="text" placeholder="First name">
-                                <input type="text" placeholder="Last name">
-                                <input type="email" placeholder="Email">
-                                <input type="text" placeholder="Address">
-                                <input type="text" placeholder="Password">
-                                <button>sign up </button>
+                    <div class="subtwo">
+                        <div class="subtwo1">
+                                <div class="loader"></div>
+                                <div class="result font"></div>
+                                <div class="success font"></div>
+                                <div class="error font"></div>
+                        </div>
+                        <div class="subtwo2">
+                                <h4>Already have an account? <a class="log" href="./login.html">Sign In</a></h4> 
+                                <form>
+                                        <input id="firstName" type="text" placeholder="First name"  required>
+                                        <input id="lastName" type="text" placeholder="Last name" required>
+                                        <input id="email" type="email" placeholder="Email" required>
+                                        <input id="address" type="text" placeholder="Address" required>
+                                        <input id="password" type="text" placeholder="Password" required>
+                                        <button id="submit" >sign up </button>
                                 </form>
-                    </div>
+                            </div>
+                        </div>                   
                 </div>
             </div>   
     </main>
+        <script src="./JS/control.js" ></script>
         <script src="./JS/main.js" ></script>
+        <script src="./JS/signUp.js" ></script>
 </body>
 </html>

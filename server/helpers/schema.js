@@ -2,10 +2,10 @@ import joi from 'joi';
 
 const schema = {
   signup: joi.object().keys({
-    firstName: joi.string().min(3).max(14).required(),
-    lastName: joi.string().min(3).max(14).required(),
+    firstName: joi.string().min(2).max(50).required(),
+    lastName: joi.string().min(2).max(50).required(),
     email: joi.string().email().required(),
-    password: joi.string().alphanum().min(6).max(8)
+    password: joi.string().alphanum().min(4).max(50)
       .required(),
     address: joi.string().required(),
   }),

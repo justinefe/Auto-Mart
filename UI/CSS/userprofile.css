@@ -4,8 +4,17 @@
     justify-content: flex-end;
     margin-right: 50px;
 }
-
-
+body {
+    overflow: hidden;
+    display: flex;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 nav a{
     color:silver;
     font-weight: 500;
