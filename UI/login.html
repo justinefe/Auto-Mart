@@ -35,17 +35,27 @@
                     </div>
                 </div>
                 <div class="box-two">
-                    <div>
+                    <div class="subtwo">
+                            <div class="subtwo1">
+                                    <div class="loader"></div>
+                                    <div class="result font"></div>
+                                    <div class="success font"></div>
+                                    <div class="error font"></div>
+                            </div>
+                        <div class="subtwo2">
                         <h4>Don't have an account? <a class="log" href="./signup.html">Sign up</a></h4> 
-                        <form action="">
-                                <input type="email" placeholder="Email">
-                                <input type="text" placeholder="Password">
+                        <form id="loginform">
+                               <input id="email" type="email" placeholder="Email" required>
+                               <input id="password" type="password" placeholder="Password" required>
                                 <button>sign in </button>
                         </form>
                     </div>
                 </div>
+                </div>
             </div>   
     </main>
+        <script src="./JS/control.js" ></script>
         <script src="./JS/main.js" ></script>
+        <script src="./JS/signUp.js" ></script>
 </body>
 </html>
