@@ -31,8 +31,8 @@ paths:
         - Welcome
       summary : Test get request
       responses:
-        '201':
-          description: Created
+        '200':
+          description: Ok
           content:
             application/json:
               schema:

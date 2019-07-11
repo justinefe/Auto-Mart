@@ -46,7 +46,7 @@
 This project is open for contributions. All contributions must adhere to the [Airbnb](https://github.com/airbnb/javascript) JavaScript styleguide.
 
 ### Make contributions
->- Raise an issue [here](https://github.com/justinefe/ project name/issues)
+>- Raise an issue (https://github.com/justinefe/ project name/issues)
 >- Fork repository
 >- Create a feature branch `git checkout -b ch-my-feature`
 >- Commit changes `git commit -m "message"`

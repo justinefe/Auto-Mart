@@ -1,5 +1,4 @@
 const deletes = document.querySelectorAll('.delete');
-
 const update = document.querySelectorAll('#update');
 const solds = document.querySelectorAll('#sold')
 const icon = document.querySelector('#icon');
