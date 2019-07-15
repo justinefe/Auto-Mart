@@ -1,14 +1,14 @@
 const user = [
   {
-    firstName: 'Jude',
-    lastName: 'Chinoso',
+    first_name: 'Jude',
+    last_name: 'Chinoso',
     email: 'jjviolet@gmail.com',
     password: 'cookies',
     address: 'fgfhgfhgfh',
   },
   {
-    firstName: '',
-    lastName: 'Chinoso',
+    first_name: '',
+    last_name: 'Chinoso',
     email: 'jjviolet@gmail.com',
     password: 'cookies',
   },
@@ -26,7 +26,7 @@ const user = [
   },
   {
     email: 'efejustin3@gmail.com',
-    password: 'cookijeskk',
+    password: 'co',
   },
   {
     email: 'efejustin3@gmail.com',

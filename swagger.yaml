@@ -51,9 +51,9 @@ paths:
             schema:
               type: object
               properties: 
-                firstName: 
+                first_name: 
                   type: string
-                lastName:
+                last_name:
                   type: string
                 email:
                   type: string
@@ -161,7 +161,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responce"
                 
-  /order/{carId}:
+  /order:
     post:
       tags:
         - Orders
@@ -183,7 +183,7 @@ paths:
             schema:
               type: object
               properties: 
-                priceOffered:
+                price_offered:
                   type: number
 
       responses:
@@ -222,7 +222,7 @@ paths:
             schema:
               type: object
               properties: 
-                newPriceOffered:
+                new_price_offered:
                   type: number
 
       responses:
@@ -297,7 +297,7 @@ paths:
             schema:
               type: object
               properties: 
-                newPrice:
+                new_price:
                   type: number
       responses:
         200:
@@ -480,9 +480,9 @@ components:
           type: string
         model:
           type: string
-        createdOn:
+        created_on:
           type: string
-        bodyType:
+        body_type:
           type: string
         state:
           type: string
@@ -496,17 +496,17 @@ components:
       properties:
         id:
           type: integer
-        carId:
+        car_id:
           type: integer
         buyer:
           type: integer
-        createdOn:
+        created_on:
           type: string
         status:
           type: string
         price:
           type: integer
-        priceoffered:
+        price_offered:
           type: integer
               
     users:
@@ -514,9 +514,9 @@ components:
       properties: 
         token: 
           type: string
-        firstName:
+        first_name:
           type: string
-        lastName:
+        last_name:
           type: string
         email:
           type: string 

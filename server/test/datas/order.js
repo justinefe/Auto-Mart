@@ -1,24 +1,25 @@
 const order = [
   {
     buyer: 1,
-    priceOffered: '400000.58',
-    newPriceOffered: '46525632612',
+    price_offered: '400000.58',
+    new_price_offered: '46525632612',
+    car_id: 1,
   },
   {
     buyer: 2,
-    newPriceOffered: '46525632612',
+    new_price_offered: '46525632612',
   },
   {
     buyer: 77,
-    newPriceOffered: '46525632612',
+    new_price_offered: '46525632612',
   },
   {
     buyer: 77,
-    newPriceOffered: '46525632612',
+    new_price_offered: '46525632612',
   },
   {
     buyer: 77,
-    newPriceOffered: '46525632612',
+    new_price_offered: '46525632612',
   },
 ];
 

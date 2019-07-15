@@ -37,10 +37,10 @@ class carController {
   }
 
   static async updateCarStatus(req, res) {
-    const { carId } = req.params;
+    const { car_id } = req.params;
     const { id, email } = req.user;
     try {
-      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(car_id)]);
       if (!carDetails.rows[0]) {
         return res.status(404).json({
           status: 404,
@@ -55,7 +55,7 @@ class carController {
       }
 
       if (carDetails.rows[0].status !== 'sold') {
-        const newCarDetails = await pool.query('UPDATE cars SET status = \'sold\' WHERE id = $1   RETURNING id, created_on, manufacturer, model, price, state, status', [Number(carId)]);
+        const newCarDetails = await pool.query('UPDATE cars SET status = \'sold\' WHERE id = $1   RETURNING id, created_on, manufacturer, model, price, state, status', [Number(car_id)]);
         newCarDetails.rows[0].email = email;
         return res.status(200).json({
           status: 200,
@@ -75,11 +75,11 @@ class carController {
   }
 
   static async updateAd(req, res) {
-    const { newPrice } = req.body;
-    const { carId } = req.params;
+    const { new_price } = req.body;
+    const { car_id } = req.params;
     const { id, email } = req.user;
     try {
-      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(car_id)]);
       if (!carDetails.rows[0]) {
         return res.status(404).json({
           status: 404,
@@ -92,7 +92,7 @@ class carController {
           error: 'Access denied',
         });
       }
-      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [newPrice, Number(carId)]);
+      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [new_price, Number(car_id)]);
       newCarDetails.rows[0].email = email;
       return res.status(200).json({
         status: 200,
@@ -107,9 +107,9 @@ class carController {
   }
 
   static async viewACar(req, res) {
-    const { carId } = req.params;
+    const { car_id } = req.params;
     try {
-      const carDetails = await pool.query('SELECT id, owner, created_on, state, status, price, manufacturer, model, body_type from cars where id = $1', [Number(carId)]);
+      const carDetails = await pool.query('SELECT id, owner, created_on, state, status, price, manufacturer, model, body_type from cars where id = $1', [Number(car_id)]);
       if (!carDetails.rows[0]) {
         return res.status(404).json({
           status: 404,
@@ -130,11 +130,11 @@ class carController {
 
   static async viewCars(req, res) {
     const {
-      status, minPrice, maxPrice, manufacturer,
+      status, min_price, max_price, manufacturer,
     } = req.query;
-    const { isAdmin } = req.user;
+    const { is_admin } = req.user;
     try {
-      if (!isAdmin && status) {
+      if (!is_admin && status) {
         const allAvailableUnsoldCars = await pool.query('SELECT * from cars WHERE status = $1', [status]);
         if (!allAvailableUnsoldCars.rows[0]) {
           return res.status(404).json({
@@ -142,7 +142,7 @@ class carController {
             error: 'No Available Cars',
           });
         }
-        if (!minPrice && !maxPrice && !manufacturer) {
+        if (!min_price && !max_price && !manufacturer) {
           return res.status(200).json({
             status: 200,
             data: allAvailableUnsoldCars.rows,
@@ -152,7 +152,7 @@ class carController {
         if (manufacturer) {
           foundCars = await pool.query('SELECT * from cars WHERE status = $1 AND manufacturer = $2', [status, manufacturer]);
         } else {
-          foundCars = await pool.query('SELECT * FROM cars WHERE status = $1 AND price BETWEEN  $2 AND  $3', [status, Number(minPrice), Number(maxPrice)]);
+          foundCars = await pool.query('SELECT * FROM cars WHERE status = $1 AND price BETWEEN  $2 AND  $3', [status, Number(min_price), Number(max_price)]);
         }
         if (!foundCars) {
           return res.status(404).json({
@@ -165,7 +165,7 @@ class carController {
           data: foundCars.rows,
         });
       }
-      if (isAdmin && !status) {
+      if (is_admin && !status) {
         const cars = await pool.query('SELECT * from cars');
         return res.status(200).json({
           status: 200,
@@ -184,16 +184,16 @@ class carController {
   }
 
   static async adminDelete(req, res) {
-    const { carId } = req.params;
+    const { car_id } = req.params;
     try {
-      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      const carDetails = await pool.query('SELECT * from cars where id = $1', [Number(car_id)]);
       if (!carDetails.rows[0]) {
         return res.status(404).json({
           status: 404,
           error: 'Car Not Found',
         });
       }
-      await pool.query('DELETE FROM cars where id = $1 RETURNING id = $1', [Number(carId)]);
+      await pool.query('DELETE FROM cars where id = $1 RETURNING id = $1', [Number(car_id)]);
       return res.status(200).json({
         status: 200,
         data: 'Car Ad successfully deleted',

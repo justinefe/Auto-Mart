@@ -3,12 +3,12 @@ import pool from '../config/config';
 
 class orderController {
   static async purchaseOrder(req, res) {
-    const { priceOffered } = req.body;
-    const { carId } = req.params;
+    const { price_offered, car_id } = req.body;
+    // const { car_id } = req.params;
     const { id } = req.user;
     const userId = id;
     try {
-      const orderDetails = await pool.query('SELECT * from cars where id = $1', [Number(carId)]);
+      const orderDetails = await pool.query('SELECT * from cars where id = $1', [Number(car_id)]);
 
       if (!orderDetails.rows[0]) {
         return res.status(404).json({
@@ -19,9 +19,9 @@ class orderController {
       const { price } = orderDetails.rows[0];
       const newOrders = {
         buyer: userId,
-        car_id: carId,
+        car_id,
         price,
-        price_offered: priceOffered,
+        price_offered,
         status: 'pending',
       };
       const keys = Object.keys(newOrders);
@@ -43,10 +43,10 @@ class orderController {
   }
 
   static async updateOrderPrice(req, res) {
-    const { newPriceOffered } = req.body;
-    const { orderId } = req.params;
+    const { new_price_offered } = req.body;
+    const { order_id } = req.params;
     try {
-      const orderDetails = await pool.query('SELECT * from orders where (id = $1) and (status = \'pending\')', [Number(orderId)]);
+      const orderDetails = await pool.query('SELECT * from orders where (id = $1) and (status = \'pending\')', [Number(order_id)]);
       if (!orderDetails.rows[0]) {
         return res.status(404).json({
           status: 404,
@@ -54,9 +54,9 @@ class orderController {
         });
       }
       const { price_offered } = orderDetails.rows[0];
-      const newOrderDetails = await pool.query('UPDATE orders SET price_offered = $1 WHERE id = $2 RETURNING id, car_id, status', [newPriceOffered, Number(orderId)]);
+      const newOrderDetails = await pool.query('UPDATE orders SET price_offered = $1 WHERE id = $2 RETURNING id, car_id, status', [new_price_offered, Number(order_id)]);
       newOrderDetails.rows[0].old_price_offered = price_offered;
-      newOrderDetails.rows[0].new_price_offered = newPriceOffered;
+      newOrderDetails.rows[0].new_price_offered = new_price_offered;
       return res.status(200).json({
         status: 200,
         data: newOrderDetails.rows[0],

@@ -13,7 +13,7 @@ const isAuthenthicated = async (req, res, next) => {
         error: 'Unauthorised User',
       });
     }
-    req.user = { id, email: checkUser.rows[0].email, isAdmin: checkUser.rows[0].isadmin };
+    req.user = { id, email: checkUser.rows[0].email, is_admin: checkUser.rows[0].is_admin };
     return next();
   }
   return res.status(401).json({
@@ -22,8 +22,8 @@ const isAuthenthicated = async (req, res, next) => {
   });
 };
 const isAdministrator = (req, res, next) => {
-  const { isAdmin } = req.user;
-  if (!isAdmin) {
+  const { is_admin } = req.user;
+  if (!is_admin) {
     return res.status(401).json({
       status: 401,
       error: 'Unauthorized route',
@@ -33,8 +33,8 @@ const isAdministrator = (req, res, next) => {
 };
 
 const isUser = (req, res, next) => {
-  const { isAdmin } = req.user;
-  if (isAdmin) {
+  const { is_admin } = req.user;
+  if (is_admin) {
     return res.status(401).json({
       status: 401,
       error: 'Unauthorized route',

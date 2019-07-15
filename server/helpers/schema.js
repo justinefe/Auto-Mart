@@ -2,8 +2,8 @@ import joi from 'joi';
 
 const schema = {
   signup: joi.object().keys({
-    firstName: joi.string().min(2).max(50).required(),
-    lastName: joi.string().min(2).max(50).required(),
+    first_name: joi.string().min(2).max(50).required(),
+    last_name: joi.string().min(2).max(50).required(),
     email: joi.string().email().required(),
     password: joi.string().alphanum().min(4).max(50)
       .required(),
@@ -22,24 +22,24 @@ const schema = {
     body_type: joi.string().required(),
     image_url: joi.string().required(),
   }),
+
   purchaseOrder: joi.object().keys({
-    priceOffered: joi.number().required(),
+    price_offered: joi.number().required(),
   }),
   updateOrderPrice: joi.object().keys({
-    newPriceOffered: joi.number().required(),
+    new_price_offered: joi.number().required(),
   }),
   updateAd: joi.object().keys({
-    newPrice: joi.number().required(),
+    new_price: joi.number().required(),
   }),
   viewACar: joi.object().keys({
-    carId: joi.number().required(),
+    car_id: joi.number().required(),
   }),
   viewCars: joi.object().keys({
     status: joi.string().valid('available'),
-    minPrice: joi.number(),
-    maxPrice: joi.number(),
+    min_price: joi.number(),
+    max_price: joi.number(),
     manufacturer: joi.string(),
   }),
 };
-
 export default schema;

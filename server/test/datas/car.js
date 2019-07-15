@@ -7,7 +7,7 @@ const car = [
     model: 'pathfinder',
     body_type: 'car',
     image_url: 'fghjhjk',
-    newPrice: 60000044,
+    new_price: 60000044,
   },
   {
     state: 'new',
@@ -44,7 +44,7 @@ const car = [
     model: 'hilux',
     image_url: 'fghjhjk',
     body_type: 'truck',
-    newPrice: 80000000,
+    new_price: 80000000,
   },
   {
     state: 'used',
@@ -54,11 +54,11 @@ const car = [
     model: '530',
     body_type: 'SUV',
     image_url: 'fghjhjk',
-    newPrice: 9000000,
+    new_price: 9000000,
   },
   {
     image_url: 'fghjhjk',
-    newPrice: '',
+    new_price: '',
   },
 ];
 
