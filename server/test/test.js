@@ -173,7 +173,7 @@ describe('Post ads test', () => {
 describe('creates purchase order', () => {
   it('should make a purchase order of an existing user', (done) => {
     server()
-      .post(`${url}/order/1`)
+      .post(`${url}/order`)
       .set('token', userToken)
       .send(orders[0])
       .end((err, res) => {
@@ -186,7 +186,7 @@ describe('creates purchase order', () => {
   });
   it('it should not make a purchase order of a user who is not authenticated', (done) => {
     server()
-      .post(`${url}/order/1`)
+      .post(`${url}/order`)
       .send({
         ...orders[0],
       })
@@ -199,11 +199,11 @@ describe('creates purchase order', () => {
 
   it('should not create an order without a purchase price', (done) => {
     server()
-      .post(`${url}/order/1`)
+      .post(`${url}/order`)
       .set('token', userToken)
       .send({
         ...orders[0],
-        priceOffered: '',
+        price_offered: '',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -211,22 +211,21 @@ describe('creates purchase order', () => {
         done();
       });
   });
-
-  it('should not create an order of a car that does not exist', (done) => {
+  it('should not create an order that can not be found', (done) => {
     server()
-      .post(`${url}/order/15558`)
+      .post(`${url}/order`)
       .set('token', userToken)
       .send({
-        ...orders[0],
+        ...orders[5555566],
+        price_offered: '6512545',
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(404);
+        expect(res.statusCode).to.equal(500);
         expect(res.body).to.have.property('error');
         done();
       });
   });
 });
-
 describe('updatePurchase', () => {
   it('should create purchase order update', (done) => {
     server()
@@ -473,6 +472,16 @@ describe('User can view all unsold cars', () => {
       });
   });
   it('Admin should not view cars by make or status or price range', (done) => {
+    server()
+      .get(`${url}/car?status=available&minPrice=2000000&maxPrice=5000000`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.body.status).to.equal(403);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+  it('Admin should view all cars either available or sold', (done) => {
     server()
       .get(`${url}/car`)
       .set('token', adminToken)

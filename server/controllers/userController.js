@@ -5,7 +5,7 @@ import pool from '../config/config';
 class userController {
   static async signup(req, res) {
     const {
-      firstName, lastName, address, email, password,
+      first_name, last_name, address, email, password,
     } = req.body;
     let newUser;
     try {
@@ -17,10 +17,10 @@ class userController {
         });
       }
 
-      const isAdmin = false;
-      const hashPassword = hash(password);
+      const is_admin = false;
+      const hash_password = hash(password);
       newUser = {
-        firstName, lastName, email, address, hashPassword, isAdmin,
+        first_name, last_name, email, address, hash_password, is_admin,
       };
       const keys = Object.keys(newUser);
       const values = Object.values(newUser);
@@ -39,7 +39,7 @@ class userController {
     return res.status(201).json({
       status: 201,
       data: {
-        token: token({ id }), id, firstName, lastName, email,
+        token: token({ id }), id, first_name, last_name, email,
       },
     });
   }
@@ -51,15 +51,15 @@ class userController {
     try {
       const checkUser = await pool.query('SELECT * from users where email = $1', [email]);
       if (checkUser.rows[0]) {
-        const passwordState = unhash(password, checkUser.rows[0].hashpassword);
+        const passwordState = unhash(password, checkUser.rows[0].hash_password);
         if (passwordState) {
           return res.status(200).json({
             status: 200,
             data: {
               token: token({ id: checkUser.rows[0].id }),
               id: checkUser.rows[0].id,
-              firstName: checkUser.rows[0].firstname,
-              lastName: checkUser.rows[0].lastname,
+              first_name: checkUser.rows[0].first_name,
+              last_name: checkUser.rows[0].last_name,
               email: checkUser.rows[0].email,
             },
           });

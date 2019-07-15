@@ -2,12 +2,12 @@ import pool from '../config/config';
 
 const userTable = ` CREATE TABLE IF NOT EXISTS users(
     id serial PRIMARY KEY,
-    firstname text NOT NULL,
-    lastname text NOT NULL,
-    email text NOT NULL,
-    hashpassword text NOT NULL,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    email text unique NOT NULL,
+    hash_password text NOT NULL,
     address text NOT NULL,
-    isAdmin boolean NOT NULL
+    is_admin boolean NOT NULL
 );
 `;
 const carTable = `CREATE TABLE IF NOT EXISTS cars(
@@ -36,19 +36,19 @@ const orderTable = `CREATE TABLE IF NOT EXISTS orders(
 const createTable = async () => {
   const create = `${userTable}${carTable}${orderTable}`;
   const user1 = {
-    text: `INSERT INTO users (firstname, lastname, email, hashpassword, address, isadmin)
+    text: `INSERT INTO users (first_name, last_name, email, hash_password, address, is_admin)
       VALUES($1, $2, $3, $4, $5, $6)`,
     values: ['Justin', 'Igugu', 'efejustin3@gmail.com', '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6', '15 omo avenue', true],
   };
 
   const user2 = {
-    text: `INSERT INTO users (firstname, lastname, email, hashpassword, address, isadmin)
+    text: `INSERT INTO users (first_name, last_name, email, hash_password, address, is_admin)
       VALUES($1, $2, $3, $4, $5, $6)`,
     values: ['Nonso', 'Amos', 'fejude3@gmail.com', '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6', '15 uloho avenue', false],
   };
 
   const user3 = {
-    text: `INSERT INTO users (firstname, lastname, email, hashpassword, address, isadmin)
+    text: `INSERT INTO users (first_name, last_name, email, hash_password, address, is_admin)
       VALUES($1, $2, $3, $4, $5, $6)`,
     values: ['Kanayo', 'Aass', 'fejude3@rocketmail.com', '$2a$06$IA8bQ5ZzEr4OJmXdL1Hz8O1ZLE7dinSSRFo0.poDt0.DsJUP7tmi6', '15 airport road', false],
   };

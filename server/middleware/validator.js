@@ -55,8 +55,8 @@ class Validator {
   }
 
   static purchaseOrder(req, res, next) {
-    const { priceOffered } = req.body;
-    const obj = { priceOffered };
+    const { price_offered } = req.body;
+    const obj = { price_offered };
     const error = validateJoi(obj, schema.purchaseOrder);
     if (error) {
       return res.status(400).json({
@@ -66,10 +66,9 @@ class Validator {
     }
     return next();
   }
-
   static updateOrderPrice(req, res, next) {
-    const { newPriceOffered } = req.body;
-    const obj = { newPriceOffered };
+    const { new_price_offered } = req.body;
+    const obj = { new_price_offered };
     const error = validateJoi(obj, schema.updateOrderPrice);
     if (error) {
       return res.status(400).json({
@@ -81,8 +80,8 @@ class Validator {
   }
 
   static updateAd(req, res, next) {
-    const { newPrice } = req.body;
-    const obj = { newPrice };
+    const { new_price } = req.body;
+    const obj = { new_price };
     const error = validateJoi(obj, schema.updateAd);
     if (error) {
       return res.status(400).json({
@@ -94,8 +93,8 @@ class Validator {
   }
 
   static viewACar(req, res, next) {
-    const { carId } = req.params;
-    const obj = { carId };
+    const { car_id } = req.params;
+    const obj = { car_id };
     const error = validateJoi(obj, schema.viewACar);
     if (error) {
       return res.status(400).json({
@@ -107,8 +106,8 @@ class Validator {
   }
 
   static viewCars(req, res, next) {
-    const { status, minPrice, maxPrice } = req.query;
-    const obj = { status, minPrice, maxPrice };
+    const { status, min_price, max_price } = req.query;
+    const obj = { status, min_price, max_price };
     const error = validateJoi(obj, schema.viewCars);
     if (error) {
       return res.status(400).json({
