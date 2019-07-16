@@ -1,0 +1,538 @@
+openapi: 3.0.0
+
+info:
+  version: "1.0"
+  title: AutoMart
+  description: "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers."
+
+servers:
+  - url: https://justinefeautomart.herokuapp.com/api/v1/
+  - url: http://localhost:3001/api/v1
+
+tags: 
+  - name : "Welcome"
+    description: "API for quick api welcome test"
+
+  - name : "Users"
+    description: "API for users in the app"
+
+  - name : "Cars"
+    description: "API for cars in the app"
+    
+  - name : "Orders"
+    description: "API for purchase orders in the app"
+
+  - name : "Admin"
+    description: "API admin in the app"
+paths:
+  /:
+    get: 
+      tags: 
+        - Welcome
+      summary : Test get request
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+
+  /user:
+  /auth/signup:
+    post:
+      tags:
+        - Users
+      summary : Sign up a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                first_name: 
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                address:
+                  type: string
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/users"
+        409:
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+
+  /auth/signin:
+    post:
+      tags:
+        - Users
+      summary : Sign's in an existing user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/users"
+        404:
+          description: Not Found 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+          
+  /car:
+    post:
+      tags:
+        - Cars
+      summary : create a car sale ad
+      security:
+        - Token: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                manufacturer:
+                  type: string
+                model:
+                  type: string
+                body_type:
+                  type: string
+                state:
+                  type: string
+                price:
+                  type: number
+                image_url:
+                  type: string
+                  
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+                
+    get:
+      tags:
+        - Admin
+      summary : View all posted ads whether sold or available.
+      security:
+        - Token: []
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        403:
+          description: Forbiden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+                
+  /order:
+    post:
+      tags:
+        - Orders
+      summary : Create a purchase order.
+      security:
+        - Token: []
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: Car identity
+          schema:
+            type : integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                price_offered:
+                  type: number
+
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/orders"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+
+  /order/{order_id}/price:
+    patch:
+      tags:
+        - Orders
+      summary : Update the price of a purchase order. 
+      security:
+        - Token: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Order Identity
+          schema:
+            type : integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                new_price_offered:
+                  type: number
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/orders"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+  
+
+                
+  /car/{car_id}/status:
+    patch:
+      tags:
+        - Cars
+      summary : Mark a posted car Ad as sold.
+      security:
+        - Token: []
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: car Identity
+          schema:
+            type : number
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+        403:
+          description: Forbiden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+  
+  /car/{car_id}/price:
+    patch:
+      tags:
+        - Cars
+      summary : Update the price of a car.
+      security:
+        - Token: []
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: car Identity
+          schema:
+            type : number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                new_price:
+                  type: number
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+        403:
+            description: Forbiden
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/responce"
+
+  /car/{car_id}/:
+    get:
+      tags:
+        - Cars
+      summary : View a specific car.
+      security:
+        - Token: []
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: car Identity
+          schema:
+            type : number
+            
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+
+  /car/{car_id}:
+    delete:
+      tags:
+        - Admin
+      summary : Delete a specific car Ad.
+      security:
+        - Token: []
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: Car Identity
+          schema:
+            type : integer
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/admin"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+                
+  /car?status=available&manufacturer:
+    get:
+      tags:
+        - Cars
+      summary : View all cars of a specific make manufacturer.
+      security:
+        - Token: []
+      parameters:
+        - name: manufacturer
+          in: query
+          required: true
+          description: Manufacturer
+          schema:
+            type : string
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"  
+                
+  /car?status=available:
+    get:
+      tags:
+        - Cars
+      summary : View all unsold cars.
+      security:
+        - Token: []
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+                
+  /car?status=available&min_price&max_price:
+    get:
+      tags:
+        - Cars
+      summary : View all unsold cars within a price range.
+      security:
+        - Token: []
+      parameters:
+        - name: min_price
+          in: query
+          required: true
+          description: Minimum Price
+          schema:
+            type : number
+        - name: max_price
+          in: query
+          required: true
+          description: Maximum Price
+          schema:
+            type : number
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cars"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responce"
+
+
+
+components:
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: Token
+      description: Requests should pass an Token header.
+
+
+  schemas:
+    cars:
+      type: object
+      properties:
+        email:
+          type: string
+        manufacturer:
+          type: string
+        model:
+          type: string
+        created_on:
+          type: string
+        body_type:
+          type: string
+        state:
+          type: string
+        status:
+          type: string
+        price:
+          type: number
+    
+    orders:
+      type: object
+      properties:
+        id:
+          type: integer
+        car_id:
+          type: integer
+        buyer:
+          type: integer
+        created_on:
+          type: string
+        status:
+          type: string
+        price:
+          type: integer
+        price_offered:
+          type: integer
+              
+    users:
+      type: object
+      properties: 
+        token: 
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string 
+    
+    responce:
+      type: object
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+
+    admin:
+      type: object
+      properties:
+        status:
+          type: number
+        data:
+          type: string

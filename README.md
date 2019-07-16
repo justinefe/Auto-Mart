@@ -46,7 +46,7 @@
 This project is open for contributions. All contributions must adhere to the [Airbnb](https://github.com/airbnb/javascript) JavaScript styleguide.
 
 ### Make contributions
->- Raise an issue [here](https://github.com/justinefe/ project name/issues)
+>- Raise an issue (https://github.com/justinefe/ project name/issues)
 >- Fork repository
 >- Create a feature branch `git checkout -b ch-my-feature`
 >- Commit changes `git commit -m "message"`
@@ -57,9 +57,9 @@ This project is open for contributions. All contributions must adhere to the [Ai
 > Access to the API endpoints are stricted based on authorization using access tokens, which is generated when a user signs in.View API documentation for all endpoints used in this app [here]()
 
 # Author(s)
->- [Efeoghene Justin ](https://github.com/justinefe)
+>- [Efeoghene Justin ](https://github.com/justinefe/Auto-Mart)
 
->- This api is deployed on here (https://justinefeautomart.herokuapp.com/)
+>- This api is deployed on here (https://justinefeautomart.herokuapp.com/api/v1/)
 
 # Acknowledgments
 The Andela team

@@ -12,7 +12,6 @@ const url = '/api/v1';
 let userToken;
 let adminToken;
 
-
 describe('Welcome', () => {
   it('should return a welcome message on start', (done) => {
     server()
@@ -48,13 +47,23 @@ describe('Signup tests', () => {
         done();
       });
   });
+  it('Should not signup a user who already exist', (done) => {
+    server()
+      .post(`${url}/auth/signup`)
+      .send(users[0])
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(409);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
 });
 
 describe('Login tests', () => {
   it('Should sign in an existing user', (done) => {
     server()
       .post(`${url}/auth/signin`)
-      .send(users[2])
+      .send(users[8])
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.have.property('data');
@@ -109,9 +118,8 @@ describe('Post ads test', () => {
       .set('token', userToken)
       .send(cars[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body).to.have.property('status');
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -125,7 +133,7 @@ describe('Post ads test', () => {
         ...cars[0],
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -149,7 +157,7 @@ describe('Post ads test', () => {
   it('should not create an ads with unauthorise token', (done) => {
     server()
       .post(`${url}/car`)
-      .set('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTU1OTMxODcxMX0.LeWYi-mNv7bZvu1N3CsIKuHdCyqVpLDvRu0tgveZYnA')
+      .set('tok', userToken)
       .send({
         ...cars[0],
         manufacturer: '',
@@ -165,7 +173,7 @@ describe('Post ads test', () => {
 describe('creates purchase order', () => {
   it('should make a purchase order of an existing user', (done) => {
     server()
-      .post(`${url}/order/1`)
+      .post(`${url}/order`)
       .set('token', userToken)
       .send(orders[0])
       .end((err, res) => {
@@ -178,12 +186,12 @@ describe('creates purchase order', () => {
   });
   it('it should not make a purchase order of a user who is not authenticated', (done) => {
     server()
-      .post(`${url}/order/1`)
+      .post(`${url}/order`)
       .send({
         ...orders[0],
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });
@@ -191,11 +199,11 @@ describe('creates purchase order', () => {
 
   it('should not create an order without a purchase price', (done) => {
     server()
-      .post(`${url}/order/1`)
+      .post(`${url}/order`)
       .set('token', userToken)
       .send({
         ...orders[0],
-        priceOffered: '',
+        price_offered: '',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -203,22 +211,21 @@ describe('creates purchase order', () => {
         done();
       });
   });
-
-  it('should not create an order of a car that does not exist', (done) => {
+  it('should not create an order that can not be found', (done) => {
     server()
-      .post(`${url}/order/18`)
+      .post(`${url}/order`)
       .set('token', userToken)
       .send({
-        ...orders[0],
+        ...orders[5555566],
+        price_offered: '6512545',
       })
       .end((err, res) => {
-        expect(res.statusCode).to.equal(404);
+        expect(res.statusCode).to.equal(500);
         expect(res.body).to.have.property('error');
         done();
       });
   });
 });
-
 describe('updatePurchase', () => {
   it('should create purchase order update', (done) => {
     server()
@@ -226,8 +233,8 @@ describe('updatePurchase', () => {
       .set('token', userToken)
       .send(orders[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -238,19 +245,8 @@ describe('updatePurchase', () => {
       .patch(`${url}/order/777/price`)
       .send(orders[2])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
+        expect(res.statusCode).to.equal(401);
         expect(res.body).to.a.property('error');
-        done();
-      });
-  });
-  it('should not update price of a user whose order has been approved', (done) => {
-    server()
-      .patch(`${url}/order/3/price`)
-      .set('token', userToken)
-      .send(orders[1])
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body).to.have.property('error');
         done();
       });
   });
@@ -265,17 +261,7 @@ describe('updatePurchase', () => {
         done();
       });
   });
-  it('should not update price of an order of another user', (done) => {
-    server()
-      .patch(`${url}/order/4/price`)
-      .set('token', userToken)
-      .send(orders[1])
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(403);
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
+
   it('should not update price of an order without newPriceOffered', (done) => {
     server()
       .patch(`${url}/order/1/price`)
@@ -289,15 +275,14 @@ describe('updatePurchase', () => {
   });
 });
 
-describe('updateStatus', () => {
+describe('updateCarStatus', () => {
   it('should mark posted ads sold order update', (done) => {
     server()
-      .patch(`${url}/car/2/status`)
+      .patch(`${url}/car/4/status`)
       .set('token', userToken)
-      .send(cars[0])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -307,7 +292,6 @@ describe('updateStatus', () => {
     server()
       .patch(`${url}/car/1/status`)
       .set('token', userToken)
-      .send(cars[1])
       .end((err, res) => {
         expect(res.statusCode).to.equal(403);
         expect(res.body).to.a.property('error');
@@ -316,20 +300,18 @@ describe('updateStatus', () => {
   });
   it('should not update status of a sold car', (done) => {
     server()
-      .patch(`${url}/car/5/status`)
+      .patch(`${url}/car/4/status`)
       .set('token', userToken)
-      .send(cars[0])
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
         expect(res.body).to.have.property('error');
         done();
       });
   });
-  it('should not update price of a car when the resource can not be found', (done) => {
+  it('should not update status of a car that can not be found', (done) => {
     server()
       .patch(`${url}/car/777/status`)
       .set('token', userToken)
-      .send(cars[8])
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
         expect(res.body).to.have.property('error');
@@ -341,12 +323,12 @@ describe('updateStatus', () => {
 describe('update Ads price', () => {
   it('it should update the price of a posted Ads', (done) => {
     server()
-      .patch(`${url}/car/2/price`)
+      .patch(`${url}/car/4/price`)
       .set('token', userToken)
       .send(cars[4])
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -386,11 +368,11 @@ describe('update Ads price', () => {
         done();
       });
   });
-  it('should not update price of an Ads posted by another user', (done) => {
+  it('should not update price of an Ads posted without the correct input field', (done) => {
     server()
       .patch(`${url}/car/4/price`)
       .set('token', userToken)
-      .send(cars[5])
+      .send(cars[6])
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
         expect(res.body).to.have.property('error');
@@ -405,8 +387,8 @@ describe('get a specific car', () => {
       .get(`${url}/car/1`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -423,6 +405,16 @@ describe('get a specific car', () => {
         done();
       });
   });
+  it('Admin should not view a specific', (done) => {
+    server()
+      .get(`${url}/car/88`)
+      .set('token', adminToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
 
   it('should not view a car with invalid request parameter ', (done) => {
     server()
@@ -435,25 +427,14 @@ describe('get a specific car', () => {
       });
   });
 });
-
 describe('User can view all unsold cars', () => {
   it('should view all unsold cars ', (done) => {
     server()
       .get(`${url}/car?status=available`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(201);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        done();
-      });
-  });
-  it('should not view all unsold cars that are not availabe', (done) => {
-    server()
-      .get(`${url}/car?status=sold`)
-      .set('token', userToken)
-      .end((err, res) => {
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.have.property('error');
         done();
       });
   });
@@ -463,20 +444,9 @@ describe('User can view all unsold cars', () => {
       .get(`${url}/car?status=available&minPrice=2000000&maxPrice=5000000`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        expect(res.body.status).to.equal(201);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        done();
-      });
-  });
-
-  it('should not view all unsold cars within a range when the maxPrice is not given', (done) => {
-    server()
-      .get(`${url}/car?status=available&minPrice=4000000`)
-      .set('token', userToken)
-      .end((err, res) => {
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.have.property('error');
         done();
       });
   });
@@ -486,31 +456,37 @@ describe('User can view all unsold cars', () => {
       .get(`${url}/car?status=available&maxPrice=4000000`)
       .set('token', userToken)
       .end((err, res) => {
+        expect(res.body.status).to.equal(200);
+        expect(res.body).to.have.property('data');
+        done();
+      });
+  });
+  it('Users should not view all cars', (done) => {
+    server()
+      .get(`${url}/car?status=pending`)
+      .set('token', userToken)
+      .end((err, res) => {
         expect(res.body.status).to.equal(400);
         expect(res.body).to.have.property('error');
         done();
       });
   });
-
-  it('should not view all unsold cars that are outside the range specified', (done) => {
+  it('Admin should not view cars by make or status or price range', (done) => {
     server()
-      .get(`${url}/car?status=available&minPrice=40000000&maxPrice=50000000`)
-      .set('token', userToken)
+      .get(`${url}/car?status=available&minPrice=2000000&maxPrice=5000000`)
+      .set('token', adminToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(404);
+        expect(res.body.status).to.equal(403);
         expect(res.body).to.have.property('error');
         done();
       });
   });
-});
-
-describe('Admin can view all cars', () => {
-  it('Admin should view all cars', (done) => {
+  it('Admin should view all cars either available or sold', (done) => {
     server()
       .get(`${url}/car`)
       .set('token', adminToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(201);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         done();
       });
@@ -523,7 +499,7 @@ describe('Admin can delete a posted Ad record', () => {
       .delete(`${url}/car/1`)
       .set('token', adminToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(201);
+        expect(res.body.status).to.equal(200);
         expect(res.body).to.have.property('data');
         done();
       });
@@ -543,7 +519,7 @@ describe('Admin can delete a posted Ad record', () => {
       .delete(`${url}/car/1`)
       .set('token', userToken)
       .end((err, res) => {
-        expect(res.body.status).to.equal(403);
+        expect(res.body.status).to.equal(401);
         expect(res.body).to.have.property('error');
         done();
       });

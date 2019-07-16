@@ -4,10 +4,14 @@
   "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
   "main": "main.js",
   "scripts": {
+    "create": "babel-node server/migrations/createTables.js",
+    "createtest": "cross-env NODE_ENV=test babel-node server/migrations/createTables.js",
+    "drop": "cross-env NODE_ENV=production babel-node server/migrations/deleteTables.js",
+    "droptest": "cross-env NODE_ENV=test babel-node server/migrations/deleteTables.js",
     "hash": "babel-node server/helpers/passwordHash",
-    "start": "rimraf dist/ && babel ./server -d dist && node dist/app.js",
+    "start": "NODE_ENV=productionn rimraf dist/ && babel ./server -d dist && node dist/app.js",
     "startdev": "nodemon --exec babel-node server/app.js",
-    "test": "cross-env NODE_ENV=test nyc --require @babel/register mocha server/test --exit",
+    "test": " npm run droptest && npm run createtest && cross-env NODE_ENV=test nyc --require @babel/register mocha server/test --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rimraf dist/ && babel ./server -d dist"
   },
@@ -26,17 +30,22 @@
   },
   "homepage": "https://github.com/justinefe/Auto-Mart#readme",
   "dependencies": {
+    "@babel/plugin-transform-regenerator": "^7.4.5",
     "@babel/runtime": "^7.4.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
-    "heroku": "^7.24.4",
+    "heroku": "^7.26.2",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^6.1.4"
+    "mocha": "^6.1.4",
+    "pg": "^7.11.0",
+    "swagger-ui-express": "^4.0.6",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

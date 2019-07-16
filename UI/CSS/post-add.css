@@ -98,7 +98,6 @@ input{
 input:focus{
     border-bottom: var(--theme-color) 0.1em solid;
 }
-
 .imaged{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
