@@ -4,8 +4,17 @@
     justify-content: flex-end;
     margin-right: 50px;
 }
-
-
+body {
+    overflow: auto;
+    display: flex;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 nav a{
     color:silver;
     font-weight: 500;
@@ -355,3 +364,38 @@ button{
     text-decoration-style: double;
     padding-right: 2px;
 }
+
+
+ /* Mobile view*/
+ @media only screen and (max-width: 480px) {
+.mainsection .container {
+ width: 100%;
+ padding: 0;
+ margin: 0;
+}
+.mainsection .container section{
+    width: 75%;
+}
+.mainsection .container aside {
+    width: 35%;
+
+}
+.avatar img {
+    height: 80%;
+    width: 80%;
+    margin: 20px auto;
+    margin-top: 10px;
+    object-fit: cover;
+}
+.avatar label{
+    display: flex;
+    justify-content: center;
+    height: 45px;
+    width: 35px;
+    border-radius:50%; 
+    position: absolute;
+    left:50%;
+    top: 65%;
+    
+}
+ }

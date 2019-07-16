@@ -1,3 +1,6 @@
+body{
+    display: flex;
+}
   .carCard {
     display:flex;
     flex-direction: column;
@@ -7,7 +10,6 @@
     overflow: hidden;border: 1px solid transparent;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 .cardImage{
     margin: 0px auto;
     height: 220px;
@@ -49,12 +51,10 @@
 }
 
 .classInfo h2{
-    /* display: inline-block; */
     font-weight: 500;
     font-size: .9em;
     text-decoration: underline;
     padding: 0px;
-    /* float: left; */
     color: var(--theme-color);
 }
 .inside{

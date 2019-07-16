@@ -6,26 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>sign in</title>
     <link rel="stylesheet" href="./CSS/login.css">
-    <link rel="stylesheet" href="./CSS/main.css">
 </head>
 <body>
-    <header>
-        <div class = "container navwrap">
-            <nav>
-                <h1>AUTO MART</h1>
-                <div class="navmenu">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+        <header>
+                <div id="aside">
+                    <h1>AUTO MART</h1>
                 </div>
-                <ul>
-                    <li><a href="./index.html">Home</a></li>
-                    <li><a href="./signup.html">Sign Up</a></li>
-                    <li><a class="current" href="login.html">Sign In</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+                <div id="asidemain">
+                    <section>
+                        <label for="toggle">&#9776;</label>
+                        <input type="checkbox" id="toggle">
+                        <ul id="menus">
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./signup.html">Sign Up</a></li>
+                            <li><a id="current"  href="login.html">Sign In</a></li>
+                        </ul>                
+                    </section>
+                </div>      
+        </header>
     <main>
             <div class="box-container">
                 <div class="box-one">
@@ -35,17 +33,27 @@
                     </div>
                 </div>
                 <div class="box-two">
-                    <div>
+                    <div class="subtwo">
+                            <div class="subtwo1">
+                                    <div class="loader"></div>
+                                    <div class="result font"></div>
+                                    <div class="success font"></div>
+                                    <div class="error font"></div>
+                            </div>
+                        <div class="subtwo2">
                         <h4>Don't have an account? <a class="log" href="./signup.html">Sign up</a></h4> 
-                        <form action="">
-                                <input type="email" placeholder="Email">
-                                <input type="text" placeholder="Password">
+                        <form id="loginform">
+                               <input id="email" type="email" placeholder="Email" required>
+                               <input id="password" type="password" placeholder="Password" required>
                                 <button>sign in </button>
                         </form>
                     </div>
                 </div>
+                </div>
             </div>   
     </main>
+        <script src="./JS/control.js" ></script>
         <script src="./JS/main.js" ></script>
+        <script src="./JS/signUp.js" ></script>
 </body>
 </html>

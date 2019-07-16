@@ -14,11 +14,71 @@ body {
     padding: 0px 0px;
     background: #eee;
 }
-.current{
-    color:var(--theme-color);
+#current {
+    color: var(--theme-color) !important;
+}
+#aside h1{
+    font-size: 1.4em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
 }
 main{
     height: 100%;
+}
+label {
+    font-size: 30px;
+  display: none;
+  float: right;
+  height: 100%;
+  padding: 0px 5% 5% 0px;
+  color: var(--theme-color);
+}
+
+#toggle {
+    display: none;
+}
+#asidemain section{
+    width: 100%;
+    height: 100%;
+}
+
+#asidemain{
+    height: 90%;
+    display: flex;
+    width: 80%;
+    margin-left:50px;
+}
+
+#asidemain section ul li{
+    list-style-type: none;
+    padding: .8em 0.2em;
+}
+#asidemain ul li  a{
+     color: rgb(255, 255, 255);
+     font-size: 1em;
+     font-weight: 500;
+     display: block;
+     white-space: nowrap;
+     text-decoration: none;
+     transition: all 0.3s ease 0s;
+}
+#asidemain ul li  a:hover{ 
+    color: var(--theme-color);
+}
+h4, h1{
+    color: var(--theme-color);
+  
+}
+#current {
+    color: var(--theme-color) !important;
+    
+}
+ 
+#asidemain ul{
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    list-style-type: none;
 }
 .container {
     width: 90%;
@@ -28,64 +88,24 @@ main{
 }
 .container h1 {
     margin-left: 0.5em;
-}
-
-nav{
-    padding: 15px 5px;
-    background: transparent;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
+}                                                                         
 header {
     position: absolute;
     top: 0;
     left: 0;
-    right:0
+    right:0;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    padding: 0% 2%; 
+
+    
 }
 
 .applyBottomShadow{
     box-shadow: 0px -4px 4px 8px rgba(0, 0, 0, 0.2);
     max-height: auto;
 }
-
-.navmenu {
-    width: 1.5em;
-    height: 2.1em;
-    display: none;
-}
-
-
-nav a{
-    color: #fff;
-    font-size: 1em;
-    font-weight: 500;
-    text-decoration: none;
-    display: block;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-nav ul{
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    list-style-type: none;
-}
-nav li{
-    padding: 0 0.2em;
-}
-
-nav a:hover{ 
-    color: var(--theme-color);
-}
-h4, h1{
-    color: var(--theme-color);
-  
-}
-
 .crossfade > figure {
     animation: imageAnimation 24s linear infinite 0s;
     backface-visibility: hidden;
@@ -390,12 +410,41 @@ button:hover{
 }
 /* Tablet views */
 @media screen and (max-width: 768px) {
+    body {
+        display: block;
+}
+.bannerText {
+   font-size: 1.4em;
+}
+     #aside {
+        width: 40%;
+    }
+    #asidemain {
+        width: 60%;
+        
+    } 
+    .box-container{
+        width: 90%;
+        height: 70%;
+        margin: auto;
+    }
+    .box-container .box-one .banner h2{
+        font-size: 1em;
+    }
+
+    .box-two button{
+        padding: .5em 2em;
+        
+    }
+    
+    .box-two h4{
+        font-size: .8em;
+    }
     .container{
         margin-bottom: 0;
     }
     .scrollCars .container h4{
-        font-weight: 500;
-        font-size: 4em;
+        font-size: 2em;
         padding-bottom: 10px;
     }
         .cardContainer{
@@ -411,96 +460,74 @@ button:hover{
      
     /* Mobile view*/
     @media only screen and (max-width: 480px) {
+    header{
+    background: #fff;
+    }
 
-          
-        nav {
-            display: block;
-            position: relative;
-            background-color: white;
-        }
-        .navmenu div {
-            width: 100%;
-            height: 0.3em;
-            background-color: var(--theme-color);
-            margin: 0.2em 0;
-        }
+ .bannerText {
+        font-size: 0.8em;
+     }
+    aside {
+        width: 100%;
+        height: 8%;
+    }
+
+    aside nav {
+        width: 35%;
+    }
+    label {
+        display: block;
+        cursor: pointer;
+     }
+     #asidemain section {
+        position: relative;
         
-        .close div:nth-child(1) {
-          opacity: 0;
-        }
-        
-        .close div:nth-child(2) {
-          transform: rotate(45deg) translateY(0.35em);
-        }
-        .close div:nth-child(3) {
-         transform: rotate(-45deg) translateY(-0.35em);
-        }
-    
-        nav ul {
-            display: block;
-            position: absolute;
-            width: 100%;
-            left: 0;
-            transform: translateY(-150%);
-            transition: all 1s linear;
-            z-index: -1000;
-        }
-        
-        .shownav {
-            transform: translateY(15px);
-            z-index: 2;
-        }
-    
-        .navwrap {
-        
-            width: 100%;
-        }
-    
+    }
+     #asidemain section ul {
+        margin-top: 58px;
+        width: 100%;
+        display: none;
+        padding: 0;
+        position: relative;
+        background-color: white;
+        z-index: 1000;
+    }
+    #asidemain section ul li a {
+        display: block;
+        margin: 0;
+        border-bottom: solid 1px var(--theme-color);
+        color: silver;
+    }
+    #username span h4 {
+        font-size: 70%;
+    }
+    #toggle:checked + #menus {
+        display: block;
+    }
+    h1{
+        font-size: 1.4em;
+        font-weight: bold;
+    }
+    nav a {
+        color: var(--theme-color);
+        text-decoration: none;
+        outline: none;
+    }
+    nav a:hover{ 
+        color: silver;
+        transition: all 0.3s ease;
+    }
         .welcome {
             z-index: 1;
         }
         .one{
             z-index: -400;
         }
-    
-        .navmenu {
-            position: absolute;
-            z-index: 1;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            display: initial;
-        }
-    
-        .show{
-            right: -20%;
-        }
-    
-        nav li {
-            border: none;
-            padding: 0.3em;
-            background: white;
-            z-index: 1;
-            text-decoration: none;
-            outline: none;
-        }
-    
-        nav a {
-            color: var(--theme-color);
-            text-decoration: none;
-            outline: none;
-        }
-        nav a:hover{ 
-            color: silver;
-            transition: all 0.3s ease;
-        }
     .container{
         margin-bottom: 0;
     }
     .scrollCars .container h4{
-        font-weight: 500;
-        font-size: 1.5em;
-        padding-bottom: 10px;
+        font-size: 1.3em;
     }          
     .cardContainer{
         grid-template-columns: repeat(1, 1fr);

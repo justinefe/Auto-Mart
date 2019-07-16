@@ -14,15 +14,25 @@ a{
     --theme-color: rgb(231, 113, 125);
 }
 body {
-    overflow: hidden;
-    display: flex;
-    margin: 0px 0px;
-    padding: 0px 0px;
-    background: #fff;
-    width: 100%;
-    height: 100%;
     height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+header{
+    background: #fff;
+    height: 10%;
+    display: flex;
+}
+
+label {
+  	font-size: 30px;
+    display: none;
+    float: right;
+    height: 100%;
+    padding: 0px 5% 5% 0px;
+    color: white;
+}
+
+#toggle {
+    display: none;
 }
 
 .icon::before {
@@ -63,7 +73,6 @@ aside nav h4{
 #asidemain section{
     width: 100%;
     height: 100%;
-    padding-top: 10px;
 }
 
 #asidemain section ul{
@@ -155,14 +164,13 @@ h4, h1{
   
 }
 #current a{
-    color: var(--theme-color) !important;
-    
+    color: var(--theme-color) !important;    
 }
 .container {
     height: 100%;
-    width: 95%;
+    width: 100%;
     display: flex;
-    padding: 5px 10px 5px 0px;
+    padding: 0px 20px;
 }
 
 #mainnav .container{
@@ -299,10 +307,6 @@ nav li{
 nav a:hover{ 
     color: var(--theme-color);
 }
-h4, h1{
-    color: var(--theme-color);  
-}
-
 @media screen and (max-width: 900px) {
     .box-container .box-one .banner h2{
         font-size: 1.5em;
@@ -430,88 +434,77 @@ section.add {
 
  /* Mobile view*/
  @media only screen and (max-width: 480px) {
-              
-    nav {
+       
+    aside {
+        width: 100%;
+        height: 8%;
+    }
+
+    aside nav {
+        width: 35%;
+    }
+    label {
         display: block;
+        cursor: pointer;
+     }
+     #asidemain section {
         position: relative;
-        background-color: white;
     }
-    .navmenu div {
+     #asidemain section ul {
+        margin-top: 33px;
         width: 100%;
-        height: 0.3em;
-        background-color: var(--theme-color);
-        margin: 0.2em 0;
+        display: none;
+        padding: 0;
+        position: relative;
+        background-color: #655;
+        z-index: 1000;
     }
-    
-    .close div:nth-child(1) {
-      opacity: 0;
-    }
-    
-    .close div:nth-child(2) {
-      transform: rotate(45deg) translateY(0.35em);
-    }
-    .close div:nth-child(3) {
-     transform: rotate(-45deg) translateY(-0.35em);
-    }
-
-    nav ul {
+    #asidemain section ul li a {
         display: block;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        transform: translateY(-150%);
-        transition: all 1s linear;
-        z-index: -1000;
+        margin: 0;
+        color: white;
     }
+    #username span h4 {
+        font-size: 70%;
+    }
+    #toggle:checked + #menus {
+        display: block;;
+    }
+      
+section.add {
+    grid-template-columns: repeat(1, 1fr);
+}
+.adheader h1{
+    text-align: left;
+    padding-left: 6px;
+}
+.cardContainer{
+    grid-template-columns: repeat(1, 1fr);
+}
     
-    .shownav {
-        transform: translateY(15px);
-        z-index: 2;
-    }
 
-    .navwrap {
-    
-        width: 100%;
-    }
-
-    .welcome {
-        z-index: 1;
-    }
-    .one{
-        z-index: -400;
-    }
-
-    .navmenu {
-        position: absolute;
-        z-index: 1;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        display: initial;
-    }
-
-    .show{
-        right: -20%;
-    }
-
-    nav li {
-        border: none;
-        padding: 0.3em;
-        background: white;
-        z-index: 1;
-        text-decoration: none;
-        outline: none;
-    }
-
-    nav a {
-        color: var(--theme-color);
-        text-decoration: none;
-        outline: none;
-    }
-    nav a:hover{ 
-        color: silver;
-        transition: all 0.3s ease;
-    }
+.search-bar{
+    flex-wrap: wrap;
+    height: 10%;
+    margin: 10px;
+    width: 100%;   
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: center;
+    align-items: center;
+}
+.search-bar input{
+    width: 22%;
+}
+.search-bar select{
+    width: 27%;
+}
+.search-bar button{
+    width: 19%;
+    padding-left: 0; 
+    padding-right: 0; 
+    text-align: center;
+}
     .box-container{
         flex-direction: column;
         width: 94%;
