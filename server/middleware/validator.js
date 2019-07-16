@@ -19,6 +19,7 @@ class Validator {
     console.log('sign up req.body>>>>>>', req.body);
     const error = validateJoi(req.body, schema.signup);
     if (error) {
+      console.log('validation error', error);
       return res.status(400).json({
         status: 400,
         error,
@@ -42,7 +43,6 @@ class Validator {
     const {
       manufacturer, state, model, price, body_type, image_url,
     } = req.body;
-    console.log('sign in req.body>>>', req.body);
     const newObject = {
       manufacturer, state, model, price, body_type, image_url,
     };
