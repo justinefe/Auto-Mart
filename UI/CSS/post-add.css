@@ -2,6 +2,9 @@ h4, h1{
     color: var(--theme-color);
   
 }
+body{
+    display: flex;;
+}
 p{
     text-align: center;
     margin: 1em auto;
@@ -9,39 +12,6 @@ p{
     font-weight: 500;
     color: var(--theme-color);
 }
-.line{
-    margin: 10px auto;
-    width: 85%;
-    padding: 1em;
-    display: flex;
-    justify-content: space-between;
-}
-.clear{ 
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    width: 12em; 
-    outline: none;
-    font-size: 0.7em;
-    color: white;
-    background-color: var(--theme-color);
-    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
-    margin: 0.3em; 
-    padding: 0.6em 0.5em;
-    border: solid 2px var(--theme-color);
-    border-radius: 0.3em;
-    margin-bottom: 20px;
-    width: 16em;
-}
-
-.clear:hover{
-    color: white;
-    transition: all 0.3s ease;
-    background: rgb(185, 218, 255);
-    outline: none;
-    border: solid 2px rgb(185, 218, 255);
-}
-
 h4{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
@@ -59,14 +29,6 @@ form{
     margin: 1em auto;
     text-align: left;
 }
-
-
-label{
-   margin:0.7em 0;
-   padding:1px 0;
-   width: 100%;
-}
-
 
 .details{
   margin-top:0.5em;
@@ -96,8 +58,7 @@ select:focus{
     border-bottom: solid 1px var(--theme-color);
 }
 div#postal{
-    margin: 0px auto;
-    padding-left:20em;
+    margin: 12px auto;
 }
 
 .post{
@@ -110,11 +71,9 @@ div#postal{
     color: white;
     background-color: var(--theme-color);
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
-    margin: 0.3em auto; 
     padding: 0.6em;
     border: solid 2px var(--theme-color);
     border-radius: 0.3em;
-    margin-bottom: 20px;
 }
 
 
@@ -139,7 +98,6 @@ input{
 input:focus{
     border-bottom: var(--theme-color) 0.1em solid;
 }
-
 
 .imaged{
     display: grid;

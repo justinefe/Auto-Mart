@@ -33,6 +33,7 @@ dialog > p {
 }
 body {
     overflow: auto;
+    display: flex;
     margin: 0px 0px;
     padding: 0px 0px;
     background: #fff;
@@ -212,9 +213,8 @@ table{
     padding: 0px;
     font-size: 1.2em;
     font-weight: 800;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-   
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
 .tabletop{
     width: 100%;
@@ -313,8 +313,10 @@ dialog > p {
     outline: none;
     border: solid 2px rgb(185, 218, 255);
 }
-section#viewpic{
+viewpic{
     object-fit: cover;
+    height: 100%;
+    width: 100%;
 
 }
 #specification{
@@ -322,3 +324,58 @@ section#viewpic{
     flex-direction: column;
     justify-content: center;   
 }
+
+/* Tablet views */
+@media screen and (max-width: 768px) {
+.mains{
+    display: flex;
+    flex-direction: column;    
+}
+#viewpic {
+    height: 60%;
+    width: 100%;
+}
+#viewpic img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+#specification {
+    height: 40%;
+    width: 100%;
+}
+
+dialog {
+    text-align: center;
+    margin: auto;
+    border:0;
+}
+}
+ /* Mobile view*/
+ @media only screen and (max-width: 480px) {
+    .mains{
+        height: 100%;
+    }
+    dialog{
+        height: 100%;
+        padding: 0px;
+    }
+    #viewpic {
+        height: 65%;
+        padding: 0px;
+        margin: 0px;      
+    }
+    #specification {
+        height: 35%;
+        box-sizing: border-box;
+
+    }
+     #specify {
+        box-sizing: border-box;
+        /* height: 100%; */
+    }
+    .btn button{
+        
+        margin: 1px 0px; 
+    }
+ }

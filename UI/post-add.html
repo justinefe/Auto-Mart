@@ -17,8 +17,10 @@
             <h4>AutoMart</h4>
         </nav>
         <main id = asidemain>
-            <section>
-                <ul>
+                <section >
+                    <label for="toggle">&#9776;</label>
+                    <input type="checkbox" id="toggle">
+                    <ul id="menus">
                     
                     <li class = icon>  <a href="./index.html">Home</a> </li>
                     <li class = icon><a href="./userprofile.html">My Profile</a> </icon></li>                 
@@ -54,16 +56,15 @@
     <section class="ad-details">
         <div class="line">
             <h4>Ad information</h4>
-            <button class="clear">Clear all fields</button>
         </div>
         <div class="deta">
             <form action="">
-                <div class="details"><label for=""> Manufacturer</label> <input type="text"> </div>
-                <div class="details"><label for=""> Model</label> <input type="text"></div>
-                <div class="details"><label for=""> Price</label> <input type="text"></div>
+                <div class="details"><span for=""> Manufacturer</span> <input type="text"> </div>
+                <div class="details"><span for=""> Model</span> <input type="text"></div>
+                <div class="details"><span for=""> Price</span> <input type="text"></div>
                 <div class="details status">
                         <span>
-                        <label for=""> Car state </label>
+                        <span for=""> Car state </span>
                         <select name="" id="">
                             <option value="">New</option>
                             <option value="">Used</option>
@@ -71,14 +72,14 @@
                     </span>
                 </div>
                 <div class="details"> 
-                    <label for="">Description</label>
+                    <span for="">Description</span>
                     <input type="text"> 
                 </div> 
                 <div>
-                    <label for="">Location</label>
+                    <span for="">Location</span>
                     <input type="text">
             </div>
-            <label >Upload Image </label>
+            <span >Upload Image </span>
                 <div class = imageDiv>
                 <label class="upload" for = image1> 
                     <img src="./images/camera.png">
