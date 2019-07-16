@@ -34,7 +34,6 @@ class Validator {
   }
 
   static signin(req, res, next) {
-    // console.log('sign in req.body', req.body);
     const { email, password } = req.body;
     const newObject = { email, password };
     const error = validateJoi(newObject, schema.signin);
@@ -49,8 +48,7 @@ class Validator {
   }
 
   static postAd(req, res, next) {
-    // console.log('req.body', req.body);
-    const {
+     const {
       manufacturer, state, model, price, body_type, image_url,
     } = req.body;
     const newObject = {
@@ -67,11 +65,11 @@ class Validator {
   }
 
   static purchaseOrder(req, res, next) {
-    // console.log('req.body', req.body);
     const { price_offered } = req.body;
     const obj = { price_offered };
     const error = validateJoi(obj, schema.purchaseOrder);
     if (error) {
+    console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
@@ -81,7 +79,6 @@ class Validator {
   }
 
   static updateOrderPrice(req, res, next) {
-    // console.log('req.body', req.body);
     const { new_price_offered } = req.body;
     const obj = { new_price_offered };
     const error = validateJoi(obj, schema.updateOrderPrice);
