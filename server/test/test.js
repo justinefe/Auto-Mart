@@ -203,7 +203,7 @@ describe('creates purchase order', () => {
       .set('token', userToken)
       .send({
         ...orders[0],
-        price_offered: '',
+        amount: '',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -217,7 +217,7 @@ describe('creates purchase order', () => {
       .set('token', userToken)
       .send({
         ...orders[5555566],
-        price_offered: '6512545',
+        amount: '6512545',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(500);
