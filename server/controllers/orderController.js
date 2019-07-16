@@ -29,7 +29,9 @@ class orderController {
       const insert = {
         text: `INSERT into orders (${[...keys]}) values ($1, $2, $3, $4, $5) returning *`, values,
       };
+    console.log('newOrder', newOrder);
       const newOrder = await pool.query(insert);
+      console.log('newOrder', newOrder);
       return res.status(201).json({
         status: 201,
         data: { ...newOrder.rows[0] },
@@ -45,6 +47,7 @@ class orderController {
   static async updateOrderPrice(req, res) {
     const new_price_offered = req.body.price;
     const { order_id } = req.params;
+    console.log('response body', req.body);
     try {
       const orderDetails = await pool.query('SELECT * from orders where (id = $1) and (status = \'pending\')', [Number(order_id)]);
       if (!orderDetails.rows[0]) {
