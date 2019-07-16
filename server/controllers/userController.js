@@ -36,12 +36,11 @@ class userController {
         error: 'Internal server error',
       });
     }
-    console.log(newUser);
     const { id } = newUser.rows[0];
     return res.status(201).json({
       status: 201,
       data: {
-        token: token({ id }), id, first_name, last_name, email,
+        token: token({ id }), id, first_name, last_name, email, address,
       },
     });
   }
@@ -52,6 +51,7 @@ class userController {
     } = req.body;
     try {
       const checkUser = await pool.query('SELECT * from users where email = $1', [email]);
+      console.log(checkUser, '========>signUP');
       if (checkUser.rows[0]) {
         const passwordState = unhash(password, checkUser.rows[0].hash_password);
         if (passwordState) {
