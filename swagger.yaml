@@ -200,7 +200,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responce"
 
-  /order/{orderId}/price:
+  /order/{order_id}/price:
     patch:
       tags:
         - Orders
@@ -241,7 +241,7 @@ paths:
   
 
                 
-  /car/{carId}/status:
+  /car/{car_id}/status:
     patch:
       tags:
         - Cars
@@ -276,7 +276,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responce"
   
-  /car/{carId}/price:
+  /car/{car_id}/price:
     patch:
       tags:
         - Cars
@@ -319,7 +319,7 @@ paths:
                 schema:
                   $ref: "#/components/schemas/responce"
 
-  /car/{carId}/:
+  /car/{car_id}/:
     get:
       tags:
         - Cars
@@ -348,7 +348,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responce"
 
-  /car/{carId}:
+  /car/{car_id}:
     delete:
       tags:
         - Admin

@@ -4,6 +4,7 @@ import schema from '../helpers/schema';
 
 const validateJoi = (reqBody, resSchema) => {
   const error = joi.validate(reqBody, resSchema, (err) => {
+    console.log(error);
     if (err) {
       let joiError = err.details[0].message;
       joiError = joiError.replace(/"/gi, '');
