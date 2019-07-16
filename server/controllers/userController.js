@@ -10,6 +10,7 @@ class userController {
     } = req.body;
     let newUser;
     try {
+      console.log('<<<<<<<11', req.body);
       const checkUser = await pool.query('SELECT* from users where email = $1', [email]);
       if (checkUser.rows[0]) {
         return res.status(409).json({
@@ -31,6 +32,7 @@ class userController {
 
       newUser = await pool.query(insert);
     } catch (error) {
+      console.log('<<<<<<<22', req.body);
       return res.status(500).json({
         status: 500,
         error: 'Internal server error',
@@ -50,6 +52,7 @@ class userController {
       email, password,
     } = req.body;
     try {
+      console.log('<<<<<<<33', req.body);
       const checkUser = await pool.query('SELECT * from users where email = $1', [email]);
       if (checkUser.rows[0]) {
         const passwordState = unhash(password, checkUser.rows[0].hash_password);
@@ -68,6 +71,7 @@ class userController {
       }
     } catch (error) {
       console.log('>>>>>', error);
+      console.log('<<<<<<<44', req.body);
       return res.status(500).json({
         status: 500,
         error: 'Internal server error',
