@@ -3,8 +3,9 @@ import pool from '../config/config';
 
 class orderController {
   static async purchaseOrder(req, res) {
-    const { price_offered, car_id } = req.body;
-    // const { car_id } = req.params;
+    const { car_id } = req.body;
+    const price_offered = req.body.amount;
+    console.log('response body', req.body);
     const { id } = req.user;
     const userId = id;
     try {
@@ -30,6 +31,7 @@ class orderController {
         text: `INSERT into orders (${[...keys]}) values ($1, $2, $3, $4, $5) returning *`, values,
       };
       const newOrder = await pool.query(insert);
+      console.log('newOrder', newOrder);
       return res.status(201).json({
         status: 201,
         data: { ...newOrder.rows[0] },

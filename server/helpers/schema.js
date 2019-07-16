@@ -11,7 +11,7 @@ const schema = {
   }),
   signin: joi.object().keys({
     email: joi.string().email().required(),
-    password: joi.string().alphanum().min(4).max(50)
+    password: joi.string().min(4).max(50)
       .required(),
   }),
   postAd: joi.object().keys({
@@ -24,7 +24,7 @@ const schema = {
   }),
 
   purchaseOrder: joi.object().keys({
-    price_offered: joi.number().required(),
+    amount: joi.number().required(),
   }),
   updateOrderPrice: joi.object().keys({
     new_price_offered: joi.number().required(),
