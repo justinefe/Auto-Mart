@@ -75,7 +75,7 @@ class carController {
   }
 
   static async updateAd(req, res) {
-    const { new_price } = req.body;
+    const { price } = req.body;
     const { car_id } = req.params;
     const { id, email } = req.user;
     try {
@@ -92,7 +92,7 @@ class carController {
           error: 'Access denied',
         });
       }
-      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [new_price, Number(car_id)]);
+      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [price, Number(car_id)]);
       newCarDetails.rows[0].email = email;
       return res.status(200).json({
         status: 200,

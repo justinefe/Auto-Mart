@@ -3,8 +3,8 @@ import pool from '../config/config';
 
 class orderController {
   static async purchaseOrder(req, res) {
-    const { price_offered, car_id } = req.body;
-    // const { car_id } = req.params;
+    const { car_id } = req.body;
+    const price_offered = req.body.amount;
     const { id } = req.user;
     const userId = id;
     try {
@@ -43,7 +43,7 @@ class orderController {
   }
 
   static async updateOrderPrice(req, res) {
-    const { new_price_offered } = req.body;
+    const new_price_offered = req.body.price;
     const { order_id } = req.params;
     try {
       const orderDetails = await pool.query('SELECT * from orders where (id = $1) and (status = \'pending\')', [Number(order_id)]);
