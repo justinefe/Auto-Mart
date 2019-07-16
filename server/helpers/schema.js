@@ -27,7 +27,7 @@ const schema = {
     amount: joi.number().required(),
   }),
   updateOrderPrice: joi.object().keys({
-    new_price_offered: joi.number().required(),
+    price: joi.number().required(),
   }),
   updateAd: joi.object().keys({
     new_price: joi.number().required(),

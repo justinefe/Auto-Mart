@@ -4,7 +4,6 @@ import schema from '../helpers/schema';
 
 const validateJoi = (reqBody, resSchema) => {
   const error = joi.validate(reqBody, resSchema, (err) => {
-    // console.log('>>>>>>> error messages', error);
     if (err) {
       let joiError = err.details[0].message;
       joiError = joiError.replace(/"/gi, '');
@@ -79,10 +78,11 @@ class Validator {
   }
 
   static updateOrderPrice(req, res, next) {
-    const { new_price_offered } = req.body;
-    const obj = { new_price_offered };
+    const { price } = req.body;
+    const obj = { price };
     const error = validateJoi(obj, schema.updateOrderPrice);
     if (error) {
+      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
@@ -92,7 +92,6 @@ class Validator {
   }
 
   static updateAd(req, res, next) {
-    // console.log('req.body', req.body);
     const { new_price } = req.body;
     const obj = { new_price };
     const error = validateJoi(obj, schema.updateAd);
@@ -106,7 +105,6 @@ class Validator {
   }
 
   static viewACar(req, res, next) {
-    // console.log(' req.params', req.params);
     const { car_id } = req.params;
     const obj = { car_id };
     const error = validateJoi(obj, schema.viewACar);
@@ -120,7 +118,6 @@ class Validator {
   }
 
   static viewCars(req, res, next) {
-    // console.log('req.body', req.body);
     const { status, min_price, max_price } = req.query;
     const obj = { status, min_price, max_price };
     const error = validateJoi(obj, schema.viewCars);

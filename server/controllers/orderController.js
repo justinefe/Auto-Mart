@@ -5,7 +5,6 @@ class orderController {
   static async purchaseOrder(req, res) {
     const { car_id } = req.body;
     const price_offered = req.body.amount;
-    console.log('response body', req.body);
     const { id } = req.user;
     const userId = id;
     try {
@@ -46,8 +45,9 @@ class orderController {
   }
 
   static async updateOrderPrice(req, res) {
-    const { new_price_offered } = req.body;
+    const new_price_offered = req.body.price;
     const { order_id } = req.params;
+    console.log('response body', req.body);
     try {
       const orderDetails = await pool.query('SELECT * from orders where (id = $1) and (status = \'pending\')', [Number(order_id)]);
       if (!orderDetails.rows[0]) {
