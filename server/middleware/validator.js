@@ -38,6 +38,7 @@ class Validator {
     const newObject = { email, password };
     const error = validateJoi(newObject, schema.signin);
     if (error) {
+      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
