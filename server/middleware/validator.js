@@ -4,7 +4,6 @@ import schema from '../helpers/schema';
 
 const validateJoi = (reqBody, resSchema) => {
   const error = joi.validate(reqBody, resSchema, (err) => {
-    console.log('<<<<<<<', error);
     if (err) {
       let joiError = err.details[0].message;
       joiError = joiError.replace(/"/gi, '');
@@ -17,6 +16,7 @@ const validateJoi = (reqBody, resSchema) => {
 
 class Validator {
   static signup(req, res, next) {
+    console.log('sign up req.body>>>>>>', req.body);
     const error = validateJoi(req.body, schema.signup);
     if (error) {
       return res.status(400).json({
@@ -42,6 +42,7 @@ class Validator {
     const {
       manufacturer, state, model, price, body_type, image_url,
     } = req.body;
+    console.log('sign in req.body>>>', req.body);
     const newObject = {
       manufacturer, state, model, price, body_type, image_url,
     };
