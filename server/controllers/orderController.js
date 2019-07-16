@@ -3,9 +3,8 @@ import pool from '../config/config';
 
 class orderController {
   static async purchaseOrder(req, res) {
-    const { car_id } = req.body;
-    const price_offered = req.body.price;
-    console.log('response body', req.body);
+    const { price_offered, car_id } = req.body;
+    console.log('response body', re.body);
     // const { car_id } = req.params;
     const { id } = req.user;
     const userId = id;

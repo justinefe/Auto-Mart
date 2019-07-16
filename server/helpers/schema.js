@@ -24,7 +24,7 @@ const schema = {
   }),
 
   purchaseOrder: joi.object().keys({
-    price: joi.number().required(),
+    price_offered: joi.number().required(),
   }),
   updateOrderPrice: joi.object().keys({
     new_price_offered: joi.number().required(),

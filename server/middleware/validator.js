@@ -65,8 +65,8 @@ class Validator {
   }
 
   static purchaseOrder(req, res, next) {
-    const { price } = req.body;
-    const obj = { price };
+    const { price_offered } = req.body;
+    const obj = { price_offered };
     const error = validateJoi(obj, schema.purchaseOrder);
     if (error) {
     console.log(error, '=========> validation');
