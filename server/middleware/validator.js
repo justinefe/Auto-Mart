@@ -4,7 +4,6 @@ import schema from '../helpers/schema';
 
 const validateJoi = (reqBody, resSchema) => {
   const error = joi.validate(reqBody, resSchema, (err) => {
-    // console.log('>>>>>>> error messages', error);
     if (err) {
       let joiError = err.details[0].message;
       joiError = joiError.replace(/"/gi, '');
@@ -25,7 +24,6 @@ class Validator {
     };
     const error = validateJoi(newObject, schema.signup);
     if (error) {
-      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
@@ -35,7 +33,6 @@ class Validator {
   }
 
   static signin(req, res, next) {
-    // console.log('sign in req.body', req.body);
     const { email, password } = req.body;
     const newObject = { email, password };
     const error = validateJoi(newObject, schema.signin);
@@ -49,8 +46,7 @@ class Validator {
   }
 
   static postAd(req, res, next) {
-    // console.log('req.body', req.body);
-    const {
+     const {
       manufacturer, state, model, price, body_type, image_url,
     } = req.body;
     const newObject = {
@@ -67,9 +63,8 @@ class Validator {
   }
 
   static purchaseOrder(req, res, next) {
-    // console.log('req.body', req.body);
-    const { price_offered } = req.body;
-    const obj = { price_offered };
+    const { amount } = req.body;
+    const obj = { amount };
     const error = validateJoi(obj, schema.purchaseOrder);
     if (error) {
       return res.status(400).json({
@@ -81,11 +76,11 @@ class Validator {
   }
 
   static updateOrderPrice(req, res, next) {
-    // console.log('req.body', req.body);
-    const { new_price_offered } = req.body;
-    const obj = { new_price_offered };
+    const { price } = req.body;
+    const obj = { price };
     const error = validateJoi(obj, schema.updateOrderPrice);
     if (error) {
+      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
@@ -95,7 +90,6 @@ class Validator {
   }
 
   static updateAd(req, res, next) {
-    // console.log('req.body', req.body);
     const { new_price } = req.body;
     const obj = { new_price };
     const error = validateJoi(obj, schema.updateAd);
@@ -109,7 +103,6 @@ class Validator {
   }
 
   static viewACar(req, res, next) {
-    // console.log(' req.params', req.params);
     const { car_id } = req.params;
     const obj = { car_id };
     const error = validateJoi(obj, schema.viewACar);
@@ -123,7 +116,6 @@ class Validator {
   }
 
   static viewCars(req, res, next) {
-    // console.log('req.body', req.body);
     const { status, min_price, max_price } = req.query;
     const obj = { status, min_price, max_price };
     const error = validateJoi(obj, schema.viewCars);
