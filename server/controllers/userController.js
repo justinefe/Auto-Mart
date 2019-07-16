@@ -36,6 +36,7 @@ class userController {
         error: 'Internal server error',
       });
     }
+    console.log(newUser);
     const { id } = newUser.rows[0];
     return res.status(201).json({
       status: 201,
