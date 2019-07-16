@@ -96,7 +96,6 @@ class Validator {
     const obj = { price };
     const error = validateJoi(obj, schema.updateAd);
     if (error) {
-      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,

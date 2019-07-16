@@ -165,7 +165,7 @@ class carController {
           data: foundCars.rows,
         });
       }
-      if (is_admin && !status) {
+      if ((is_admin || !is_admin) && !status) {
         const cars = await pool.query('SELECT * from cars');
         return res.status(200).json({
           status: 200,

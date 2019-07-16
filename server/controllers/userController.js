@@ -51,7 +51,6 @@ class userController {
     } = req.body;
     try {
       const checkUser = await pool.query('SELECT * from users where email = $1', [email]);
-      console.log(checkUser, '========>signUP');
       if (checkUser.rows[0]) {
         const passwordState = unhash(password, checkUser.rows[0].hash_password);
         if (passwordState) {
