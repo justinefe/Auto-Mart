@@ -23,12 +23,12 @@ header{
 }
 
 label {
-    margin:  0 40px 0 0;
-    font-size: 26px;
-    line-height: 100%;
+  	font-size: 30px;
     display: none;
-    width: 26px;
     float: right;
+    height: 100%;
+    padding: 0px 5% 5% 0px;
+    color: white;
 }
 #toggle {
     display: none;
@@ -72,7 +72,6 @@ aside nav h4{
 #asidemain section{
     width: 100%;
     height: 100%;
-    padding-top: 10px;
 }
 
 #asidemain section ul{
@@ -164,14 +163,12 @@ h4, h1{
   
 }
 #current a{
-    color: var(--theme-color) !important;
-    
+    color: var(--theme-color) !important;    
 }
 .container {
     height: 100%;
     width: 100%;
     display: flex;
-    box-shadow: 2px 2px 4px 0px silver;
     padding: 0px 20px;
 }
 
@@ -309,10 +306,6 @@ nav li{
 nav a:hover{ 
     color: var(--theme-color);
 }
-h4, h1{
-    color: var(--theme-color);  
-}
-
 @media screen and (max-width: 900px) {
     .box-container .box-one .banner h2{
         font-size: 1.5em;
@@ -444,33 +437,39 @@ section.add {
     aside {
         width: 100%;
         height: 8%;
-        /* display: flex;  */
     }
 
     aside nav {
         width: 35%;
-        /* height: 100%; */
     }
     label {
         display: block;
         cursor: pointer;
+     }
+     #asidemain section {
+        position: relative;
     }
-     #asidemain section ul{
-       text-align: center;
-       width: 100%;
+     #asidemain section ul {
+        margin-top: 33px;
+        width: 100%;
+        display: none;
+        padding: 0;
+        position: relative;
+        background-color: #655;
+        z-index: 1000;
+    }
+    #asidemain section ul li a {
         display: block;
-    }
-   
-    #asidemain section ul li a{
-        border-bottom: 1px solid #EAEAEB;
         margin: 0;
-        display: block;
-        background-color: red;
+        color: white;
     }
-    #toggle:checked + #asidemain section ul {
-        display: block;
+    #username span h4 {
+        font-size: 70%;
     }
-    
+    #toggle:checked + #menus {
+        display: block;;
+    }
+      
 section.add {
     grid-template-columns: repeat(1, 1fr);
 }
@@ -505,88 +504,6 @@ section.add {
     padding-right: 0; 
     text-align: center;
 }
-
-    nav {
-        display: block;
-        position: relative;
-        background-color: white;
-    }
-    .navmenu div {
-        width: 100%;
-        height: 0.3em;
-        background-color: var(--theme-color);
-        margin: 0.2em 0;
-    }
-    
-    .close div:nth-child(1) {
-      opacity: 0;
-    }
-    
-    .close div:nth-child(2) {
-      transform: rotate(45deg) translateY(0.35em);
-    }
-    .close div:nth-child(3) {
-     transform: rotate(-45deg) translateY(-0.35em);
-    }
-
-    nav ul {
-        display: block;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        transform: translateY(-150%);
-        transition: all 1s linear;
-        z-index: -1000;
-    }
-    
-    .shownav {
-        transform: translateY(15px);
-        z-index: 2;
-    }
-
-    .navwrap {
-    
-        width: 100%;
-    }
-
-    .welcome {
-        z-index: 1;
-    }
-    .one{
-        z-index: -400;
-    }
-
-    .navmenu {
-        position: absolute;
-        z-index: 1;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        display: initial;
-    }
-
-    .show{
-        right: -20%;
-    }
-
-    nav li {
-        border: none;
-        padding: 0.3em;
-        background: white;
-        z-index: 1;
-        text-decoration: none;
-        outline: none;
-    }
-
-    nav a {
-        color: var(--theme-color);
-        text-decoration: none;
-        outline: none;
-    }
-    nav a:hover{ 
-        color: silver;
-        transition: all 0.3s ease;
-    }
     .box-container{
         flex-direction: column;
         width: 94%;
