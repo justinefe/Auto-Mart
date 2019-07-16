@@ -30,7 +30,7 @@ const schema = {
     price: joi.number().required(),
   }),
   updateAd: joi.object().keys({
-    new_price: joi.number().required(),
+    price: joi.number().required(),
   }),
   viewACar: joi.object().keys({
     car_id: joi.number().required(),

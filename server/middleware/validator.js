@@ -92,10 +92,11 @@ class Validator {
   }
 
   static updateAd(req, res, next) {
-    const { new_price } = req.body;
-    const obj = { new_price };
+    const { price } = req.body;
+    const obj = { price };
     const error = validateJoi(obj, schema.updateAd);
     if (error) {
+      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
