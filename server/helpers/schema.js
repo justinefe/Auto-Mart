@@ -5,7 +5,7 @@ const schema = {
     first_name: joi.string().min(2).max(50).required(),
     last_name: joi.string().min(2).max(50).required(),
     email: joi.string().email().required(),
-    password: joi.string().alphanum().min(4).max(50)
+    password: joi.string().min(4).max(50)
       .required(),
     address: joi.string().required(),
   }),
