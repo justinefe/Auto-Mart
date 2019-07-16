@@ -16,10 +16,14 @@ const validateJoi = (reqBody, resSchema) => {
 
 class Validator {
   static signup(req, res, next) {
-    console.log('sign up req.body>>>>>>', req.body);
-    const error = validateJoi(req.body, schema.signup);
+    const {
+      first_name, last_name, email, password, address
+    } = req.body;
+    const newObject = {
+      first_name, last_name, email, password, address
+    };
+    const error = validateJoi(newObject, schema.signup);
     if (error) {
-      console.log('validation error', error);
       return res.status(400).json({
         status: 400,
         error,
@@ -29,7 +33,9 @@ class Validator {
   }
 
   static signin(req, res, next) {
-    const error = validateJoi(req.body, schema.signin);
+    const { email, password } = req.body;
+    const newObject = { email, password };
+    const error = validateJoi(newObject, schema.signin);
     if (error) {
       return res.status(400).json({
         status: 400,
