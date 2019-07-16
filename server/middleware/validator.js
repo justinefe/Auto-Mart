@@ -4,7 +4,7 @@ import schema from '../helpers/schema';
 
 const validateJoi = (reqBody, resSchema) => {
   const error = joi.validate(reqBody, resSchema, (err) => {
-    console.log(error);
+    console.log('<<<<<<<', error);
     if (err) {
       let joiError = err.details[0].message;
       joiError = joiError.replace(/"/gi, '');
@@ -67,6 +67,7 @@ class Validator {
     }
     return next();
   }
+
   static updateOrderPrice(req, res, next) {
     const { new_price_offered } = req.body;
     const obj = { new_price_offered };
