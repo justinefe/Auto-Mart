@@ -17,10 +17,10 @@ const validateJoi = (reqBody, resSchema) => {
 class Validator {
   static signup(req, res, next) {
     const {
-      first_name, last_name, email, password, address
+      first_name, last_name, email, password, address,
     } = req.body;
     const newObject = {
-      first_name, last_name, email, password, address
+      first_name, last_name, email, password, address,
     };
     const error = validateJoi(newObject, schema.signup);
     if (error) {
@@ -46,11 +46,11 @@ class Validator {
   }
 
   static postAd(req, res, next) {
-     const {
-      manufacturer, state, model, price, body_type, image_url,
+    const {
+      manufacturer, state, model, price, body_type,
     } = req.body;
     const newObject = {
-      manufacturer, state, model, price, body_type, image_url,
+      manufacturer, state, model, price, body_type,
     };
     const error = validateJoi(newObject, schema.postAd);
     if (error) {
