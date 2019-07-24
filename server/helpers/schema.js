@@ -20,17 +20,16 @@ const schema = {
     model: joi.string().required(),
     price: joi.number().required(),
     body_type: joi.string().required(),
-    image_url: joi.string().optional(),
   }),
 
   purchaseOrder: joi.object().keys({
     amount: joi.number().required(),
   }),
   updateOrderPrice: joi.object().keys({
-    new_price_offered: joi.number().required(),
+    price: joi.number().required(),
   }),
   updateAd: joi.object().keys({
-    new_price: joi.number().required(),
+    price: joi.number().required(),
   }),
   viewACar: joi.object().keys({
     car_id: joi.number().required(),

@@ -4,10 +4,11 @@ import pool from '../config/config';
 class carController {
   static async postAd(req, res) {
     const {
-      manufacturer, model, price, state, body_type, image_url,
+      manufacturer, model, price, state, body_type,
     } = req.body;
     const { id } = req.user;
     try {
+      const image_url = req.file.url;
       const newAds = {
         owner: id,
         state,
@@ -24,8 +25,8 @@ class carController {
         text: `INSERT into cars (${[...keys]}) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id, owner, created_on, state, status, price, manufacturer, model, body_type`, values,
       };
       const newAd = await pool.query(insert);
-      return res.status(200).json({
-        status: 200,
+      return res.status(201).json({
+        status: 201,
         data: newAd.rows[0],
       });
     } catch (error) {
@@ -75,7 +76,7 @@ class carController {
   }
 
   static async updateAd(req, res) {
-    const { new_price } = req.body;
+    const { price } = req.body;
     const { car_id } = req.params;
     const { id, email } = req.user;
     try {
@@ -92,7 +93,7 @@ class carController {
           error: 'Access denied',
         });
       }
-      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [new_price, Number(car_id)]);
+      const newCarDetails = await pool.query('UPDATE cars SET price = $1 WHERE id = $2 RETURNING id, created_on, manufacturer, model, price, state, status', [price, Number(car_id)]);
       newCarDetails.rows[0].email = email;
       return res.status(200).json({
         status: 200,
@@ -165,7 +166,7 @@ class carController {
           data: foundCars.rows,
         });
       }
-      if (is_admin && !status) {
+      if ((is_admin || !is_admin) && !status) {
         const cars = await pool.query('SELECT * from cars');
         return res.status(200).json({
           status: 200,

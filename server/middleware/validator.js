@@ -4,7 +4,6 @@ import schema from '../helpers/schema';
 
 const validateJoi = (reqBody, resSchema) => {
   const error = joi.validate(reqBody, resSchema, (err) => {
-    // console.log('>>>>>>> error messages', error);
     if (err) {
       let joiError = err.details[0].message;
       joiError = joiError.replace(/"/gi, '');
@@ -18,10 +17,10 @@ const validateJoi = (reqBody, resSchema) => {
 class Validator {
   static signup(req, res, next) {
     const {
-      first_name, last_name, email, password, address
+      first_name, last_name, email, password, address,
     } = req.body;
     const newObject = {
-      first_name, last_name, email, password, address
+      first_name, last_name, email, password, address,
     };
     const error = validateJoi(newObject, schema.signup);
     if (error) {
@@ -47,11 +46,11 @@ class Validator {
   }
 
   static postAd(req, res, next) {
-     const {
-      manufacturer, state, model, price, body_type, image_url,
+    const {
+      manufacturer, state, model, price, body_type,
     } = req.body;
     const newObject = {
-      manufacturer, state, model, price, body_type, image_url,
+      manufacturer, state, model, price, body_type,
     };
     const error = validateJoi(newObject, schema.postAd);
     if (error) {
@@ -78,10 +77,11 @@ class Validator {
   }
 
   static updateOrderPrice(req, res, next) {
-    const { new_price_offered } = req.body;
-    const obj = { new_price_offered };
+    const { price } = req.body;
+    const obj = { price };
     const error = validateJoi(obj, schema.updateOrderPrice);
     if (error) {
+      console.log(error, '=========> validation');
       return res.status(400).json({
         status: 400,
         error,
@@ -91,9 +91,8 @@ class Validator {
   }
 
   static updateAd(req, res, next) {
-    // console.log('req.body', req.body);
-    const { new_price } = req.body;
-    const obj = { new_price };
+    const { price } = req.body;
+    const obj = { price };
     const error = validateJoi(obj, schema.updateAd);
     if (error) {
       return res.status(400).json({
@@ -105,7 +104,6 @@ class Validator {
   }
 
   static viewACar(req, res, next) {
-    // console.log(' req.params', req.params);
     const { car_id } = req.params;
     const obj = { car_id };
     const error = validateJoi(obj, schema.viewACar);
@@ -119,7 +117,6 @@ class Validator {
   }
 
   static viewCars(req, res, next) {
-    // console.log('req.body', req.body);
     const { status, min_price, max_price } = req.query;
     const obj = { status, min_price, max_price };
     const error = validateJoi(obj, schema.viewCars);

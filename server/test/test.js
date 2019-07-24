@@ -1,5 +1,7 @@
 import chai from 'chai';
 import chaihttp from 'chai-http';
+import fs from 'fs';
+import sinon from 'sinon';
 import app from '../app';
 import users from './datas/user';
 import cars from './datas/car';
@@ -11,6 +13,7 @@ const server = () => chai.request(app);
 const url = '/api/v1';
 let userToken;
 let adminToken;
+let upload;
 
 describe('Welcome', () => {
   it('should return a welcome message on start', (done) => {
@@ -112,14 +115,23 @@ describe('Login tests', () => {
 });
 
 describe('Post ads test', () => {
+  after(() => {
+    sinon.restore();
+  });
   it('should be able to create an ads with correct details', (done) => {
     server()
       .post(`${url}/car`)
       .set('token', userToken)
-      .send(cars[0])
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .field('manufacturer', 'toyota')
+      .field('state', 'new')
+      .field('body_type', 'camry')
+      .field('model', 'escapade')
+      .field('price', '1542112')
+      .attach('image_url', fs.readFileSync(`${__dirname}/test.jpg`), 'test.jpg')
       .end((err, res) => {
-        expect(res.statusCode).to.equal(200);
-        expect(res.body.status).to.equal(200);
+        expect(res.statusCode).to.equal(201);
+        expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         done();
@@ -203,7 +215,7 @@ describe('creates purchase order', () => {
       .set('token', userToken)
       .send({
         ...orders[0],
-        price_offered: '',
+        amount: '',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -217,7 +229,7 @@ describe('creates purchase order', () => {
       .set('token', userToken)
       .send({
         ...orders[5555566],
-        price_offered: '6512545',
+        amount: '6512545',
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(500);
