@@ -5,12 +5,14 @@ import auth from '../middleware/authenthication';
 import carController from '../controllers/carController';
 import orderController from '../controllers/orderController';
 import autoController from '../controllers/autoController';
+import upload from '../config/cloudinaryConfig';
+
 
 const route = express();
 route.get('/', autoController.welcome);
 route.post('/auth/signup', validator.signup, userController.signup);
 route.post('/auth/signin', validator.signin, userController.signin);
-route.post('/car', auth.isAuthenthicated, auth.isUser, validator.postAd, carController.postAd);
+route.post('/car', auth.isAuthenthicated, auth.isUser, upload.single('image_url'), validator.postAd, carController.postAd);
 route.post('/order', auth.isAuthenthicated, auth.isUser, validator.purchaseOrder, orderController.purchaseOrder);
 route.patch('/order/:order_id/price', auth.isAuthenthicated, auth.isUser, validator.updateOrderPrice, orderController.updateOrderPrice);
 route.patch('/car/:car_id/status', auth.isAuthenthicated, auth.isUser, carController.updateCarStatus);
