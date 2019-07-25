@@ -4,10 +4,11 @@ import pool from '../config/config';
 class carController {
   static async postAd(req, res) {
     const {
-      manufacturer, model, price, state, body_type, image_url,
+      manufacturer, model, price, state, body_type,
     } = req.body;
     const { id } = req.user;
     try {
+      const image_url = req.file.url;
       const newAds = {
         owner: id,
         state,
@@ -24,8 +25,8 @@ class carController {
         text: `INSERT into cars (${[...keys]}) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id, owner, created_on, state, status, price, manufacturer, model, body_type`, values,
       };
       const newAd = await pool.query(insert);
-      return res.status(200).json({
-        status: 200,
+      return res.status(201).json({
+        status: 201,
         data: newAd.rows[0],
       });
     } catch (error) {

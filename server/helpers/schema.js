@@ -20,7 +20,6 @@ const schema = {
     model: joi.string().required(),
     price: joi.number().required(),
     body_type: joi.string().required(),
-    image_url: joi.string().optional(),
   }),
 
   purchaseOrder: joi.object().keys({
