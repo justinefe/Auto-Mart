@@ -5,10 +5,6 @@ class orderController {
   static async purchaseOrder(req, res) {
     const { car_id } = req.body;
     const price_offered = req.body.amount;
-<<<<<<< HEAD
-    // const { car_id } = req.params;
-=======
->>>>>>> b6b07ec39d9b3de7cfa1bbfda06363b37221099e
     const { id } = req.user;
     const userId = id;
     try {
@@ -34,11 +30,6 @@ class orderController {
         text: `INSERT into orders (${[...keys]}) values ($1, $2, $3, $4, $5) returning *`, values,
       };
       const newOrder = await pool.query(insert);
-<<<<<<< HEAD
-      console.log('newOrder========>', newOrder);
-=======
-      console.log('newOrder', newOrder);
->>>>>>> b6b07ec39d9b3de7cfa1bbfda06363b37221099e
       return res.status(201).json({
         status: 201,
         data: { ...newOrder.rows[0] },
