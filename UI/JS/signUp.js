@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 const form = document.querySelector('form');
 const result = document.querySelector('.result');
@@ -6,13 +7,13 @@ const success = document.querySelector('.success');
 const loader = document.querySelector('.loader');
 
 const getSignUpInfo = () => {
-  const firstName = document.querySelector('#firstName').value;
-  const lastName = document.querySelector('#lastName').value;
+  const first_name = document.querySelector('#firstName').value;
+  const last_name = document.querySelector('#lastName').value;
   const email = document.querySelector('#email').value;
   const address = document.querySelector('#address').value;
   const password = document.querySelector('#password').value;
   const details = {
-    firstName, lastName, email, address, password,
+    first_name, last_name, email, address, password,
   };
   return details;
 };
