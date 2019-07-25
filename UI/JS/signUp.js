@@ -33,20 +33,21 @@ form.addEventListener('submit', async (event) => {
   const thisFormId = thisForm.id;
   if (thisFormId === 'loginform') userDetails = getLoginInfo();
   else userDetails = getSignUpInfo();
-  const url = (thisFormId === 'loginform') ? `${applocal}auth/signin` : `${applocal}auth/signup`;
+  const url = (thisFormId === 'loginform') ? `${appurl}auth/signin` : `${appurl}auth/signup`;
   const { responseObj, statusCode } = await fetchCall(url, 'post', userDetails);
   if (statusCode === 201 || statusCode === 200) {
     loader.style.display = 'none';
     success.textContent = 'Succesfull';
-    window.location = 'userprofile.html';
+    const { token, is_admin } = responseObj.data;
+    localStorage.setItem('token', token);
+    const webpage = is_admin ? `${githubPage}/administrator.html` : `${githubPage}/viewpage.html`;
+    window.location.replace(webpage);
   }
   if (responseObj.error) {
     loader.style.display = 'none';
     result.textContent = 'Oops!';
     error.textContent = responseObj.error;
   }
-
-  console.log(responseObj);
 });
 form.addEventListener('click', () => {
   error.textContent = '';

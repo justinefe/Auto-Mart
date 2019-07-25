@@ -7,6 +7,9 @@
 a{
     text-decoration: none;
 }
+#aside h1 a{
+  color: var(--theme-color) !important;
+ }
 :root{
     --theme-color: rgb(231, 113, 125);
 }

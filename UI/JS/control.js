@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-const { token } = localStorage;
-const app = 'https://justinefeautomart.herokuapp.com/api/v1/';
+// const { token } = localStorage;
+let token;
+const appurl = 'https://justinefeautomart.herokuapp.com/api/v1/';
 const applocal = 'http://localhost:3001/api/v1/';
-const githubPage = 'https://github.com/justinefe/Auto-Mart/UI';
+const githubPage = 'https://justinefe.github.io/Auto-Mart/UI';
 
 const fetchCall = async (url, method, body = undefined) => {
   const object = {
