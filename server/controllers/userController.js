@@ -36,11 +36,11 @@ class userController {
         error: 'Internal server error',
       });
     }
-    const { id } = newUser.rows[0];
+    const { id, is_admin } = newUser.rows[0];
     return res.status(201).json({
       status: 201,
       data: {
-        token: token({ id }), id, first_name, last_name, email, address,
+        token: token({ id }), id, first_name, last_name, email, address, is_admin,
       },
     });
   }
@@ -62,6 +62,7 @@ class userController {
               first_name: checkUser.rows[0].first_name,
               last_name: checkUser.rows[0].last_name,
               email: checkUser.rows[0].email,
+              is_admin: checkUser.rows[0].is_admin,
             },
           });
         }

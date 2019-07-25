@@ -90,18 +90,15 @@ aside nav h4{
 }
 
 #asidemain section ul li:nth-child(2)::before{
-    content: '\f2c2';
+    content: '\f641';
+    font-weight: 900;
 }
 #asidemain section ul li:nth-child(3)::before{
     content: '\f641';
     font-weight: 900;
 }
-#asidemain section ul li:nth-child(4)::before{
-    content: '\f641';
-    font-weight: 900;
-}
 
-#asidemain section ul li:nth-child(5)::before{
+#asidemain section ul li:nth-child(4)::before{
     content: '\f641';
     font-weight: 900;
 }
@@ -111,11 +108,11 @@ aside nav h4{
     background: rgba(0, 0, 0, 0.2)
 }
 
-#asidemain section ul li:nth-child(6)::before{
+#asidemain section ul li:nth-child(5)::before{
     content: '\f641';
     font-weight: 900;
 }
-#asidemain section ul li:nth-child(7)::before{
+#asidemain section ul li:nth-child(6)::before{
     content: '\f2c2';
 }
 
@@ -240,14 +237,6 @@ h4, h1{
 .adheader{
     width: 100%;
     padding-top: 30px;
-}
-section.add {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    height: 90%;
-    overflow: auto;
-    overflow-y: scroll;
 }
  
   /* width */
