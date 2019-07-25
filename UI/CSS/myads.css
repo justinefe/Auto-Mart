@@ -1,5 +1,5 @@
 body {
-    overflow: hidden;
+    overflow: auto;
     display: flex;
     margin: 0px 0px;
     padding: 0px 0px;
@@ -43,6 +43,13 @@ body {
     width: 100%;
 }
 
+section.add {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    overflow: auto;
+    overflow-y: scroll;
+} 
 .carCard:hover {
     cursor: pointer;
     border: 1px solid silver;
