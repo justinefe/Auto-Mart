@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-
-// const { token } = localStorage;
 let token;
 const appurl = 'https://justinefeautomart.herokuapp.com/api/v1/';
 const applocal = 'http://localhost:3001/api/v1/';
